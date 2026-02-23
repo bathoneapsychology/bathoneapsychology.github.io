@@ -17,39 +17,36 @@
 </head>
 <body>
 
-<!-- Navbar -->
 <nav>
   <h1>Bathonea Psychology</h1>
   <ul>
     <li><a href="index.html">Anasayfa</a></li>
     <li><a href="about.html">Hakkımızda</a></li>
     <li><a href="duyurular.html">Duyurular</a></li>
-    <li><a href="essays.html">Essay</a></li>
+    <li><a href="essay.html">Essay</a></li>
     <li><a href="#">Podcast</a></li>
   </ul>
 </nav>
 
-<!-- Essay listesi -->
 <div class="content" id="essay-list">
 </div>
 
 <script>
-  // Buraya PDF dosyalarının isimlerini ekle
+  // PDF linklerini buraya ekliyoruz
   const essays = [
-    "deneme1.pdf",
-    "deneme2.pdf"
+    "https://drive.google.com/uc?export=download&id=1crbievNTzzqjUcl0JaMrus9LkYi1IleZ"
   ];
 
   const container = document.getElementById("essay-list");
 
-  essays.forEach(file => {
+  essays.forEach((link, index) => {
     const div = document.createElement("div");
     div.className = "essay";
 
     const a = document.createElement("a");
-    a.href = "essays/" + file;
+    a.href = link;
     a.target = "_blank";
-    a.textContent = file.replace(".pdf", "");
+    a.textContent = `Deneme ${index + 1}`; // PDF başlığı
 
     div.appendChild(a);
     container.appendChild(div);
