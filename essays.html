@@ -34,19 +34,19 @@
 <script>
   // PDF linklerini buraya ekliyoruz
   const essays = [
-    "https://drive.google.com/uc?export=download&id=1crbievNTzzqjUcl0JaMrus9LkYi1IleZ"
+    { title: "BATHONEA WEEKLY PLAN", link: "https://drive.google.com/uc?export=download&id=1crbievNTzzqjUcl0JaMrus9LkYi1IleZ" }
   ];
 
   const container = document.getElementById("essay-list");
 
-  essays.forEach((link, index) => {
+  essays.forEach(item => {
     const div = document.createElement("div");
     div.className = "essay";
 
     const a = document.createElement("a");
-    a.href = link;
+    a.href = item.link;
     a.target = "_blank";
-    a.textContent = `Deneme ${index + 1}`; // PDF başlığı
+    a.textContent = item.title || "Başlık girilmedi"; // başlık boşsa default text
 
     div.appendChild(a);
     container.appendChild(div);
