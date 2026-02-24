@@ -1,34 +1,23 @@
 const announcements = [
-{
-id: 1,
-title: "Yeni Kulüp Toplantısı",
-date: "2026-03-01",
-content: "Toplantı detayları burada."
-},
-{
-id: 2,
-title: "Workshop Duyurusu",
-date: "2026-02-25",
-content: "Workshop açıklaması."
-},
-{
-id: 3,
-title: "Seminer",
-date: "2026-02-20",
-content: "Seminer detayları."
-},
-{
-id: 4,
-title: "Etkinlik",
-date: "2026-02-15",
-content: "Etkinlik açıklaması."
-},
-{
-id: 5,
-title: "Eski Duyuru",
-date: "2026-02-10",
-content: "Eski içerik."
-}
+  {
+    title: "Çok Yakında Aranızdayız!",
+    date: "2026-02-23",
+    text: "Avcılar Süleyman Nazif Anadolu Lisesi öğrencilerinden oluşan Bathonea Psikoloji kulübü çok yakında sizlerle! Öğrencilerin kaleme aldığı yazılar, bizzat seslendikleri podcast'ler ve daha fazlası... Takipte kalın!",
+    img: "duyurular-images/etkinlik1.jpg"
+  },
+  {
+    title: "",
+    date: "",
+    text: "",
+    img: ""
+  }
 ];
 
-window.announcements = announcements;
+// ISO tarihi DD.MM.YYYY formatına çevir
+function formatDate(isoDate){
+  const d = new Date(isoDate);
+  const day = String(d.getDate()).padStart(2,'0');
+  const month = String(d.getMonth()+1).padStart(2,'0');
+  const year = d.getFullYear();
+  return `${day}.${month}.${year}`;
+}
