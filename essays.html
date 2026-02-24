@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Essay'ler - Bathonea Psychology</title>
+  <title>Essays - Bathonea Psychology</title>
   <style>
     body { font-family: Arial, sans-serif; margin:0; background:white; color:black; }
     nav { background:black; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; }
@@ -11,7 +11,7 @@
     nav ul li a { text-decoration:none; color:white; font-size:14px; }
     .content { max-width:900px; margin:50px auto; padding:0 20px; }
     .essay { border:1px solid #0b1c3d; padding:15px; margin-bottom:15px; border-radius:6px; }
-    .essay a { text-decoration:none; color:#0b1c3d; font-weight:bold; }
+    .essay a { text-decoration:none; color:#0b1c3d; font-weight:bold; display:block; }
     footer { background:black; color:white; text-align:center; padding:20px; margin-top:50px; }
   </style>
 </head>
@@ -23,33 +23,37 @@
     <li><a href="index.html">Anasayfa</a></li>
     <li><a href="about.html">Hakkımızda</a></li>
     <li><a href="duyurular.html">Duyurular</a></li>
-    <li><a href="essay.html">Essay</a></li>
+    <li><a href="essays.html">Essay</a></li>
     <li><a href="podcast.html">Podcast</a></li>
   </ul>
 </nav>
 
 <div class="content" id="essay-list">
+  <h2>Denemeler</h2>
 </div>
 
 <script>
-  // PDF linklerini buraya ekliyoruz
+  // PDF listesi
   const essays = [
-    { title: "BATHONEA WEEKLY PLAN", link: "https://drive.google.com/uc?export=download&id=1crbievNTzzqjUcl0JaMrus9LkYi1IleZ" }
+    {
+      title: "Bathonea Weekly Plan",
+      link: "https://bathoneapsychology.github.io/essaypdfleri/bathoneaweeklyplan.pdf"
+    }
   ];
 
-  const container = document.getElementById("essay-list");
+  const listDiv = document.getElementById("essay-list");
 
-  essays.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "essay";
+  essays.forEach(e => {
+    const container = document.createElement("div");
+    container.className = "essay";
 
-    const a = document.createElement("a");
-    a.href = item.link;
-    a.target = "_blank";
-    a.textContent = item.title || "Başlık girilmedi"; // başlık boşsa default text
+    const link = document.createElement("a");
+    link.href = e.link;
+    link.textContent = e.title;
+    link.download = e.title + ".pdf"; // indirme özelliği
+    container.appendChild(link);
 
-    div.appendChild(a);
-    container.appendChild(div);
+    listDiv.appendChild(container);
   });
 </script>
 
