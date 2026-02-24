@@ -1,200 +1,263 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Bathonea Psychology</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    :root {
-      --primary-color: #0b1c3d; /* lacivert */
-      --accent-color: #ffcc00;  /* sarı */
-      --text-color: white;
-      --bg-color: white;
-    }
+<meta charset="UTF-8">
+<title>Bathonea Psychology</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    body { margin:0; font-family: Arial, sans-serif; background: var(--bg-color); color: black; }
+<style>
+:root{
+  --primary:#0b1c3d;
+  --accent:#ffcc00;
+}
 
-    /* Sidebar nav */
-    .sidebar {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 100;
-      top: 0;
-      left: 0;
-      background-color: var(--primary-color);
-      overflow-x: hidden;
-      transition: 0.3s;
-      padding-top: 60px;
-    }
+body{margin:0;font-family:Arial;background:white;color:black;}
+#main{padding:20px;transition:.3s;}
 
-    .sidebar a {
-      padding: 10px 20px;
-      text-decoration: none;
-      font-size: 18px;
-      color: var(--text-color);
-      display: block;
-      transition: 0.2s;
-    }
+.hero{
+  text-align:center;
+  padding:100px 20px;
+  background:var(--primary);
+  color:white;
+  border-radius:10px;
+}
 
-    .sidebar a:hover { background-color: var(--accent-color); color: black; }
+.duyuru-slider{max-width:900px;margin:50px auto;}
+.slider-container{position:relative;overflow:hidden;}
+.slides-wrapper{display:flex;transition:.4s ease;}
+.slide{
+  min-width:100%;
+  box-sizing:border-box;
+  padding:15px;
+  border:1px solid var(--primary);
+  border-radius:10px;
+  text-align:center;
+  cursor:pointer;
+}
+.slide img{
+  width:100%;
+  max-height:170px;
+  object-fit:cover;
+  border-radius:8px;
+}
+.slide h3{color:var(--primary);}
 
-    .sidebar .closebtn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 30px;
-    }
+.slider-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:8px 12px;
+  cursor:pointer;
+  border-radius:6px;
+}
+.prev{left:5px;}
+.next{right:5px;}
 
-    /* Hamburger button */
-    .openbtn {
-      font-size: 20px;
-      cursor: pointer;
-      background-color: var(--primary-color);
-      color: var(--text-color);
-      padding: 10px 15px;
-      border: none;
-      border-radius:4px;
-      position: fixed;
-      top:15px;
-      left:15px;
-      z-index:101;
-    }
+footer{
+  background:var(--primary);
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin-top:50px;
+  border-radius:10px;
+}
 
-    /* Main content */
-    #main { transition: margin-left 0.3s; padding: 20px; margin-left:0; }
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  z-index:200;
+}
 
-    .hero {
-      text-align: center;
-      padding: 100px 20px;
-      background-color: var(--primary-color);
-      color: var(--text-color);
-      border-radius:10px;
-      margin-bottom:30px;
-    }
+.modal-content{
+  background:white;
+  margin:5% auto;
+  width:90%;
+  max-width:700px;
+  padding:25px;
+  border-radius:14px;
+  animation:fade .3s ease;
+}
 
-    .hero h2 { font-size: 36px; margin-bottom: 20px; }
-    .hero p { font-size: 18px; max-width: 600px; margin: 0 auto; }
+@keyframes fade{
+  from{opacity:0;transform:translateY(-20px);}
+  to{opacity:1;}
+}
 
-    /* Slider for announcements */
-    .duyuru-slider { max-width:900px; margin:50px auto; padding:0 10px; }
-    .duyuru-slider h2 { color: #0b1c3d; margin-bottom:15px; text-align:center; }
-    .slider-container { position: relative; overflow: hidden; }
-    .slides-wrapper { display:flex; transition: transform 0.3s ease; }
-    .slide { min-width: 100%; box-sizing: border-box; padding:10px; text-align:center; border:1px solid #0b1c3d; border-radius:8px; margin-right:10px; background:white; }
-    .slide img { width:100%; max-height:150px; object-fit:cover; border-radius:6px; margin-bottom:8px; }
-    .slide h3 { color:#0b1c3d; margin:5px 0; }
-    .slide p { font-size:14px; margin:0; }
-    .slider-container button { position: absolute; top:50%; transform:translateY(-50%); background:var(--primary-color); color:white; border:none; padding:8px 12px; border-radius:4px; cursor:pointer; z-index:10; }
-    .prev { left:0; }
-    .next { right:0; }
+.close{
+  float:right;
+  font-size:26px;
+  cursor:pointer;
+}
 
-    footer {
-      background-color: var(--primary-color);
-      color: var(--text-color);
-      text-align: center;
-      padding: 20px;
-      margin-top: 50px;
-      border-radius:10px;
-    }
+.modal-slider{
+  position:relative;
+  margin-top:15px;
+  overflow:hidden;
+}
 
-    /* Desktop fix: sidebar açık, hamburger gizli */
-    @media (min-width: 768px) {
-      .sidebar { width:200px; padding-top:20px; }
-      #main { margin-left:200px; }
-      .openbtn { display:none; }
-    }
+.modal-slider img{
+  width:100%;
+  max-height:350px;
+  object-fit:cover;
+  border-radius:10px;
+}
 
-    /* Responsive text & hero for mobile */
-    @media (max-width: 767px) {
-      .hero h2 { font-size:28px; }
-      .hero p { font-size:16px; }
-      .slide p { font-size:12px; }
-    }
-  </style>
+.modal-slider button{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(11,28,61,0.8);
+  color:white;
+  border:none;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.img-prev{left:10px;}
+.img-next{right:10px;}
+
+@media(max-width:768px){
+  .hero{padding:70px 20px;}
+}
+</style>
 </head>
 <body>
 
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="index.html">Anasayfa</a>
-  <a href="about.html">Hakkımızda</a>
-  <a href="duyurular.html">Duyurular</a>
-  <a href="essays.html">Essay</a>
-  <a href="podcast.html">Podcast</a>
-</div>
-
-<button class="openbtn" onclick="openNav()">☰</button>
-
 <div id="main">
-  <section class="hero">
-    <h2>Bathonea Psychology Kulübü</h2>
-    <p>
-      Akademik üretim, düşünce ve tartışma alanı. 
-      Denemeler, etkinlikler, podcast ve daha fazlası burada.
-    </p>
-  </section>
 
-  <section class="duyuru-slider">
-    <h2>Güncel Duyurular</h2>
-    <div class="slider-container">
-      <button class="prev" onclick="moveSlide(-1)">❮</button>
-      <div class="slides-wrapper">
-        <div class="slide">
-          <a href="duyurular.html#duyuru1">
-            <img src="duyurularimg/etkinlik1.jpg" alt="Etkinlik 1" />
-            <h3>Etkinlik Duyurusu 1</h3>
-            <p>25 Şubat 2026 — Kulübümüzün ilk semineri gerçekleşecek. Katılım ücretsizdir.</p>
-          </a>
-        </div>
-        <div class="slide">
-          <a href="duyurular.html#duyuru2">
-            <img src="duyurularimg/etkinlik2.jpg" alt="Etkinlik 2" />
-            <h3>Etkinlik Duyurusu 2</h3>
-            <p>1 Mart 2026 — Yeni deneme ve essay paylaşımları için hazırlık başladı.</p>
-          </a>
-        </div>
-        <!-- Yeni duyurular buraya eklenebilir -->
-      </div>
-      <button class="next" onclick="moveSlide(1)">❯</button>
-    </div>
-  </section>
+<section class="hero">
+<h2>Bathonea Psychology Kulübü</h2>
+<p>Akademik üretim, düşünce ve tartışma alanı.</p>
+</section>
 
+<section class="duyuru-slider">
+<h2>Güncel Duyurular</h2>
+
+<div class="slider-container">
+<button class="slider-btn prev" onclick="moveMain(-1)">❮</button>
+<div class="slides-wrapper" id="mainSlider"></div>
+<button class="slider-btn next" onclick="moveMain(1)">❯</button>
 </div>
 
-<footer>
-  © 2026 Bathonea Psychology
-</footer>
+</section>
+</div>
+
+<footer>© 2026 Bathonea Psychology</footer>
+
+<!-- MODAL -->
+<div id="announcementModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
 
 <script>
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "200px";
-    if(window.innerWidth < 768){
-      document.getElementById("main").style.marginLeft = "0";
-    } else {
-      document.getElementById("main").style.marginLeft = "200px";
-    }
-  }
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-  }
 
-  // Slider
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.slides-wrapper .slide');
-  function showSlide(index){
-    const total = slides.length;
-    if(index < 0) currentSlide = total - 1;
-    else if(index >= total) currentSlide = 0;
-    else currentSlide = index;
+/* DATA */
+const announcements=[
+{
+ title:"Etkinlik 1",
+ date:"25 Şubat 2026",
+ short:"Kulübümüzün ilk semineri.",
+ long:"Kulübümüzün ilk semineri gerçekleşecektir. Katılım ücretsizdir.",
+ images:[
+  "duyurularimg/etkinlik1.jpg",
+  "duyurularimg/etkinlik1-2.jpg"
+ ]
+},
+{
+ title:"Etkinlik 2",
+ date:"1 Mart 2026",
+ short:"Yeni deneme paylaşımları.",
+ long:"Deneme ve essay gönderimleri başlamıştır.",
+ images:["duyurularimg/etkinlik2.jpg"]
+}
+];
 
-    const wrapper = document.querySelector('.slides-wrapper');
-    wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
-  function moveSlide(step){ showSlide(currentSlide + step); }
-  setInterval(() => { moveSlide(1); }, 7000); // otomatik geçiş
+/* MAIN SLIDER */
+const mainSlider=document.getElementById("mainSlider");
+let mainIndex=0;
+
+announcements.forEach((a,i)=>{
+ mainSlider.innerHTML+=`
+ <div class="slide" onclick="openModal(${i})">
+   <img src="${a.images[0]}">
+   <h3>${a.title}</h3>
+   <p>${a.date} — ${a.short}</p>
+ </div>`;
+});
+
+function moveMain(step){
+ mainIndex+=step;
+ if(mainIndex<0) mainIndex=announcements.length-1;
+ if(mainIndex>=announcements.length) mainIndex=0;
+ mainSlider.style.transform=`translateX(-${mainIndex*100}%)`;
+}
+
+setInterval(()=>moveMain(1),7000);
+
+/* MODAL + INNER SLIDER */
+let imgIndex=0;
+let currentImgs=[];
+
+function openModal(i){
+ const modal=document.getElementById("announcementModal");
+ const body=document.getElementById("modalBody");
+ const data=announcements[i];
+ currentImgs=data.images;
+ imgIndex=0;
+
+ body.innerHTML=`
+  <h2>${data.title}</h2>
+  <p><strong>${data.date}</strong></p>
+  <p>${data.long}</p>
+  <div class="modal-slider">
+    <button class="img-prev" onclick="moveImg(-1)">❮</button>
+    <img id="modalImg" src="${currentImgs[0]}">
+    <button class="img-next" onclick="moveImg(1)">❯</button>
+  </div>
+ `;
+
+ modal.style.display="block";
+}
+
+function moveImg(step){
+ imgIndex+=step;
+ if(imgIndex<0) imgIndex=currentImgs.length-1;
+ if(imgIndex>=currentImgs.length) imgIndex=0;
+ document.getElementById("modalImg").src=currentImgs[imgIndex];
+}
+
+function closeModal(){
+ document.getElementById("announcementModal").style.display="none";
+}
+
+window.onclick=function(e){
+ if(e.target.classList.contains("modal")) closeModal();
+};
+
+/* SWIPE SUPPORT (modal images) */
+let startX=0;
+document.addEventListener("touchstart",e=>{
+ startX=e.changedTouches[0].screenX;
+});
+
+document.addEventListener("touchend",e=>{
+ let endX=e.changedTouches[0].screenX;
+ if(Math.abs(startX-endX)>50){
+   if(startX>endX) moveImg(1);
+   else moveImg(-1);
+ }
+});
+
 </script>
-
 </body>
 </html>
