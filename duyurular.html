@@ -3,99 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <title>Duyurular - Bathonea Psychology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: white;
-      color: black;
-    }
-    nav {
-      background-color: black;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    nav h1 {
-      color: white;
-      margin: 0;
-      font-size: 20px;
-    }
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 20px;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: white;
-      font-size: 14px;
+    :root {
+      --primary-color: #0b1c3d;
+      --accent-color: #ffcc00;
+      --text-color: white;
+      --bg-color: white;
     }
 
-    .content {
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: var(--bg-color);
+      color: black;
+    }
+
+    /* Sidebar nav */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      background-color: var(--primary-color);
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
+
+    .sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: var(--text-color);
+      display: block;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: var(--accent-color);
+      color: black;
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 30px;
+    }
+
+    /* Hamburger button */
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      padding: 10px 15px;
+      border: none;
+      border-radius:4px;
+      position: fixed;
+      top:15px;
+      left:15px;
+      z-index:101;
+    }
+
+    /* Main content */
+    #main {
+      transition: margin-left 0.3s;
+      padding: 20px;
+      margin-left:0;
       max-width: 900px;
-      margin: 50px auto;
-      padding: 0 20px;
+      margin-left:auto;
+      margin-right:auto;
     }
 
     .duyuru {
-      border: 1px solid #0b1c3d;
+      border: 1px solid var(--primary-color);
       padding: 20px;
       margin-bottom: 20px;
       border-radius: 8px;
+      overflow: hidden;
     }
 
     .duyuru h2 {
       margin-top: 0;
-      color: #0b1c3d; /* lacivert */
+      color: var(--primary-color);
     }
 
-    .duyuru p {
-      margin-bottom: 0;
+    .duyuru img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      margin-top: 10px;
+      border-radius:6px;
     }
 
     footer {
-      background-color: black;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 50px;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      text-align:center;
+      padding:20px;
+      margin-top:50px;
+      border-radius:10px;
     }
+
+    /* Desktop fix */
+    @media (min-width: 768px) {
+      .sidebar { width:200px; padding-top:20px; }
+      #main { margin-left:200px; }
+      .openbtn { display:none; }
+    }
+
+    @media (max-width: 767px) {
+      #main { margin-left:0; padding:15px; }
+      .duyuru img { max-height: 200px; }
+    }
+
   </style>
 </head>
 <body>
 
-  <nav>
-    <h1>Bathonea Psychology</h1>
-    <ul>
-      <li><a href="index.html">Anasayfa</a></li>
-      <li><a href="about.html">Hakkımızda</a></li>
-      <li><a href="duyurular.html">Duyurular</a></li>
-      <li><a href="essays.html">Essay</a></li>
-      <li><a href="podcast.html">Podcast</a></li>
-    </ul>
-  </nav>
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="index.html">Anasayfa</a>
+  <a href="about.html">Hakkımızda</a>
+  <a href="duyurular.html">Duyurular</a>
+  <a href="essays.html">Essay</a>
+  <a href="podcast.html">Podcast</a>
+</div>
 
-  <div class="content">
-    <div class="duyuru">
-      <h2>Etkinlik Duyurusu 1</h2>
-      <p>Tarih: 25 Şubat 2026</p>
-      <p>Kulübümüzün ilk semineri gerçekleşecek. Katılım ücretsizdir.</p>
-    </div>
+<button class="openbtn" onclick="openNav()">☰</button>
 
-    <div class="duyuru">
-      <h2>Etkinlik Duyurusu 2</h2>
-      <p>Tarih: 1 Mart 2026</p>
-      <p>Yeni deneme ve essay paylaşımları için hazırlık başladı.</p>
-    </div>
+<div id="main">
+  <div class="duyuru">
+    <h2>Etkinlik Duyurusu 1</h2>
+    <p>Tarih: 25 Şubat 2026</p>
+    <p>Kulübümüzün ilk semineri gerçekleşecek. Katılım ücretsizdir.</p>
+    <img src="duyurular-images/etkinlik1.jpg" alt="Etkinlik 1">
   </div>
 
-  <footer>
-    © 2026 Bathonea Psychology
-  </footer>
+  <div class="duyuru">
+    <h2>Etkinlik Duyurusu 2</h2>
+    <p>Tarih: 1 Mart 2026</p>
+    <p>Yeni deneme ve essay paylaşımları için hazırlık başladı.</p>
+    <img src="duyurular-images/etkinlik2.jpg" alt="Etkinlik 2">
+  </div>
+</div>
+
+<footer>
+  © 2026 Bathonea Psychology
+</footer>
+
+<script>
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "200px";
+    if(window.innerWidth < 768){
+      document.getElementById("main").style.marginLeft = "0";
+    } else {
+      document.getElementById("main").style.marginLeft = "200px";
+    }
+  }
+
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
+</script>
 
 </body>
 </html>
