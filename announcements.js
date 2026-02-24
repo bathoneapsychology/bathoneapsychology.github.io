@@ -7,7 +7,7 @@ const announcements = [
     img: "duyurular-images/etkinlik1.jpg"
   },
   {
-    id: ,
+    id: 2,
     title: "",
     date: "",
     text: "",
