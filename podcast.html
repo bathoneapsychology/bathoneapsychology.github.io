@@ -12,7 +12,7 @@
     .content { max-width:900px; margin:50px auto; padding:0 20px; }
     .podcast { border:1px solid #0b1c3d; padding:15px; margin-bottom:15px; border-radius:6px; }
     .podcast a { text-decoration:none; color:#0b1c3d; font-weight:bold; display:block; margin-bottom:5px; }
-    audio { width:100%; }
+    audio { width:100%; margin-top:5px; }
     footer { background:black; color:white; text-align:center; padding:20px; margin-top:50px; }
   </style>
 </head>
@@ -30,6 +30,7 @@
 </nav>
 
 <div class="content" id="podcast-list">
+  <h2>Podcastler</h2>
 </div>
 
 <script>
@@ -37,30 +38,26 @@
   const podcasts = [
     {
       title: "Test Dinletisi",
-      link: "https://drive.google.com/uc?export=download&id=1b672YuL55eBGTmWm7bfALAzyPKxe9oug"
+      link: "https://bathoneapsychology.github.io/podcastseyleri/testdinletisi.m4a"
     }
-    // Buraya yeni podcast eklemek için sadece şu formatı kullan:
-    // { title: "Başlık", link: "Direct download link" }
   ];
 
-  const container = document.getElementById("podcast-list");
+  const listDiv = document.getElementById("podcast-list");
 
-  podcasts.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "podcast";
+  podcasts.forEach(p => {
+    const container = document.createElement("div");
+    container.className = "podcast";
 
-    const a = document.createElement("a");
-    a.href = item.link;
-    a.target = "_blank";
-    a.textContent = item.title;
+    const title = document.createElement("a");
+    title.textContent = p.title;
+    container.appendChild(title);
 
     const audio = document.createElement("audio");
     audio.controls = true;
-    audio.src = item.link;
+    audio.src = p.link;
+    container.appendChild(audio);
 
-    div.appendChild(a);
-    div.appendChild(audio);
-    container.appendChild(div);
+    listDiv.appendChild(container);
   });
 </script>
 
