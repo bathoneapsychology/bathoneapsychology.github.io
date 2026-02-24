@@ -126,6 +126,54 @@
       padding:30px;
       border-radius:10px;
       text-align:center;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .announcement-slide button.more-btn{
+      margin-top:auto;
+      padding:8px 15px;
+      border:none;
+      border-radius:6px;
+      background:#8154ff;
+      color:white;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .announcement-slide button.more-btn:hover{
+      background:#5a189a;
+    }
+
+    /* MODAL */
+    .modal{
+      display:none;
+      position:fixed;
+      top:0; left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,.6);
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+    }
+
+    .modal-content{
+      background:white;
+      width:90%;
+      max-width:600px;
+      padding:25px;
+      border-radius:10px;
+      position:relative;
+    }
+
+    .modal .modal-close{
+      position:absolute;
+      right:15px;
+      top:10px;
+      font-size:22px;
+      cursor:pointer;
     }
 
     footer {
@@ -144,12 +192,10 @@
       .openbtn { display:none; }
     }
 
-    /* Responsive text & hero for mobile */
     @media (max-width: 767px) {
       .hero h2 { font-size:28px; }
       .hero p { font-size:16px; }
     }
-
   </style>
 </head>
 <body>
@@ -181,12 +227,19 @@
       <div class="announcement-wrapper" id="homeAnnouncements"></div>
     </div>
   </section>
-
 </div>
 
 <footer>
   © 2026 Bathonea Psychology
 </footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
 
 <script>
   function openNav() {
@@ -197,7 +250,6 @@
       document.getElementById("main").style.marginLeft = "200px";
     }
   }
-
   function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
     document.getElementById("main").style.marginLeft= "0";
@@ -209,16 +261,18 @@
 <script>
 const homeContainer = document.getElementById("homeAnnouncements");
 
+// En güncel 4 duyuru
 const latestFour = [...announcements]
-.sort((a,b)=> new Date(b.date) - new Date(a.date))
-.slice(0,4);
+  .sort((a,b)=> new Date(b.date) - new Date(a.date))
+  .slice(0,4);
 
 latestFour.forEach(item=>{
-homeContainer.innerHTML += `
-<div class="announcement-slide">
-<h4>${item.title}</h4>
-<p>${item.date}</p>
-</div>`;
+  homeContainer.innerHTML += `
+    <div class="announcement-slide">
+      <h4>${item.title}</h4>
+      <p>${item.date}</p>
+      <button class="more-btn" onclick="openModal(${item.id})">Devamını Oku</button>
+    </div>`;
 });
 
 let currentIndex = 0;
@@ -226,6 +280,29 @@ setInterval(()=>{
   currentIndex = (currentIndex + 1) % latestFour.length;
   homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
 },4000);
+
+// MODAL
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modalBody");
+
+function openModal(id){
+  const data = announcements.find(a=>a.id===id);
+  modalBody.innerHTML = `
+    <h2>${data.title}</h2>
+    <p><strong>${data.date}</strong></p>
+    <p>${data.content}</p>
+  `;
+  modal.style.display = "flex";
+}
+
+function closeModal(){
+  modal.style.display = "none";
+}
+
+// modal tıklayınca kapanma
+modal.addEventListener("click", e=>{
+  if(e.target === modal) closeModal();
+});
 </script>
 
 </body>
