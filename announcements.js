@@ -11,7 +11,7 @@ const announcements = [
     title: "Gecici test duyurusu",
     date: "2026-02-24",
     text: "ol artik",
-    img: ""
+    img: "duyurular-images/etkinlik2.jpg"
   }
 ];
 
