@@ -120,7 +120,7 @@
     }
 
     .announcement-slide{
-      flex: 0 0 100%; /* kesin hizalama */
+      flex: 0 0 100%;
       box-sizing: border-box;
       background: var(--primary-color);
       color: white;
@@ -203,7 +203,7 @@
       border-radius:10px;
     }
 
-    /* Desktop fix: sidebar açık, hamburger gizli */
+    /* Desktop fix */
     @media (min-width: 768px) {
       .sidebar { width:200px; padding-top:20px; }
       #main { margin-left:200px; }
@@ -287,10 +287,11 @@ const latestFour = [...announcements]
   .slice(0,4);
 
 latestFour.forEach(item=>{
+  if(!item.text) return; // boş placeholder varsa atla
   homeContainer.innerHTML += `
     <div class="announcement-slide">
       <h4>${item.title}</h4>
-      <p>${item.date}</p>
+      <p>${formatDate(item.date)}</p>
       <button class="more-btn" onclick="openModal(${item.id})">Devamını Oku</button>
     </div>`;
 });
@@ -313,10 +314,12 @@ const modalBody = document.getElementById("modalBody");
 
 function openModal(id){
   const data = announcements.find(a=>a.id===id);
+  if(!data || !data.text) return; // boş placeholder’ı gösterme
   modalBody.innerHTML = `
     <h2>${data.title}</h2>
-    <p><strong>${data.date}</strong></p>
-    <p>${data.content}</p>
+    <p><strong>${formatDate(data.date)}</strong></p>
+    <p>${data.text}</p>
+    ${data.img ? `<img src="${data.img}" style="width:100%; margin-top:10px; border-radius:6px;">` : ''}
   `;
   modal.style.display = "flex";
 }
