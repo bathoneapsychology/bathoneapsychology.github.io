@@ -116,19 +116,20 @@
 
     .announcement-wrapper{
       display:flex;
-      transition:transform .6s ease;
+      transition: transform .6s ease;
     }
 
     .announcement-slide{
-      min-width:100%;
-      background:var(--primary-color);
-      color:white;
-      padding:30px;
-      border-radius:10px;
-      text-align:center;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+      flex: 0 0 100%; /* kesin hizalama */
+      box-sizing: border-box;
+      background: var(--primary-color);
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .announcement-slide button.more-btn{
@@ -275,6 +276,7 @@ latestFour.forEach(item=>{
     </div>`;
 });
 
+// Slider otomatik dönme
 let currentIndex = 0;
 setInterval(()=>{
   currentIndex = (currentIndex + 1) % latestFour.length;
