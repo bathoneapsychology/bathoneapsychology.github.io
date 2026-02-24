@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Bathonea Psychology</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 :root {
   --primary-color: #0b1c3d;
@@ -19,7 +20,7 @@ body {
   color: black;
 }
 
-/* Sidebar nav */
+/* Sidebar */
 .sidebar {
   height: 100%;
   width: 0;
@@ -52,6 +53,7 @@ body {
   top: 10px;
   right: 15px;
   font-size: 30px;
+  cursor:pointer;
 }
 
 .openbtn {
@@ -92,21 +94,14 @@ footer {
   border-radius:10px;
 }
 
-/* DESKTOP */
+/* Desktop */
 @media (min-width: 768px) {
   .sidebar { width:200px; padding-top:20px; }
   #main { margin-left:200px; }
   .openbtn { display:none; }
 }
 
-/* MOBILE */
-@media (max-width: 767px) {
-  .hero h2 { font-size:28px; }
-  .hero p { font-size:16px; }
-}
-
-/* ====== YENİ: DUYURU SLIDER ====== */
-
+/* Slider */
 .duyuru-slider{
   max-width:900px;
   margin:40px auto;
@@ -124,12 +119,10 @@ footer {
 
 .slide{
   min-width:100%;
-  box-sizing:border-box;
   padding:15px;
   border:1px solid var(--primary-color);
   border-radius:10px;
   text-align:center;
-  cursor:pointer;
 }
 
 .slide img{
@@ -137,6 +130,16 @@ footer {
   max-height:180px;
   object-fit:cover;
   border-radius:8px;
+}
+
+.more-btn{
+  margin-top:12px;
+  padding:8px 14px;
+  background:var(--accent-color);
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
 .slider-btn{
@@ -154,8 +157,7 @@ footer {
 .prev{ left:5px; }
 .next{ right:5px; }
 
-/* MODAL */
-
+/* Modal */
 .modal{
   display:none;
   position:fixed;
@@ -171,41 +173,23 @@ footer {
   max-width:700px;
   padding:25px;
   border-radius:14px;
-}
-
-.modal-slider{
   position:relative;
-  margin-top:15px;
 }
 
-.modal-slider img{
-  width:100%;
-  max-height:350px;
-  object-fit:cover;
-  border-radius:10px;
-}
-
-.modal-slider button{
+.modal-close{
   position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:rgba(11,28,61,0.8);
-  color:white;
-  border:none;
-  padding:6px 10px;
-  border-radius:6px;
+  top:10px;
+  right:15px;
+  font-size:24px;
   cursor:pointer;
 }
-
-.img-prev{ left:10px; }
-.img-next{ right:10px; }
 
 </style>
 </head>
 <body>
 
 <div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="#" class="closebtn" id="closeNavBtn">×</a>
   <a href="index.html">Anasayfa</a>
   <a href="about.html">Hakkımızda</a>
   <a href="duyurular.html">Duyurular</a>
@@ -213,7 +197,7 @@ footer {
   <a href="podcast.html">Podcast</a>
 </div>
 
-<button class="openbtn" onclick="openNav()">☰</button>
+<button class="openbtn" id="openNavBtn">☰</button>
 
 <div id="main">
 
@@ -225,14 +209,13 @@ footer {
   </p>
 </section>
 
-<!-- YENİ EKLENEN SLIDER -->
 <section class="duyuru-slider">
   <h2>Güncel Duyurular</h2>
 
   <div class="slider-container">
-    <button class="slider-btn prev" onclick="moveMain(-1)">❮</button>
+    <button class="slider-btn prev" id="prevBtn">❮</button>
     <div class="slides-wrapper" id="mainSlider"></div>
-    <button class="slider-btn next" onclick="moveMain(1)">❯</button>
+    <button class="slider-btn next" id="nextBtn">❯</button>
   </div>
 </section>
 
@@ -242,10 +225,9 @@ footer {
   © 2026 Bathonea Psychology
 </footer>
 
-<!-- MODAL -->
 <div id="announcementModal" class="modal">
   <div class="modal-content">
-    <span style="float:right;cursor:pointer;font-size:24px;" onclick="closeModal()">×</span>
+    <span class="modal-close" id="modalCloseBtn">×</span>
     <div id="modalBody"></div>
   </div>
 </div>
@@ -253,21 +235,22 @@ footer {
 <script>
 
 /* Sidebar */
-function openNav() {
-  document.getElementById("mySidebar").style.width = "200px";
-  if(window.innerWidth < 768){
-    document.getElementById("main").style.marginLeft = "0";
-  } else {
-    document.getElementById("main").style.marginLeft = "200px";
+const sidebar = document.getElementById("mySidebar");
+const main = document.getElementById("main");
+
+document.getElementById("openNavBtn").addEventListener("click", () => {
+  sidebar.style.width = "200px";
+  if(window.innerWidth >= 768){
+    main.style.marginLeft = "200px";
   }
-}
+});
 
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
+document.getElementById("closeNavBtn").addEventListener("click", () => {
+  sidebar.style.width = "0";
+  main.style.marginLeft = "0";
+});
 
-/* DUYURU DATA */
+/* Data */
 const announcements=[
 {
  title:"Etkinlik 1",
@@ -281,46 +264,67 @@ const announcements=[
 const mainSlider=document.getElementById("mainSlider");
 let mainIndex=0;
 
+/* Render Slides */
 announcements.forEach((a,i)=>{
- mainSlider.innerHTML+=`
- <div class="slide" onclick="openModal(${i})">
-   <img src="${a.images[0]}">
-   <h3>${a.title}</h3>
-   <p>${a.date} — ${a.short}</p>
- </div>`;
+  const slide=document.createElement("div");
+  slide.className="slide";
+
+  slide.innerHTML=`
+    <img src="${a.images[0]}">
+    <h3>${a.title}</h3>
+    <p>${a.date} — ${a.short}</p>
+    <button class="more-btn">Daha Fazlasını Gör</button>
+  `;
+
+  slide.querySelector(".more-btn").addEventListener("click",()=>{
+    openModal(i);
+  });
+
+  mainSlider.appendChild(slide);
+});
+
+/* Slider Controls */
+document.getElementById("prevBtn").addEventListener("click",(e)=>{
+  e.stopPropagation();
+  moveMain(-1);
+});
+
+document.getElementById("nextBtn").addEventListener("click",(e)=>{
+  e.stopPropagation();
+  moveMain(1);
 });
 
 function moveMain(step){
- mainIndex+=step;
- if(mainIndex<0) mainIndex=announcements.length-1;
- if(mainIndex>=announcements.length) mainIndex=0;
- mainSlider.style.transform=`translateX(-${mainIndex*100}%)`;
+  mainIndex+=step;
+  if(mainIndex<0) mainIndex=announcements.length-1;
+  if(mainIndex>=announcements.length) mainIndex=0;
+  mainSlider.style.transform=`translateX(-${mainIndex*100}%)`;
 }
 
-/* MODAL */
+/* Modal */
+const modal=document.getElementById("announcementModal");
+const modalBody=document.getElementById("modalBody");
+
 function openModal(i){
- const modal=document.getElementById("announcementModal");
- const body=document.getElementById("modalBody");
- const data=announcements[i];
-
- body.innerHTML=`
-  <h2>${data.title}</h2>
-  <p><strong>${data.date}</strong></p>
-  <p>${data.long}</p>
-  <div class="modal-slider">
-    <img src="${data.images[0]}">
-  </div>
- `;
- modal.style.display="block";
+  const data=announcements[i];
+  modalBody.innerHTML=`
+    <h2>${data.title}</h2>
+    <p><strong>${data.date}</strong></p>
+    <p>${data.long}</p>
+    <img src="${data.images[0]}" style="width:100%;border-radius:10px;margin-top:15px;">
+  `;
+  modal.style.display="block";
 }
 
-function closeModal(){
- document.getElementById("announcementModal").style.display="none";
-}
+document.getElementById("modalCloseBtn").addEventListener("click",()=>{
+  modal.style.display="none";
+});
 
-window.onclick=function(e){
- if(e.target.classList.contains("modal")) closeModal();
-};
+window.addEventListener("click",(e)=>{
+  if(e.target===modal){
+    modal.style.display="none";
+  }
+});
 
 </script>
 
