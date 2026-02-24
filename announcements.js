@@ -8,9 +8,9 @@ const announcements = [
   },
   {
     id: 2,
-    title: "",
-    date: "",
-    text: "",
+    title: "Gecici test duyurusu",
+    date: "24.02.2026",
+    text: "ol artik",
     img: ""
   }
 ];
