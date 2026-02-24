@@ -9,7 +9,7 @@ const announcements = [
   {
     id: 2,
     title: "Gecici test duyurusu",
-    date: "24.02.2026",
+    date: "2026-02-24",
     text: "ol artik",
     img: ""
   }
