@@ -147,6 +147,23 @@
       background:#5a189a;
     }
 
+    /* Slider butonları */
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      font-size: 22px;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 5;
+    }
+    .slider-btn.prev { left: 10px; }
+    .slider-btn.next { right: 10px; }
+
     /* MODAL */
     .modal{
       display:none;
@@ -225,7 +242,9 @@
   <section class="home-announcements">
     <h2>Son Duyurular</h2>
     <div class="announcement-slider">
+      <button class="slider-btn prev" onclick="moveSlide(-1)">❮</button>
       <div class="announcement-wrapper" id="homeAnnouncements"></div>
+      <button class="slider-btn next" onclick="moveSlide(1)">❯</button>
     </div>
   </section>
 </div>
@@ -276,12 +295,17 @@ latestFour.forEach(item=>{
     </div>`;
 });
 
-// Slider otomatik dönme
+// Slider kontrol
 let currentIndex = 0;
-setInterval(()=>{
-  currentIndex = (currentIndex + 1) % latestFour.length;
+const totalSlides = latestFour.length;
+let autoSlide = setInterval(()=>moveSlide(1), 4000);
+
+function moveSlide(step){
+  clearInterval(autoSlide);
+  currentIndex = (currentIndex + step + totalSlides) % totalSlides;
   homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-},4000);
+  autoSlide = setInterval(()=>moveSlide(1), 4000);
+}
 
 // MODAL
 const modal = document.getElementById("modal");
@@ -301,7 +325,6 @@ function closeModal(){
   modal.style.display = "none";
 }
 
-// modal tıklayınca kapanma
 modal.addEventListener("click", e=>{
   if(e.target === modal) closeModal();
 });
