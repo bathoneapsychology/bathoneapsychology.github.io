@@ -3,51 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <title>Bathonea Psychology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --primary-color: #0b1c3d; /* lacivert */
+      --accent-color: #ffcc00;  /* sarı */
+      --text-color: white;
+      --bg-color: white;
+    }
+
     body {
-      margin: 0;
+      margin:0;
       font-family: Arial, sans-serif;
-      background-color: white;
+      background: var(--bg-color);
       color: black;
     }
 
-    nav {
-      background-color: black;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    /* Sidebar nav */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      background-color: var(--primary-color);
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
     }
 
-    nav h1 {
-      color: white;
-      margin: 0;
-      font-size: 20px;
-    }
-
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 20px;
-    }
-
-    nav ul li a {
+    .sidebar a {
+      padding: 10px 20px;
       text-decoration: none;
-      color: white;
-      font-size: 14px;
+      font-size: 18px;
+      color: var(--text-color);
+      display: block;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: var(--accent-color);
+      color: black;
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 30px;
+    }
+
+    /* Hamburger button */
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      padding: 10px 15px;
+      border: none;
+      border-radius:4px;
+      position: fixed;
+      top:15px;
+      left:15px;
+      z-index:101;
+    }
+
+    /* Main content */
+    #main {
+      transition: margin-left 0.3s;
+      padding: 20px;
+      margin-left:0;
     }
 
     .hero {
       text-align: center;
       padding: 100px 20px;
-      background-color: #0b1c3d; /* lacivert */
-      color: white;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      border-radius:10px;
+      margin-bottom:30px;
     }
 
     .hero h2 {
-      font-size: 40px;
+      font-size: 36px;
       margin-bottom: 20px;
     }
 
@@ -58,28 +97,43 @@
     }
 
     footer {
-      background-color: black;
-      color: white;
+      background-color: var(--primary-color);
+      color: var(--text-color);
       text-align: center;
       padding: 20px;
       margin-top: 50px;
+      border-radius:10px;
     }
+
+    /* Desktop fix: sidebar açık, hamburger gizli */
+    @media (min-width: 768px) {
+      .sidebar { width:200px; padding-top:20px; }
+      #main { margin-left:200px; }
+      .openbtn { display:none; }
+    }
+
+    /* Responsive text & hero for mobile */
+    @media (max-width: 767px) {
+      .hero h2 { font-size:28px; }
+      .hero p { font-size:16px; }
+    }
+
   </style>
 </head>
-
 <body>
 
-  <nav>
-    <h1>Bathonea Psychology</h1>
-    <ul>
-      <li><a href="index.html">Anasayfa</a></li>
-      <li><a href="about.html">Hakkımızda</a></li>
-      <li><a href="duyurular.html">Duyurular</a></li>
-      <li><a href="essays.html">Essay</a></li>
-      <li><a href="podcast.html">Podcast</a></li>
-    </ul>
-  </nav>
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="index.html">Anasayfa</a>
+  <a href="about.html">Hakkımızda</a>
+  <a href="duyurular.html">Duyurular</a>
+  <a href="essays.html">Essay</a>
+  <a href="podcast.html">Podcast</a>
+</div>
 
+<button class="openbtn" onclick="openNav()">☰</button>
+
+<div id="main">
   <section class="hero">
     <h2>Bathonea Psychology Kulübü</h2>
     <p>
@@ -87,10 +141,27 @@
       Denemeler, etkinlikler, podcast ve daha fazlası burada.
     </p>
   </section>
+</div>
 
-  <footer>
-    © 2026 Bathonea Psychology
-  </footer>
+<footer>
+  © 2026 Bathonea Psychology
+</footer>
+
+<script>
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "200px";
+    if(window.innerWidth < 768){
+      document.getElementById("main").style.marginLeft = "0";
+    } else {
+      document.getElementById("main").style.marginLeft = "200px";
+    }
+  }
+
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
+</script>
 
 </body>
 </html>
