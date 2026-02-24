@@ -96,6 +96,38 @@
       margin: 0 auto;
     }
 
+    /* Duyuru slider */
+    .home-announcements{
+      margin-top:40px;
+    }
+
+    .home-announcements h2{
+      text-align:center;
+      margin-bottom:20px;
+      color:var(--primary-color);
+    }
+
+    .announcement-slider{
+      overflow:hidden;
+      max-width:800px;
+      margin:0 auto;
+      position:relative;
+    }
+
+    .announcement-wrapper{
+      display:flex;
+      transition:transform .6s ease;
+    }
+
+    .announcement-slide{
+      min-width:100%;
+      background:var(--primary-color);
+      color:white;
+      padding:30px;
+      border-radius:10px;
+      text-align:center;
+    }
+
     footer {
       background-color: var(--primary-color);
       color: var(--text-color);
@@ -141,6 +173,15 @@
       Denemeler, etkinlikler, podcast ve daha fazlası burada.
     </p>
   </section>
+
+  <!-- Duyurular slider -->
+  <section class="home-announcements">
+    <h2>Son Duyurular</h2>
+    <div class="announcement-slider">
+      <div class="announcement-wrapper" id="homeAnnouncements"></div>
+    </div>
+  </section>
+
 </div>
 
 <footer>
@@ -161,6 +202,30 @@
     document.getElementById("mySidebar").style.width = "0";
     document.getElementById("main").style.marginLeft= "0";
   }
+</script>
+
+<!-- Duyurular JS -->
+<script src="duyurular.js"></script>
+<script>
+const homeContainer = document.getElementById("homeAnnouncements");
+
+const latestFour = [...announcements]
+.sort((a,b)=> new Date(b.date) - new Date(a.date))
+.slice(0,4);
+
+latestFour.forEach(item=>{
+homeContainer.innerHTML += `
+<div class="announcement-slide">
+<h4>${item.title}</h4>
+<p>${item.date}</p>
+</div>`;
+});
+
+let currentIndex = 0;
+setInterval(()=>{
+  currentIndex = (currentIndex + 1) % latestFour.length;
+  homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+},4000);
 </script>
 
 </body>
