@@ -11,9 +11,55 @@
   --accent:#ffcc00;
 }
 
+/* GENEL */
 body{margin:0;font-family:Arial;background:white;color:black;}
-#main{padding:20px;transition:.3s;}
+#main{
+  padding:20px;
+  margin-left:240px;
+  transition:.3s;
+}
 
+/* SIDEBAR */
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  width:240px;
+  height:100%;
+  background:var(--primary);
+  padding-top:60px;
+  transition:.3s;
+  z-index:300;
+}
+
+.sidebar a{
+  display:block;
+  color:white;
+  padding:15px 25px;
+  text-decoration:none;
+  transition:.2s;
+}
+
+.sidebar a:hover{
+  background:rgba(255,255,255,0.1);
+}
+
+.menu-toggle{
+  position:fixed;
+  left:15px;
+  top:15px;
+  font-size:22px;
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:6px 10px;
+  cursor:pointer;
+  border-radius:6px;
+  z-index:400;
+  display:none;
+}
+
+/* HERO */
 .hero{
   text-align:center;
   padding:100px 20px;
@@ -22,6 +68,7 @@ body{margin:0;font-family:Arial;background:white;color:black;}
   border-radius:10px;
 }
 
+/* SLIDER */
 .duyuru-slider{max-width:900px;margin:50px auto;}
 .slider-container{position:relative;overflow:hidden;}
 .slides-wrapper{display:flex;transition:.4s ease;}
@@ -72,7 +119,7 @@ footer{
   inset:0;
   background:rgba(0,0,0,0.6);
   backdrop-filter:blur(4px);
-  z-index:200;
+  z-index:500;
 }
 
 .modal-content{
@@ -82,12 +129,6 @@ footer{
   max-width:700px;
   padding:25px;
   border-radius:14px;
-  animation:fade .3s ease;
-}
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(-20px);}
-  to{opacity:1;}
 }
 
 .close{
@@ -123,12 +164,25 @@ footer{
 .img-prev{left:10px;}
 .img-next{right:10px;}
 
+/* MOBIL */
 @media(max-width:768px){
-  .hero{padding:70px 20px;}
+  #main{margin-left:0;}
+  .sidebar{left:-240px;}
+  .sidebar.active{left:0;}
+  .menu-toggle{display:block;}
 }
 </style>
 </head>
 <body>
+
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+<div class="sidebar" id="sidebar">
+  <a href="#">Ana Sayfa</a>
+  <a href="#">Etkinlikler</a>
+  <a href="#">Duyurular</a>
+  <a href="#">İletişim</a>
+</div>
 
 <div id="main">
 
@@ -161,6 +215,11 @@ footer{
 
 <script>
 
+/* SIDEBAR */
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("active");
+}
+
 /* DATA */
 const announcements=[
 {
@@ -168,10 +227,7 @@ const announcements=[
  date:"25 Şubat 2026",
  short:"Kulübümüzün ilk semineri.",
  long:"Kulübümüzün ilk semineri gerçekleşecektir. Katılım ücretsizdir.",
- images:[
-  "duyurularimg/etkinlik1.jpg",
-  "duyurularimg/etkinlik1-2.jpg"
- ]
+ images:["duyurularimg/etkinlik1.jpg","duyurularimg/etkinlik1-2.jpg"]
 },
 {
  title:"Etkinlik 2",
@@ -182,7 +238,6 @@ const announcements=[
 }
 ];
 
-/* MAIN SLIDER */
 const mainSlider=document.getElementById("mainSlider");
 let mainIndex=0;
 
@@ -204,7 +259,7 @@ function moveMain(step){
 
 setInterval(()=>moveMain(1),7000);
 
-/* MODAL + INNER SLIDER */
+/* MODAL */
 let imgIndex=0;
 let currentImgs=[];
 
@@ -243,20 +298,6 @@ function closeModal(){
 window.onclick=function(e){
  if(e.target.classList.contains("modal")) closeModal();
 };
-
-/* SWIPE SUPPORT (modal images) */
-let startX=0;
-document.addEventListener("touchstart",e=>{
- startX=e.changedTouches[0].screenX;
-});
-
-document.addEventListener("touchend",e=>{
- let endX=e.changedTouches[0].screenX;
- if(Math.abs(startX-endX)>50){
-   if(startX>endX) moveImg(1);
-   else moveImg(-1);
- }
-});
 
 </script>
 </body>
