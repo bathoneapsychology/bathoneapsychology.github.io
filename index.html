@@ -6,158 +6,126 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root {
-  --primary-color: #0b1c3d;
-  --accent-color: #ffcc00;
-  --text-color: white;
-  --bg-color: white;
+:root{
+  --primary:#0b1c3d;
+  --accent:#ffcc00;
+  --text:white;
 }
 
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background: var(--bg-color);
-  color: black;
+body{margin:0;font-family:Arial;background:white}
+
+/* SIDEBAR */
+.sidebar{
+  height:100%;
+  width:0;
+  position:fixed;
+  top:0;left:0;
+  background:var(--primary);
+  overflow-x:hidden;
+  transition:.3s;
+  padding-top:60px;
+  z-index:100;
 }
 
-/* Sidebar */
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  background-color: var(--primary-color);
-  overflow-x: hidden;
-  transition: 0.3s;
-  padding-top: 60px;
+.sidebar a{
+  display:block;
+  padding:10px 20px;
+  color:white;
+  text-decoration:none;
 }
 
-.sidebar a {
-  padding: 10px 20px;
-  text-decoration: none;
-  font-size: 18px;
-  color: var(--text-color);
-  display: block;
-  transition: 0.2s;
+.sidebar a:hover{
+  background:var(--accent);
+  color:black;
 }
 
-.sidebar a:hover {
-  background-color: var(--accent-color);
-  color: black;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 30px;
+.openbtn{
+  position:fixed;
+  top:15px;left:15px;
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:10px 15px;
   cursor:pointer;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  padding: 10px 15px;
-  border: none;
-  border-radius:4px;
-  position: fixed;
-  top:15px;
-  left:15px;
   z-index:101;
 }
 
-#main {
-  transition: margin-left 0.3s;
-  padding: 20px;
-  margin-left:0;
+#main{transition:.3s;padding:20px}
+
+@media(min-width:768px){
+  .sidebar{width:200px;padding-top:20px}
+  #main{margin-left:200px}
+  .openbtn{display:none}
 }
 
-.hero {
-  text-align: center;
-  padding: 100px 20px;
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  border-radius:10px;
-  margin-bottom:30px;
-}
-
-footer {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  text-align: center;
-  padding: 20px;
-  margin-top: 50px;
+/* HERO */
+.hero{
+  text-align:center;
+  padding:100px 20px;
+  background:var(--primary);
+  color:white;
   border-radius:10px;
 }
 
-/* Desktop */
-@media (min-width: 768px) {
-  .sidebar { width:200px; padding-top:20px; }
-  #main { margin-left:200px; }
-  .openbtn { display:none; }
-}
-
-/* Slider */
-.duyuru-slider{
-  max-width:900px;
-  margin:40px auto;
-}
-
-.slider-container{
-  position:relative;
-  overflow:hidden;
-}
-
-.slides-wrapper{
-  display:flex;
-  transition:.4s ease;
-}
-
+/* SLIDER */
+.duyuru-slider{max-width:900px;margin:40px auto}
+.slider-container{position:relative;overflow:hidden}
+.slides-wrapper{display:flex;transition:.5s ease}
 .slide{
   min-width:100%;
+  position:relative;
   padding:15px;
-  border:1px solid var(--primary-color);
+  border:1px solid var(--primary);
   border-radius:10px;
   text-align:center;
 }
-
 .slide img{
   width:100%;
-  max-height:180px;
+  max-height:200px;
   object-fit:cover;
   border-radius:8px;
-}
-
-.more-btn{
-  margin-top:12px;
-  padding:8px 14px;
-  background:var(--accent-color);
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  font-weight:bold;
 }
 
 .slider-btn{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  background:var(--primary-color);
+  background:var(--primary);
   color:white;
   border:none;
   padding:6px 10px;
+  cursor:pointer;
+}
+.prev{left:5px}
+.next{right:5px}
+
+/* DOTS */
+.dots{text-align:center;margin-top:10px}
+.dot{
+  display:inline-block;
+  width:10px;height:10px;
+  background:#ccc;
+  border-radius:50%;
+  margin:0 4px;
+  cursor:pointer;
+}
+.dot.active{background:var(--primary)}
+
+/* BUTTON */
+.more-btn{
+  position:absolute;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:8px 16px;
+  background:var(--accent);
+  border:none;
   border-radius:6px;
+  font-weight:bold;
   cursor:pointer;
 }
 
-.prev{ left:5px; }
-.next{ right:5px; }
-
-/* Modal */
+/* MODAL */
 .modal{
   display:none;
   position:fixed;
@@ -168,9 +136,9 @@ footer {
 
 .modal-content{
   background:white;
-  margin:5% auto;
   width:90%;
   max-width:700px;
+  margin:5% auto;
   padding:25px;
   border-radius:14px;
   position:relative;
@@ -178,153 +146,248 @@ footer {
 
 .modal-close{
   position:absolute;
-  top:10px;
-  right:15px;
-  font-size:24px;
+  right:15px;top:10px;
+  font-size:22px;
   cursor:pointer;
 }
 
+.modal-slider{
+  position:relative;
+  margin-top:15px;
+  overflow:hidden;
+}
+
+.modal-slider img{
+  width:100%;
+  max-height:350px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.modal-slider button{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(11,28,61,0.8);
+  color:white;
+  border:none;
+  padding:6px 10px;
+  cursor:pointer;
+}
+
+.img-prev{left:10px}
+.img-next{right:10px}
+
+footer{
+  background:var(--primary);
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin-top:50px;
+  border-radius:10px;
+}
 </style>
 </head>
 <body>
 
 <div id="mySidebar" class="sidebar">
-  <a href="#" class="closebtn" id="closeNavBtn">×</a>
-  <a href="index.html">Anasayfa</a>
-  <a href="about.html">Hakkımızda</a>
-  <a href="duyurular.html">Duyurular</a>
-  <a href="essays.html">Essay</a>
-  <a href="podcast.html">Podcast</a>
+<a href="javascript:void(0)" onclick="closeNav()">×</a>
+<a href="index.html">Anasayfa</a>
+<a href="about.html">Hakkımızda</a>
+<a href="duyurular.html">Duyurular</a>
+<a href="essays.html">Essay</a>
+<a href="podcast.html">Podcast</a>
 </div>
 
-<button class="openbtn" id="openNavBtn">☰</button>
+<button class="openbtn" onclick="openNav()">☰</button>
 
 <div id="main">
 
 <section class="hero">
-  <h2>Bathonea Psychology Kulübü</h2>
-  <p>
-    Akademik üretim, düşünce ve tartışma alanı.
-    Denemeler, etkinlikler, podcast ve daha fazlası burada.
-  </p>
+<h2>Bathonea Psychology Kulübü</h2>
+<p>Akademik üretim, düşünce ve tartışma alanı.</p>
 </section>
 
 <section class="duyuru-slider">
-  <h2>Güncel Duyurular</h2>
+<h2>Güncel Etkinlikler</h2>
 
-  <div class="slider-container">
-    <button class="slider-btn prev" id="prevBtn">❮</button>
-    <div class="slides-wrapper" id="mainSlider"></div>
-    <button class="slider-btn next" id="nextBtn">❯</button>
-  </div>
+<div class="slider-container"
+     id="sliderContainer">
+<button class="slider-btn prev">❮</button>
+<div class="slides-wrapper" id="mainSlider"></div>
+<button class="slider-btn next">❯</button>
+</div>
+
+<div class="dots" id="dots"></div>
+
 </section>
 
 </div>
 
-<footer>
-  © 2026 Bathonea Psychology
-</footer>
+<footer>© 2026 Bathonea Psychology</footer>
 
 <div id="announcementModal" class="modal">
-  <div class="modal-content">
-    <span class="modal-close" id="modalCloseBtn">×</span>
-    <div id="modalBody"></div>
-  </div>
+<div class="modal-content">
+<span class="modal-close">×</span>
+<div id="modalBody"></div>
+</div>
 </div>
 
 <script>
 
-/* Sidebar */
-const sidebar = document.getElementById("mySidebar");
-const main = document.getElementById("main");
+/* SIDEBAR */
+function openNav(){
+  document.getElementById("mySidebar").style.width="200px";
+  if(window.innerWidth>=768)
+    document.getElementById("main").style.marginLeft="200px";
+}
+function closeNav(){
+  document.getElementById("mySidebar").style.width="0";
+  document.getElementById("main").style.marginLeft="0";
+}
 
-document.getElementById("openNavBtn").addEventListener("click", () => {
-  sidebar.style.width = "200px";
-  if(window.innerWidth >= 768){
-    main.style.marginLeft = "200px";
-  }
-});
-
-document.getElementById("closeNavBtn").addEventListener("click", () => {
-  sidebar.style.width = "0";
-  main.style.marginLeft = "0";
-});
-
-/* Data */
+/* DATA */
 const announcements=[
 {
- title:"Etkinlik 1",
- date:"25 Şubat 2026",
- short:"Kulüp semineri.",
- long:"Kulübümüzün ilk semineri gerçekleşecektir.",
- images:["duyurularimg/etkinlik1.jpg"]
+title:"Etkinlik 1",
+date:"25 Şubat 2026",
+short:"Kulüp semineri.",
+long:"Seminer detay açıklaması burada.",
+images:[
+"duyurularimg/etkinlik1.jpg",
+"duyurularimg/etkinlik1-2.jpg"
+]
+},
+{
+title:"Etkinlik 2",
+date:"1 Mart 2026",
+short:"Yeni etkinlik.",
+long:"Etkinlik açıklaması burada.",
+images:[
+"duyurularimg/etkinlik2.jpg"
+]
 }
 ];
 
 const mainSlider=document.getElementById("mainSlider");
+const dotsContainer=document.getElementById("dots");
 let mainIndex=0;
+let mainInterval;
 
-/* Render Slides */
+/* RENDER */
 announcements.forEach((a,i)=>{
-  const slide=document.createElement("div");
-  slide.className="slide";
-
-  slide.innerHTML=`
+  mainSlider.innerHTML+=`
+  <div class="slide">
     <img src="${a.images[0]}">
     <h3>${a.title}</h3>
     <p>${a.date} — ${a.short}</p>
-    <button class="more-btn">Daha Fazlasını Gör</button>
-  `;
+    <button class="more-btn" onclick="openModal(${i})">
+      Devamını Oku
+    </button>
+  </div>`;
 
-  slide.querySelector(".more-btn").addEventListener("click",()=>{
-    openModal(i);
-  });
-
-  mainSlider.appendChild(slide);
+  dotsContainer.innerHTML+=`<span class="dot"></span>`;
 });
 
-/* Slider Controls */
-document.getElementById("prevBtn").addEventListener("click",(e)=>{
-  e.stopPropagation();
-  moveMain(-1);
-});
+const dots=document.querySelectorAll(".dot");
 
-document.getElementById("nextBtn").addEventListener("click",(e)=>{
-  e.stopPropagation();
-  moveMain(1);
-});
-
-function moveMain(step){
-  mainIndex+=step;
-  if(mainIndex<0) mainIndex=announcements.length-1;
-  if(mainIndex>=announcements.length) mainIndex=0;
+function updateSlider(){
   mainSlider.style.transform=`translateX(-${mainIndex*100}%)`;
+  dots.forEach(d=>d.classList.remove("active"));
+  dots[mainIndex].classList.add("active");
 }
 
-/* Modal */
+function moveMain(step){
+  mainIndex=(mainIndex+step+announcements.length)%announcements.length;
+  updateSlider();
+}
+
+document.querySelector(".prev").onclick=()=>moveMain(-1);
+document.querySelector(".next").onclick=()=>moveMain(1);
+
+dots.forEach((dot,i)=>{
+  dot.onclick=()=>{
+    mainIndex=i;
+    updateSlider();
+  }
+});
+
+/* AUTO + PAUSE */
+function startMainAuto(){
+  mainInterval=setInterval(()=>moveMain(1),5000);
+}
+function stopMainAuto(){
+  clearInterval(mainInterval);
+}
+startMainAuto();
+
+document.getElementById("sliderContainer")
+  .addEventListener("mouseenter",stopMainAuto);
+document.getElementById("sliderContainer")
+  .addEventListener("mouseleave",startMainAuto);
+
+/* SWIPE */
+let startX=0;
+mainSlider.addEventListener("touchstart",
+  e=>startX=e.touches[0].clientX);
+mainSlider.addEventListener("touchend",e=>{
+  let diff=startX-e.changedTouches[0].clientX;
+  if(Math.abs(diff)>50)
+    diff>0?moveMain(1):moveMain(-1);
+});
+
+/* MODAL */
 const modal=document.getElementById("announcementModal");
 const modalBody=document.getElementById("modalBody");
+let modalIndex=0;
+let modalImages=[];
+let modalInterval;
 
 function openModal(i){
   const data=announcements[i];
+  modalImages=data.images;
+  modalIndex=0;
+
   modalBody.innerHTML=`
     <h2>${data.title}</h2>
     <p><strong>${data.date}</strong></p>
     <p>${data.long}</p>
-    <img src="${data.images[0]}" style="width:100%;border-radius:10px;margin-top:15px;">
+    <div class="modal-slider">
+      <button class="img-prev">❮</button>
+      <img id="modalImg" src="${modalImages[0]}">
+      <button class="img-next">❯</button>
+    </div>
   `;
+
   modal.style.display="block";
+
+  document.querySelector(".img-prev")
+    .onclick=()=>moveModal(-1);
+  document.querySelector(".img-next")
+    .onclick=()=>moveModal(1);
+
+  modalInterval=setInterval(()=>moveModal(1),4000);
 }
 
-document.getElementById("modalCloseBtn").addEventListener("click",()=>{
-  modal.style.display="none";
-});
+function moveModal(step){
+  modalIndex=(modalIndex+step+modalImages.length)%modalImages.length;
+  document.getElementById("modalImg")
+    .src=modalImages[modalIndex];
+}
 
-window.addEventListener("click",(e)=>{
-  if(e.target===modal){
-    modal.style.display="none";
-  }
-});
+document.querySelector(".modal-close")
+  .onclick=closeModal;
+
+function closeModal(){
+  modal.style.display="none";
+  clearInterval(modalInterval);
+}
+
+modal.onclick=e=>{
+  if(e.target===modal) closeModal();
+};
+
+updateSlider();
 
 </script>
 
