@@ -2,392 +2,308 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Bathonea Psychology</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etkinlik Slider</title>
 
 <style>
-:root{
-  --primary:#0b1c3d;
-  --accent:#ffcc00;
-  --text:white;
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#f2f2f2;
 }
 
-body{margin:0;font-family:Arial;background:white}
-
-/* SIDEBAR */
-.sidebar{
-  height:100%;
-  width:0;
-  position:fixed;
-  top:0;left:0;
-  background:var(--primary);
-  overflow-x:hidden;
-  transition:.3s;
-  padding-top:60px;
-  z-index:100;
+/* ===== ANA SLIDER ===== */
+.slider-container{
+position:relative;
+overflow:hidden;
+max-width:900px;
+margin:40px auto;
+background:white;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
 }
 
-.sidebar a{
-  display:block;
-  padding:10px 20px;
-  color:white;
-  text-decoration:none;
+.slides-wrapper{
+display:flex;
+transition:transform .6s ease;
 }
 
-.sidebar a:hover{
-  background:var(--accent);
-  color:black;
-}
-
-.openbtn{
-  position:fixed;
-  top:15px;left:15px;
-  background:var(--primary);
-  color:white;
-  border:none;
-  padding:10px 15px;
-  cursor:pointer;
-  z-index:101;
-}
-
-#main{transition:.3s;padding:20px}
-
-@media(min-width:768px){
-  .sidebar{width:200px;padding-top:20px}
-  #main{margin-left:200px}
-  .openbtn{display:none}
-}
-
-/* HERO */
-.hero{
-  text-align:center;
-  padding:100px 20px;
-  background:var(--primary);
-  color:white;
-  border-radius:10px;
-}
-
-/* SLIDER */
-.duyuru-slider{max-width:900px;margin:40px auto}
-.slider-container{position:relative;overflow:hidden}
-.slides-wrapper{display:flex;transition:.5s ease}
 .slide{
-  min-width:100%;
-  position:relative;
-  padding:15px;
-  border:1px solid var(--primary);
-  border-radius:10px;
-  text-align:center;
+min-width:100%;
+padding:20px;
+box-sizing:border-box;
+text-align:center;
 }
+
 .slide img{
-  width:100%;
-  max-height:200px;
-  object-fit:cover;
-  border-radius:8px;
+width:100%;
+height:300px;
+object-fit:cover;
+border-radius:10px;
 }
 
 .slider-btn{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:var(--primary);
-  color:white;
-  border:none;
-  padding:6px 10px;
-  cursor:pointer;
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,.6);
+color:white;
+border:none;
+font-size:22px;
+padding:10px 14px;
+cursor:pointer;
+border-radius:50%;
+z-index:2;
 }
-.prev{left:5px}
-.next{right:5px}
 
-/* DOTS */
-.dots{text-align:center;margin-top:10px}
+.slider-btn.prev{left:10px;}
+.slider-btn.next{right:10px;}
+
+.dots{
+text-align:center;
+padding:15px;
+}
+
 .dot{
-  display:inline-block;
-  width:10px;height:10px;
-  background:#ccc;
-  border-radius:50%;
-  margin:0 4px;
-  cursor:pointer;
+height:10px;
+width:10px;
+background:#ccc;
+border-radius:50%;
+display:inline-block;
+margin:0 5px;
+cursor:pointer;
 }
-.dot.active{background:var(--primary)}
 
-/* BUTTON */
+.dot.active{
+background:#000;
+}
+
 .more-btn{
-  position:absolute;
-  bottom:15px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:8px 16px;
-  background:var(--accent);
-  border:none;
-  border-radius:6px;
-  font-weight:bold;
-  cursor:pointer;
+margin-top:15px;
+padding:10px 20px;
+background:black;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
 }
 
-/* MODAL */
+/* ===== MODAL ===== */
 .modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  z-index:200;
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+justify-content:center;
+align-items:center;
 }
 
 .modal-content{
-  background:white;
-  width:90%;
-  max-width:700px;
-  margin:5% auto;
-  padding:25px;
-  border-radius:14px;
-  position:relative;
+background:white;
+width:90%;
+max-width:600px;
+padding:25px;
+border-radius:10px;
+position:relative;
 }
 
 .modal-close{
-  position:absolute;
-  right:15px;top:10px;
-  font-size:22px;
-  cursor:pointer;
+position:absolute;
+right:15px;
+top:10px;
+font-size:22px;
+cursor:pointer;
 }
 
 .modal-slider{
-  position:relative;
-  margin-top:15px;
-  overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+margin-top:15px;
 }
 
 .modal-slider img{
-  width:100%;
-  max-height:350px;
-  object-fit:cover;
-  border-radius:10px;
+width:80%;
+height:250px;
+object-fit:cover;
+border-radius:8px;
 }
 
-.modal-slider button{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:rgba(11,28,61,0.8);
-  color:white;
-  border:none;
-  padding:6px 10px;
-  cursor:pointer;
-}
-
-.img-prev{left:10px}
-.img-next{right:10px}
-
-footer{
-  background:var(--primary);
-  color:white;
-  text-align:center;
-  padding:20px;
-  margin-top:50px;
-  border-radius:10px;
+.modal-btn{
+background:black;
+color:white;
+border:none;
+padding:8px 12px;
+cursor:pointer;
+border-radius:6px;
 }
 </style>
 </head>
 <body>
 
-<div id="mySidebar" class="sidebar">
-<a href="javascript:void(0)" onclick="closeNav()">×</a>
-<a href="index.html">Anasayfa</a>
-<a href="about.html">Hakkımızda</a>
-<a href="duyurular.html">Duyurular</a>
-<a href="essays.html">Essay</a>
-<a href="podcast.html">Podcast</a>
-</div>
-
-<button class="openbtn" onclick="openNav()">☰</button>
-
-<div id="main">
-
-<section class="hero">
-<h2>Bathonea Psychology Kulübü</h2>
-<p>Akademik üretim, düşünce ve tartışma alanı.</p>
-</section>
-
-<section class="duyuru-slider">
-<h2>Güncel Etkinlikler</h2>
-
-<div class="slider-container"
-     id="sliderContainer">
+<div class="slider-container">
 <button class="slider-btn prev">❮</button>
 <div class="slides-wrapper" id="mainSlider"></div>
 <button class="slider-btn next">❯</button>
-</div>
-
 <div class="dots" id="dots"></div>
-
-</section>
-
 </div>
 
-<footer>© 2026 Bathonea Psychology</footer>
-
-<div id="announcementModal" class="modal">
+<!-- MODAL -->
+<div class="modal" id="modal">
 <div class="modal-content">
-<span class="modal-close">×</span>
+<span class="modal-close">✕</span>
 <div id="modalBody"></div>
 </div>
 </div>
 
 <script>
 
-/* SIDEBAR */
-function openNav(){
-  document.getElementById("mySidebar").style.width="200px";
-  if(window.innerWidth>=768)
-    document.getElementById("main").style.marginLeft="200px";
-}
-function closeNav(){
-  document.getElementById("mySidebar").style.width="0";
-  document.getElementById("main").style.marginLeft="0";
-}
-
-/* DATA */
-const announcements=[
+/* ===== DATA ===== */
+const announcements = [
 {
 title:"Etkinlik 1",
 date:"25 Şubat 2026",
 short:"Kulüp semineri.",
-long:"Seminer detay açıklaması burada.",
+long:"Bu etkinliğin uzun açıklaması burada.",
 images:[
-"duyurularimg/etkinlik1.jpg",
-"duyurularimg/etkinlik1-2.jpg"
+"https://picsum.photos/800/400?1",
+"https://picsum.photos/800/400?2"
 ]
 },
 {
 title:"Etkinlik 2",
 date:"1 Mart 2026",
 short:"Yeni etkinlik.",
-long:"Etkinlik açıklaması burada.",
+long:"Etkinlik detay açıklaması burada.",
 images:[
-"duyurularimg/etkinlik2.jpg"
+"https://picsum.photos/800/400?3",
+"https://picsum.photos/800/400?4"
 ]
 }
 ];
 
-const mainSlider=document.getElementById("mainSlider");
-const dotsContainer=document.getElementById("dots");
-let mainIndex=0;
+/* ===== ANA SLIDER ===== */
+const mainSlider = document.getElementById("mainSlider");
+const dotsContainer = document.getElementById("dots");
+const prevBtn = document.querySelector(".slider-btn.prev");
+const nextBtn = document.querySelector(".slider-btn.next");
+
+let mainIndex = 0;
 let mainInterval;
 
-/* RENDER */
 announcements.forEach((a,i)=>{
-  mainSlider.innerHTML+=`
-  <div class="slide">
-    <img src="${a.images[0]}">
-    <h3>${a.title}</h3>
-    <p>${a.date} — ${a.short}</p>
-    <button class="more-btn" onclick="openModal(${i})">
-      Devamını Oku
-    </button>
-  </div>`;
-
-  dotsContainer.innerHTML+=`<span class="dot"></span>`;
+mainSlider.innerHTML += `
+<div class="slide">
+<img src="${a.images[0]}">
+<h3>${a.title}</h3>
+<p>${a.date} — ${a.short}</p>
+<button class="more-btn" onclick="openModal(${i})">
+Devamını Oku
+</button>
+</div>`;
+dotsContainer.innerHTML += `<span class="dot" data-i="${i}"></span>`;
 });
 
-const dots=document.querySelectorAll(".dot");
+const dots = document.querySelectorAll(".dot");
 
-function updateSlider(){
-  mainSlider.style.transform=`translateX(-${mainIndex*100}%)`;
-  dots.forEach(d=>d.classList.remove("active"));
-  dots[mainIndex].classList.add("active");
+function updateMain(){
+mainSlider.style.transform = `translateX(-${mainIndex * 100}%)`;
+dots.forEach(d=>d.classList.remove("active"));
+dots[mainIndex].classList.add("active");
 }
 
 function moveMain(step){
-  mainIndex=(mainIndex+step+announcements.length)%announcements.length;
-  updateSlider();
+mainIndex = (mainIndex + step + announcements.length) % announcements.length;
+updateMain();
 }
 
-document.querySelector(".prev").onclick=()=>moveMain(-1);
-document.querySelector(".next").onclick=()=>moveMain(1);
+prevBtn.onclick = ()=>moveMain(-1);
+nextBtn.onclick = ()=>moveMain(1);
 
-dots.forEach((dot,i)=>{
-  dot.onclick=()=>{
-    mainIndex=i;
-    updateSlider();
-  }
+dots.forEach(dot=>{
+dot.onclick = ()=>{
+mainIndex = parseInt(dot.dataset.i);
+updateMain();
+};
 });
 
-/* AUTO + PAUSE */
 function startMainAuto(){
-  mainInterval=setInterval(()=>moveMain(1),5000);
+mainInterval = setInterval(()=>moveMain(1), 4000);
 }
+
 function stopMainAuto(){
-  clearInterval(mainInterval);
+clearInterval(mainInterval);
 }
+
 startMainAuto();
 
-document.getElementById("sliderContainer")
-  .addEventListener("mouseenter",stopMainAuto);
-document.getElementById("sliderContainer")
-  .addEventListener("mouseleave",startMainAuto);
+document.querySelector(".slider-container")
+.addEventListener("mouseenter", stopMainAuto);
 
-/* SWIPE */
-let startX=0;
-mainSlider.addEventListener("touchstart",
-  e=>startX=e.touches[0].clientX);
-mainSlider.addEventListener("touchend",e=>{
-  let diff=startX-e.changedTouches[0].clientX;
-  if(Math.abs(diff)>50)
-    diff>0?moveMain(1):moveMain(-1);
-});
+document.querySelector(".slider-container")
+.addEventListener("mouseleave", startMainAuto);
 
-/* MODAL */
-const modal=document.getElementById("announcementModal");
-const modalBody=document.getElementById("modalBody");
-let modalIndex=0;
-let modalImages=[];
+updateMain();
+
+/* ===== MODAL ===== */
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modalBody");
+const closeBtn = document.querySelector(".modal-close");
+
+let modalImages = [];
+let modalIndex = 0;
 let modalInterval;
 
 function openModal(i){
-  const data=announcements[i];
-  modalImages=data.images;
-  modalIndex=0;
 
-  modalBody.innerHTML=`
-    <h2>${data.title}</h2>
-    <p><strong>${data.date}</strong></p>
-    <p>${data.long}</p>
-    <div class="modal-slider">
-      <button class="img-prev">❮</button>
-      <img id="modalImg" src="${modalImages[0]}">
-      <button class="img-next">❯</button>
-    </div>
-  `;
+const data = announcements[i];
+modalImages = data.images;
+modalIndex = 0;
 
-  modal.style.display="block";
+modalBody.innerHTML = `
+<h2>${data.title}</h2>
+<p><strong>${data.date}</strong></p>
+<p>${data.long}</p>
 
-  document.querySelector(".img-prev")
-    .onclick=()=>moveModal(-1);
-  document.querySelector(".img-next")
-    .onclick=()=>moveModal(1);
+<div class="modal-slider">
+<button class="modal-btn" onclick="moveModal(-1)">❮</button>
+<img id="modalImg" src="${modalImages[0]}">
+<button class="modal-btn" onclick="moveModal(1)">❯</button>
+</div>
+`;
 
-  modalInterval=setInterval(()=>moveModal(1),4000);
+modal.style.display = "flex";
+startModalAuto();
 }
 
 function moveModal(step){
-  modalIndex=(modalIndex+step+modalImages.length)%modalImages.length;
-  document.getElementById("modalImg")
-    .src=modalImages[modalIndex];
+modalIndex = (modalIndex + step + modalImages.length) % modalImages.length;
+document.getElementById("modalImg").src = modalImages[modalIndex];
 }
 
-document.querySelector(".modal-close")
-  .onclick=closeModal;
-
-function closeModal(){
-  modal.style.display="none";
-  clearInterval(modalInterval);
+function startModalAuto(){
+modalInterval = setInterval(()=>moveModal(1), 3500);
 }
 
-modal.onclick=e=>{
-  if(e.target===modal) closeModal();
+function stopModalAuto(){
+clearInterval(modalInterval);
+}
+
+closeBtn.onclick = ()=>{
+modal.style.display = "none";
+stopModalAuto();
 };
 
-updateSlider();
+modal.onclick = (e)=>{
+if(e.target === modal){
+modal.style.display = "none";
+stopModalAuto();
+}
+};
 
 </script>
 
