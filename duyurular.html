@@ -73,7 +73,6 @@
     #main {
       transition: margin-left 0.3s;
       padding: 20px;
-      margin-left:0;
       max-width: 900px;
       margin-left:auto;
       margin-right:auto;
@@ -137,19 +136,10 @@
 <button class="openbtn" onclick="openNav()">☰</button>
 
 <div id="main">
-  <div class="duyuru">
-    <h2>Çok Yakında Aranızdayız!</h2>
-    <p>Tarih: 23 Şubat 2026</p>
-    <p>Avcılar Süleyman Nazif Anadolu Lisesi öğrencilerinden oluşan Bathonea Psikoloji kulübü çok yakında sizlerle! Öğrencilerin kaleme aldığı yazılar, bizzat seslendirdikleri podcast'ler ve daha fazlası... Takipte kalın!</p>
-    <img src="duyurular-images/etkinlik1.jpg" alt="Etkinlik 1">
-  </div>
-
-  <div class="">
-    <h2></h2>
-    <p></p>
-    <p></p>
-    <img src="duyurular-images/" alt="">
-  </div>
+  <section class="all-announcements">
+    <h2>Tüm Duyurular</h2>
+    <div id="announcementsList"></div>
+  </section>
 </div>
 
 <footer>
@@ -170,6 +160,27 @@
     document.getElementById("mySidebar").style.width = "0";
     document.getElementById("main").style.marginLeft= "0";
   }
+</script>
+
+<!-- Dinamik duyurular -->
+<script src="announcements.js"></script>
+<script>
+const listContainer = document.getElementById("announcementsList");
+
+const sorted = [...announcements].sort((a,b) => new Date(b.date) - new Date(a.date));
+
+sorted.forEach(item => {
+  if(!item.text) return; // placeholder varsa atlama
+  const card = document.createElement("div");
+  card.classList.add("duyuru");
+  card.innerHTML = `
+    <h2>${item.title}</h2>
+    <p><strong>Tarih:</strong> ${formatDate(item.date)}</p>
+    <p>${item.text}</p>
+    ${item.img ? `<img src="${item.img}" alt="${item.title}">` : ''}
+  `;
+  listContainer.appendChild(card);
+});
 </script>
 
 </body>
