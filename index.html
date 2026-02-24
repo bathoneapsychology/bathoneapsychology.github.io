@@ -1,588 +1,166 @@
-<!DOCTYPE html>  <html lang="tr">  
-<head>  
-<meta charset="UTF-8">  
-<title>Bathonea Psychology</title>  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<style>  
-:root {  
-  --primary-color: #0b1c3d;  
-  --accent-color: #ffcc00;  
-  --text-color: white;  
-  --bg-color: white;  
-}  body {
-margin:0;
-font-family: Arial, sans-serif;
-background: var(--bg-color);
-color: black;
-}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bathonea Psychology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary-color: #0b1c3d; /* lacivert */
+      --accent-color: ##a07eff;  /* mor */
+      --text-color: white;
+      --bg-color: white;
+    }
 
-/* Sidebar nav */
-.sidebar {
-height: 100%;
-width: 0;
-position: fixed;
-z-index: 100;
-top: 0;
-left: 0;
-background-color: var(--primary-color);
-overflow-x: hidden;
-transition: 0.3s;
-padding-top: 60px;
-}
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: var(--bg-color);
+      color: black;
+    }
 
-.sidebar a {
-padding: 10px 20px;
-text-decoration: none;
-font-size: 18px;
-color: var(--text-color);
-display: block;
-transition: 0.2s;
-}
+    /* Sidebar nav */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      background-color: var(--primary-color);
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
 
-.sidebar a:hover {
-background-color: var(--accent-color);
-color: black;
-}
+    .sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: var(--text-color);
+      display: block;
+      transition: 0.2s;
+    }
 
-.sidebar .closebtn {
-position: absolute;
-top: 10px;
-right: 15px;
-font-size: 30px;
-}
+    .sidebar a:hover {
+      background-color: var(--accent-color);
+      color: black;
+    }
 
-.openbtn {
-font-size: 20px;
-cursor: pointer;
-background-color: var(--primary-color);
-color: var(--text-color);
-padding: 10px 15px;
-border: none;
-border-radius:4px;
-position: fixed;
-top:15px;
-left:15px;
-z-index:101;
-}
+    .sidebar .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 30px;
+    }
 
-#main {
-transition: margin-left 0.3s;
-padding: 20px;
-margin-left:0;
-}
+    /* Hamburger button */
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      padding: 10px 15px;
+      border: none;
+      border-radius:4px;
+      position: fixed;
+      top:15px;
+      left:15px;
+      z-index:101;
+    }
 
-.hero {
-text-align: center;
-padding: 100px 20px;
-background-color: var(--primary-color);
-color: var(--text-color);
-border-radius:10px;
-margin-bottom:30px;
-}
+    /* Main content */
+    #main {
+      transition: margin-left 0.3s;
+      padding: 20px;
+      margin-left:0;
+    }
 
-footer {
-background-color: var(--primary-color);
-color: var(--text-color);
-text-align: center;
-padding: 20px;
-margin-top: 50px;
-border-radius:10px;
-}
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      border-radius:10px;
+      margin-bottom:30px;
+    }
 
-/* DESKTOP */
-@media (min-width: 768px) {
-.sidebar { width:200px; padding-top:20px; }
-#main { margin-left:200px; }
-.openbtn { display:none; }
-}
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
 
-/* MOBILE */
-@media (max-width: 767px) {
-.hero h2 { font-size:28px; }
-.hero p { font-size:16px; }
-}
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-/* ====== YENİ: DUYURU SLIDER ====== */
+    footer {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+      border-radius:10px;
+    }
 
-.duyuru-slider{
-max-width:900px;
-margin:40px auto;
-}
+    /* Desktop fix: sidebar açık, hamburger gizli */
+    @media (min-width: 768px) {
+      .sidebar { width:200px; padding-top:20px; }
+      #main { margin-left:200px; }
+      .openbtn { display:none; }
+    }
 
-.slider-container{
-position:relative;
-overflow:hidden;
-}
+    /* Responsive text & hero for mobile */
+    @media (max-width: 767px) {
+      .hero h2 { font-size:28px; }
+      .hero p { font-size:16px; }
+    }
 
-.slides-wrapper{
-display:flex;
-transition:.4s ease;
-}
-
-.slide{
-min-width:100%;
-box-sizing:border-box;
-padding:15px;
-border:1px solid var(--primary-color);
-border-radius:10px;
-text-align:center;
-cursor:pointer;
-}
-
-.slide img{
-width:100%;
-max-height:180px;
-object-fit:cover;
-border-radius:8px;
-}
-
-.slider-btn{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:var(--primary-color);
-color:white;
-border:none;
-padding:6px 10px;
-border-radius:6px;
-cursor:pointer;
-}
-
-.prev{ left:5px; }
-.next{ right:5px; }
-
-/* MODAL */
-
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.6);
-z-index:200;
-}
-
-.modal-content{
-background:white;
-margin:5% auto;
-width:90%;
-max-width:700px;
-padding:25px;
-border-radius:14px;
-}
-
-.modal-slider{
-position:relative;
-margin-top:15px;
-}
-
-.modal-slider img{
-width:100%;
-max-height:350px;
-object-fit:cover;
-border-radius:10px;
-}
-
-.modal-slider button{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:rgba(11,28,61,0.8);
-color:white;
-border:none;
-padding:6px 10px;
-border-radius:6px;
-cursor:pointer;
-}
-
-.img-prev{ left:10px; }
-.img-next{ right:10px; }
-
-</style>  
-</head>  
-<body>  <div id="mySidebar" class="sidebar">  
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>  
-  <a href="index.html">Anasayfa</a>  
-  <a href="about.html">Hakkımızda</a>  
-  <a href="duyurular.html">Duyurular</a>  
-  <a href="essays.html">Essay</a>  
-  <a href="podcast.html">Podcast</a>  
-</div>  <button class="openbtn" onclick="openNav()">☰</button>
-
-<div id="main">  <section class="hero">  
-  <h2>Bathonea Psychology Kulübü</h2>  
-  <p>  
-    Akademik üretim, düşünce ve tartışma alanı.  
-    Denemeler, etkinlikler, podcast ve daha fazlası burada.  
-  </p>  
-</section>  <!-- YENİ EKLENEN SLIDER -->  <section class="duyuru-slider">  
-  <h2>Güncel Duyurular</h2>    <div class="slider-container">  
-    <button class="slider-btn prev" onclick="moveMain(-1)">❮</button>  
-    <div class="slides-wrapper" id="mainSlider"></div>  
-    <button class="slider-btn next" onclick="moveMain(1)">❯</button>  
-  </div>  
-</section>  </div>  <footer>  
-  © 2026 Bathonea Psychology  
-</footer>  <!-- MODAL -->  <div id="announcementModal" class="modal">  
-  <div class="modal-content">  
-    <span style="float:right;cursor:pointer;font-size:24px;" onclick="closeModal()">×</span>  
-    <div id="modalBody"></div>  
-  </div>  
-</div>  <script>  
-  
-/* Sidebar */  
-function openNav() {  
-  document.getElementById("mySidebar").style.width = "200px";  
-  if(window.innerWidth < 768){  
-    document.getElementById("main").style.marginLeft = "0";  
-  } else {  
-    document.getElementById("main").style.marginLeft = "200px";  
-  }  
-}  
-  
-function closeNav() {  
-  document.getElementById("mySidebar").style.width = "0";  
-  document.getElementById("main").style.marginLeft= "0";  
-}  
-  
-/* DUYURU DATA */  
-const announcements=[  
-{  
- title:"Etkinlik 1",  
- date:"25 Şubat 2026",  
- short:"Kulüp semineri.",  
- long:"Kulübümüzün ilk semineri gerçekleşecektir.",  
- images:["duyurularimg/etkinlik1.jpg"]  
-}  
-];  
-  
-const mainSlider=document.getElementById("mainSlider");  
-let mainIndex=0;  
-  
-announcements.forEach((a,i)=>{  
- mainSlider.innerHTML+=`  
- <div class="slide" onclick="openModal(${i})">  
-   <img src="${a.images[0]}">  
-   <h3>${a.title}</h3>  
-   <p>${a.date} — ${a.short}</p>  
- </div>`;  
-});  
-  
-function moveMain(step){  
- mainIndex+=step;  
- if(mainIndex<0) mainIndex=announcements.length-1;  
- if(mainIndex>=announcements.length) mainIndex=0;  
- mainSlider.style.transform=`translateX(-${mainIndex*100}%)`;  
-}  
-  
-/* MODAL */  
-function openModal(i){  
- const modal=document.getElementById("announcementModal");  
- const body=document.getElementById("modalBody");  
- const data=announcements[i];  
-  
- body.innerHTML=`  
-  <h2>${data.title}</h2>  
-  <p><strong>${data.date}</strong></p>  
-  <p>${data.long}</p>  
-  <div class="modal-slider">  
-    <img src="${data.images[0]}">  
-  </div>  
- `;  
- modal.style.display="block";  
-}  
-  
-function closeModal(){  
- document.getElementById("announcementModal").style.display="none";  
-}  
-  
-window.onclick=function(e){  
- if(e.target.classList.contains("modal")) closeModal();  
-};  
-  
-</script>  </body>  
-</html>flex-direction:column;
-gap:12px;
-}
-
-.slide img{
-width:100%;
-height:300px;
-object-fit:cover;
-border-radius:10px;
-}
-
-.slider-btn{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:rgba(0,0,0,.6);
-color:white;
-border:none;
-font-size:22px;
-padding:10px 14px;
-cursor:pointer;
-border-radius:50%;
-z-index:5;
-}
-
-.slider-btn.prev{left:10px;}
-.slider-btn.next{right:10px;}
-
-.dots{
-text-align:center;
-padding:15px;
-}
-
-.dot{
-height:10px;
-width:10px;
-background:#ccc;
-border-radius:50%;
-display:inline-block;
-margin:0 5px;
-cursor:pointer;
-}
-
-.dot.active{
-background:#000;
-}
-
-/* MOR BUTON */
-.more-btn{
-margin-top:auto;
-padding:10px 20px;
-background:#7b2cbf;
-color:white;
-border:none;
-border-radius:6px;
-cursor:pointer;
-transition:.2s;
-}
-
-.more-btn:hover{
-background:#5a189a;
-}
-
-/* ===== MODAL ===== */
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.6);
-justify-content:center;
-align-items:center;
-z-index:1000;
-}
-
-.modal-content{
-background:white;
-width:90%;
-max-width:600px;
-padding:25px;
-border-radius:10px;
-position:relative;
-}
-
-.modal .modal-close{
-position:absolute;
-right:15px;
-top:10px;
-font-size:22px;
-cursor:pointer;
-}
-
-.modal-slider{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
-margin-top:15px;
-}
-
-.modal-slider img{
-width:80%;
-height:250px;
-object-fit:cover;
-border-radius:8px;
-}
-
-.modal-btn{
-background:black;
-color:white;
-border:none;
-padding:8px 12px;
-cursor:pointer;
-border-radius:6px;
-}
-</style>
+  </style>
 </head>
 <body>
 
-<div class="slider-container">
-<button class="slider-btn prev">❮</button>
-<div class="slides-wrapper" id="mainSlider"></div>
-<button class="slider-btn next">❯</button>
-<div class="dots" id="dots"></div>
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="index.html">Anasayfa</a>
+  <a href="about.html">Hakkımızda</a>
+  <a href="duyurular.html">Duyurular</a>
+  <a href="essays.html">Essay</a>
+  <a href="podcast.html">Podcast</a>
 </div>
 
-<!-- MODAL -->
-<div class="modal" id="modal">
-<div class="modal-content">
-<span class="modal-close">✕</span>
-<div id="modalBody"></div>
+<button class="openbtn" onclick="openNav()">☰</button>
+
+<div id="main">
+  <section class="hero">
+    <h2>Bathonea Psychology Kulübü</h2>
+    <p>
+      Akademik üretim, düşünce ve tartışma alanı. 
+      Denemeler, etkinlikler, podcast ve daha fazlası burada.
+    </p>
+  </section>
 </div>
-</div>
+
+<footer>
+  © 2026 Bathonea Psychology
+</footer>
 
 <script>
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "200px";
+    if(window.innerWidth < 768){
+      document.getElementById("main").style.marginLeft = "0";
+    } else {
+      document.getElementById("main").style.marginLeft = "200px";
+    }
+  }
 
-/* ===== DATA ===== */
-const announcements = [
-{
-title:"Etkinlik 1",
-date:"25 Şubat 2026",
-short:"Kulüp semineri.",
-long:"Bu etkinliğin uzun açıklaması burada.",
-images:[
-"https://picsum.photos/800/400?1",
-"https://picsum.photos/800/400?2"
-]
-},
-{
-title:"Etkinlik 2",
-date:"1 Mart 2026",
-short:"Yeni etkinlik.",
-long:"Etkinlik detay açıklaması burada.",
-images:[
-"https://picsum.photos/800/400?3",
-"https://picsum.photos/800/400?4"
-]
-}
-];
-
-/* ===== ANA SLIDER ===== */
-const mainSlider = document.getElementById("mainSlider");
-const dotsContainer = document.getElementById("dots");
-const prevBtn = document.querySelector(".slider-btn.prev");
-const nextBtn = document.querySelector(".slider-btn.next");
-
-let mainIndex = 0;
-let mainInterval;
-
-announcements.forEach((a,i)=>{
-mainSlider.innerHTML += `
-<div class="slide">
-<img src="${a.images[0]}">
-<h3>${a.title}</h3>
-<p>${a.date} — ${a.short}</p>
-<button class="more-btn" onclick="openModal(${i})">
-Devamını Oku
-</button>
-</div>`;
-dotsContainer.innerHTML += `<span class="dot" data-i="${i}"></span>`;
-});
-
-const dots = document.querySelectorAll(".dot");
-
-function updateMain(){
-mainSlider.style.transform = `translateX(-${mainIndex * 100}%)`;
-dots.forEach(d=>d.classList.remove("active"));
-dots[mainIndex].classList.add("active");
-}
-
-function moveMain(step){
-mainIndex = (mainIndex + step + announcements.length) % announcements.length;
-updateMain();
-}
-
-prevBtn.onclick = ()=>moveMain(-1);
-nextBtn.onclick = ()=>moveMain(1);
-
-dots.forEach(dot=>{
-dot.onclick = ()=>{
-mainIndex = parseInt(dot.dataset.i);
-updateMain();
-};
-});
-
-function startMainAuto(){
-clearInterval(mainInterval);
-mainInterval = setInterval(()=>moveMain(1), 4000);
-}
-
-function stopMainAuto(){
-clearInterval(mainInterval);
-}
-
-startMainAuto();
-
-document.querySelector(".slider-container")
-.addEventListener("mouseenter", stopMainAuto);
-
-document.querySelector(".slider-container")
-.addEventListener("mouseleave", startMainAuto);
-
-updateMain();
-
-/* ===== MODAL ===== */
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modalBody");
-const closeBtn = document.querySelector(".modal .modal-close");
-
-let modalImages = [];
-let modalIndex = 0;
-let modalInterval;
-
-function openModal(i){
-
-const data = announcements[i];
-modalImages = data.images;
-modalIndex = 0;
-
-modalBody.innerHTML = `
-<h2>${data.title}</h2>
-<p><strong>${data.date}</strong></p>
-<p>${data.long}</p>
-
-<div class="modal-slider">
-<button class="modal-btn" onclick="moveModal(-1)">❮</button>
-<img id="modalImg" src="${modalImages[0]}">
-<button class="modal-btn" onclick="moveModal(1)">❯</button>
-</div>
-`;
-
-modal.style.display = "flex";
-startModalAuto();
-}
-
-function moveModal(step){
-modalIndex = (modalIndex + step + modalImages.length) % modalImages.length;
-document.getElementById("modalImg").src = modalImages[modalIndex];
-}
-
-function startModalAuto(){
-clearInterval(modalInterval);
-modalInterval = setInterval(()=>moveModal(1), 3500);
-}
-
-function stopModalAuto(){
-clearInterval(modalInterval);
-}
-
-closeBtn.onclick = ()=>{
-modal.style.display = "none";
-stopModalAuto();
-};
-
-modal.onclick = (e)=>{
-if(e.target === modal){
-modal.style.display = "none";
-stopModalAuto();
-}
-};
-
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
 </script>
 
 </body>
