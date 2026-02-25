@@ -19,7 +19,6 @@
       color: black;
     }
 
-    /* Sidebar nav */
     .sidebar {
       height: 100%;
       width: 0;
@@ -54,7 +53,6 @@
       font-size: 30px;
     }
 
-    /* Hamburger button */
     .openbtn {
       font-size: 20px;
       cursor: pointer;
@@ -69,7 +67,6 @@
       z-index:101;
     }
 
-    /* Main content */
     #main {
       transition: margin-left 0.3s;
       padding: 20px;
@@ -108,7 +105,6 @@
       border-radius:10px;
     }
 
-    /* Desktop fix */
     @media (min-width: 768px) {
       .sidebar { width:200px; padding-top:20px; }
       #main { margin-left:200px; }
@@ -119,7 +115,6 @@
       #main { margin-left:0; padding:15px; }
       .duyuru img { max-height: 200px; }
     }
-
   </style>
 </head>
 <body>
@@ -162,23 +157,36 @@
   }
 </script>
 
-<!-- Dinamik duyurular -->
 <script src="announcements.js"></script>
+
 <script>
 const listContainer = document.getElementById("announcementsList");
 
 const sorted = [...announcements].sort((a,b) => new Date(b.date) - new Date(a.date));
 
 sorted.forEach(item => {
-  if(!item.text) return; // placeholder varsa atlama
+  if(!item.text) return;
+
   const card = document.createElement("div");
   card.classList.add("duyuru");
+
+  let imagesHtml = "";
+
+  if(Array.isArray(item.img)){
+    imagesHtml = item.img.map(src =>
+      `<img src="${src}" alt="${item.title}">`
+    ).join("");
+  } else if(item.img){
+    imagesHtml = `<img src="${item.img}" alt="${item.title}">`;
+  }
+
   card.innerHTML = `
     <h2>${item.title}</h2>
     <p><strong>Tarih:</strong> ${formatDate(item.date)}</p>
     <p>${item.text}</p>
-    ${item.img ? `<img src="${item.img}" alt="${item.title}">` : ''}
+    ${imagesHtml}
   `;
+
   listContainer.appendChild(card);
 });
 </script>
