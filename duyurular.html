@@ -19,6 +19,7 @@
       color: black;
     }
 
+    /* Sidebar nav */
     .sidebar {
       height: 100%;
       width: 0;
@@ -53,6 +54,7 @@
       font-size: 30px;
     }
 
+    /* Hamburger button */
     .openbtn {
       font-size: 20px;
       cursor: pointer;
@@ -67,6 +69,7 @@
       z-index:101;
     }
 
+    /* Main content */
     #main {
       transition: margin-left 0.3s;
       padding: 20px;
@@ -94,6 +97,8 @@
       object-fit: cover;
       margin-top: 10px;
       border-radius:6px;
+      cursor: pointer;
+      transition: transform 0.3s;
     }
 
     footer {
@@ -105,6 +110,40 @@
       border-radius:10px;
     }
 
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+
+    #lightbox img.zoomed {
+      transform: scale(1.8);
+      cursor: zoom-out;
+    }
+
+    #lightbox span {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 35px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Desktop fix */
     @media (min-width: 768px) {
       .sidebar { width:200px; padding-top:20px; }
       #main { margin-left:200px; }
@@ -115,6 +154,7 @@
       #main { margin-left:0; padding:15px; }
       .duyuru img { max-height: 200px; }
     }
+
   </style>
 </head>
 <body>
@@ -141,41 +181,42 @@
   © 2026 Bathonea Psychology
 </footer>
 
-<script>
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "200px";
-    if(window.innerWidth < 768){
-      document.getElementById("main").style.marginLeft = "0";
-    } else {
-      document.getElementById("main").style.marginLeft = "200px";
-    }
-  }
+<!-- Lightbox -->
+<div id="lightbox">
+  <span id="closeLightbox">×</span>
+  <img id="lightboxImg">
+</div>
 
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
+<script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "200px";
+  if(window.innerWidth < 768){
+    document.getElementById("main").style.marginLeft = "0";
+  } else {
+    document.getElementById("main").style.marginLeft = "200px";
   }
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
 </script>
 
+<!-- Dinamik duyurular -->
 <script src="announcements.js"></script>
-
 <script>
 const listContainer = document.getElementById("announcementsList");
-
 const sorted = [...announcements].sort((a,b) => new Date(b.date) - new Date(a.date));
 
 sorted.forEach(item => {
-  if(!item.text) return;
-
+  if(!item.text) return; // placeholder varsa atlama
   const card = document.createElement("div");
   card.classList.add("duyuru");
 
   let imagesHtml = "";
-
   if(Array.isArray(item.img)){
-    imagesHtml = item.img.map(src =>
-      `<img src="${src}" alt="${item.title}">`
-    ).join("");
+    imagesHtml = item.img.map(src => `<img src="${src}" alt="${item.title}">`).join("");
   } else if(item.img){
     imagesHtml = `<img src="${item.img}" alt="${item.title}">`;
   }
@@ -186,9 +227,37 @@ sorted.forEach(item => {
     <p>${item.text}</p>
     ${imagesHtml}
   `;
-
   listContainer.appendChild(card);
 });
+
+// Lightbox JS
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const closeBtn = document.getElementById("closeLightbox");
+
+document.addEventListener("click", function(e){
+  if(e.target.tagName === "IMG" && e.target.closest(".duyuru")){
+    lightbox.style.display = "flex";
+    lightboxImg.src = e.target.src;
+  }
+});
+
+closeBtn.onclick = function(){
+  lightbox.style.display = "none";
+  lightboxImg.classList.remove("zoomed");
+}
+
+lightbox.onclick = function(e){
+  if(e.target === lightbox){
+    lightbox.style.display = "none";
+    lightboxImg.classList.remove("zoomed");
+  }
+}
+
+lightboxImg.onclick = function(e){
+  e.stopPropagation();
+  lightboxImg.classList.toggle("zoomed");
+}
 </script>
 
 </body>
