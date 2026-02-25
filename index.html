@@ -198,6 +198,39 @@
       border-radius:10px;
     }
 
+    /* Lightbox for modal images */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+
+    #lightbox img.zoomed {
+      transform: scale(1.8);
+      cursor: zoom-out;
+    }
+
+    #lightbox span {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 35px;
+      color: white;
+      cursor: pointer;
+    }
+
     @media (min-width: 768px) {
       .sidebar { width:200px; padding-top:20px; }
       #main { margin-left:200px; }
@@ -253,6 +286,12 @@
   </div>
 </div>
 
+<!-- Lightbox for modal images -->
+<div id="lightbox">
+  <span id="closeLightbox">×</span>
+  <img id="lightboxImg">
+</div>
+
 <script>
 function openNav() {
   document.getElementById("mySidebar").style.width = "200px";
@@ -262,6 +301,7 @@ function openNav() {
     document.getElementById("main").style.marginLeft = "200px";
   }
 }
+
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
@@ -270,7 +310,6 @@ function closeNav() {
 
 <script src="announcements.js"></script>
 <script>
-
 const homeContainer = document.getElementById("homeAnnouncements");
 
 const latestFour = [...announcements]
@@ -289,7 +328,6 @@ latestFour.forEach(item=>{
 
 let currentIndex = 0;
 const totalSlides = document.querySelectorAll(".announcement-slide").length;
-
 let autoSlide = null;
 if(totalSlides > 1){
   autoSlide = setInterval(()=>moveSlide(1), 4000);
@@ -307,8 +345,12 @@ function moveSlide(step){
   }
 }
 
+// Modal logic
 const modal = document.getElementById("modal");
 const modalBody = document.getElementById("modalBody");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const closeBtn = document.getElementById("closeLightbox");
 
 function openModal(id){
   const data = announcements.find(a => a.id === id);
@@ -336,14 +378,42 @@ function openModal(id){
   modal.style.display = "flex";
 }
 
+// Modal close
 function closeModal(){
   modal.style.display = "none";
+  lightbox.style.display = "none";
+  lightboxImg.classList.remove("zoomed");
 }
 
+// Modal click outside
 modal.addEventListener("click", e=>{
   if(e.target === modal) closeModal();
 });
 
+// Lightbox logic
+document.addEventListener("click", function(e){
+  if(e.target.tagName === "IMG" && e.target.closest(".modal-content")){
+    lightbox.style.display = "flex";
+    lightboxImg.src = e.target.src;
+  }
+});
+
+closeBtn.onclick = function(){
+  lightbox.style.display = "none";
+  lightboxImg.classList.remove("zoomed");
+}
+
+lightbox.onclick = function(e){
+  if(e.target === lightbox){
+    lightbox.style.display = "none";
+    lightboxImg.classList.remove("zoomed");
+  }
+}
+
+lightboxImg.onclick = function(e){
+  e.stopPropagation();
+  lightboxImg.classList.toggle("zoomed");
+}
 </script>
 
 </body>
