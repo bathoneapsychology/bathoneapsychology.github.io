@@ -8,17 +8,18 @@
     :root {
       --primary-color: #0b1c3d;
       --accent-color: #8154ff;
-      --text-color: white;
-      --bg-color: white;
+      --text-color: black;  /* Ana yazı rengi */
+      --bg-color: #ffffff;   /* Arka plan rengi */
     }
 
     body {
       margin:0;
       font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: black;
+      background: var(--bg-color);
+      color: var(--text-color);
     }
 
+    /* Sidebar */
     .sidebar {
       height: 100%;
       width: 0;
@@ -70,165 +71,18 @@
     #main {
       transition: margin-left 0.3s;
       padding: 20px;
-      margin-left:0;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 100px 20px;
-      background-color: var(--primary-color);
-      color: var(--text-color);
-      border-radius:10px;
-      margin-bottom:30px;
-    }
-
-    .hero h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .home-announcements{
-      margin-top:40px;
-    }
-
-    .home-announcements h2{
-      text-align:center;
-      margin-bottom:20px;
-      color:var(--primary-color);
-    }
-
-    .announcement-slider{
-      overflow:hidden;
-      max-width:800px;
-      margin:0 auto;
-      position:relative;
-    }
-
-    .announcement-wrapper{
-      display:flex;
-      transition: transform .6s ease;
-    }
-
-    .announcement-slide{
-      flex: 0 0 100%;
-      box-sizing: border-box;
-      background: var(--primary-color);
-      color: white;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .announcement-slide button.more-btn{
-      margin-top:auto;
-      padding:8px 15px;
-      border:none;
-      border-radius:6px;
-      background:#8154ff;
-      color:white;
-      cursor:pointer;
-      transition:.2s;
-    }
-
-    .announcement-slide button.more-btn:hover{
-      background:#5a189a;
-    }
-
-    .slider-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.6);
-      color: white;
-      border: none;
-      font-size: 22px;
-      padding: 8px 12px;
-      cursor: pointer;
-      border-radius: 50%;
-      z-index: 5;
-    }
-
-    .slider-btn.prev { left: 10px; }
-    .slider-btn.next { right: 10px; }
-
-    .modal{
-      display:none;
-      position:fixed;
-      top:0; left:0;
-      width:100%;
-      height:100%;
-      background:rgba(0,0,0,.6);
-      justify-content:center;
-      align-items:center;
-      z-index:1000;
-    }
-
-    .modal-content{
-      background:white;
-      width:90%;
-      max-width:600px;
-      padding:25px;
-      border-radius:10px;
-      position:relative;
-    }
-
-    .modal .modal-close{
-      position:absolute;
-      right:15px;
-      top:10px;
-      font-size:22px;
-      cursor:pointer;
+      max-width: 900px;
+      margin-left:auto;
+      margin-right:auto;
     }
 
     footer {
       background-color: var(--primary-color);
       color: var(--text-color);
-      text-align: center;
-      padding: 20px;
-      margin-top: 50px;
+      text-align:center;
+      padding:20px;
+      margin-top:50px;
       border-radius:10px;
-    }
-
-    /* Lightbox for modal images */
-    #lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    #lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
-      cursor: zoom-in;
-      transition: transform 0.3s ease;
-    }
-
-    #lightbox img.zoomed {
-      transform: scale(1.8);
-      cursor: zoom-out;
-    }
-
-    #lightbox span {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 35px;
-      color: white;
-      cursor: pointer;
     }
 
     @media (min-width: 768px) {
@@ -236,184 +90,46 @@
       #main { margin-left:200px; }
       .openbtn { display:none; }
     }
-
     @media (max-width: 767px) {
-      .hero h2 { font-size:28px; }
-      .hero p { font-size:16px; }
+      #main { margin-left:0; padding:15px; }
     }
+
   </style>
 </head>
 <body>
 
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="index.html">Anasayfa</a>
-  <a href="about.html">Hakkımızda</a>
-  <a href="duyurular.html">Duyurular</a>
-  <a href="essays.html">Deneme Yazıları</a>
-  <a href="podcast.html">Bathonea Sohbetleri</a>
-</div>
-
-<button class="openbtn" onclick="openNav()">☰</button>
-
-<div id="main">
-  <section class="hero">
-    <h2>Bathonea Psikoloji Kulübü</h2>
-    <p>
-      Akademik üretim, düşünce ve tartışma alanı. 
-      Denemeler, etkinlikler, podcast ve daha fazlası burada.
-    </p>
-  </section>
-
-  <section class="home-announcements">
-    <h2>Son Gelişmeler</h2>
-    <div class="announcement-slider">
-      <button class="slider-btn prev" onclick="moveSlide(-1)">❮</button>
-      <div class="announcement-wrapper" id="homeAnnouncements"></div>
-      <button class="slider-btn next" onclick="moveSlide(1)">❯</button>
-    </div>
-  </section>
-</div>
-
-<footer>
-  © 2026 Bathonea Psychology
-</footer>
-
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeModal()">✕</span>
-    <div id="modalBody"></div>
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a href="index.html">Anasayfa</a>
+    <a href="about.html">Hakkımızda</a>
+    <a href="duyurular.html">Duyurular</a>
+    <a href="essays.html">Deneme Yazıları</a>
+    <a href="podcast.html">Bathonea Sohbetleri</a>
   </div>
-</div>
 
-<!-- Lightbox for modal images -->
-<div id="lightbox">
-  <span id="closeLightbox">×</span>
-  <img id="lightboxImg">
-</div>
+  <button class="openbtn" onclick="openNav()">☰</button>
+
+  <div id="main">
+    <h1>Bathonea Psychology</h1>
+    <p>Hoş geldiniz! Burada psikoloji ile ilgili yazılar, duyurular ve sohbetler bulabilirsiniz.</p>
+  </div>
+
+  <footer>© 2026 Bathonea Psychology</footer>
 
 <script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "200px";
-  if(window.innerWidth < 768){
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "200px";
+    if(window.innerWidth < 768){
+      document.getElementById("main").style.marginLeft = "0";
+    } else {
+      document.getElementById("main").style.marginLeft = "200px";
+    }
+  }
+
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
-  } else {
-    document.getElementById("main").style.marginLeft = "200px";
   }
-}
-
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-</script>
-
-<script src="announcements.js"></script>
-<script>
-const homeContainer = document.getElementById("homeAnnouncements");
-
-const latestFour = [...announcements]
-  .sort((a,b)=> new Date(b.date) - new Date(a.date))
-  .slice(0,4);
-
-latestFour.forEach(item=>{
-  if(!item.text) return;
-  homeContainer.innerHTML += `
-    <div class="announcement-slide">
-      <h4>${item.title}</h4>
-      <p>${formatDate(item.date)}</p>
-      <button class="more-btn" onclick="openModal(${item.id})">Devamını Oku</button>
-    </div>`;
-});
-
-let currentIndex = 0;
-const totalSlides = document.querySelectorAll(".announcement-slide").length;
-let autoSlide = null;
-if(totalSlides > 1){
-  autoSlide = setInterval(()=>moveSlide(1), 4000);
-}
-
-function moveSlide(step){
-  if(totalSlides === 0) return;
-
-  clearInterval(autoSlide);
-  currentIndex = (currentIndex + step + totalSlides) % totalSlides;
-  homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-  if(totalSlides > 1){
-    autoSlide = setInterval(()=>moveSlide(1), 4000);
-  }
-}
-
-// Modal logic
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modalBody");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
-const closeBtn = document.getElementById("closeLightbox");
-
-function openModal(id){
-  const data = announcements.find(a => a.id === id);
-  if(!data || !data.text) return;
-
-  let imagesHtml = "";
-
-  if(Array.isArray(data.img)){
-    imagesHtml = data.img.map(src => `
-      <img src="${src}" style="width:100%; margin-top:10px; border-radius:6px;">
-    `).join("");
-  } else if(data.img){
-    imagesHtml = `
-      <img src="${data.img}" style="width:100%; margin-top:10px; border-radius:6px;">
-    `;
-  }
-
-  modalBody.innerHTML = `
-    <h2>${data.title}</h2>
-    <p><strong>${formatDate(data.date)}</strong></p>
-    <p>${data.text}</p>
-    ${imagesHtml}
-  `;
-
-  modal.style.display = "flex";
-}
-
-// Modal close
-function closeModal(){
-  modal.style.display = "none";
-  lightbox.style.display = "none";
-  lightboxImg.classList.remove("zoomed");
-}
-
-// Modal click outside
-modal.addEventListener("click", e=>{
-  if(e.target === modal) closeModal();
-});
-
-// Lightbox logic
-document.addEventListener("click", function(e){
-  if(e.target.tagName === "IMG" && e.target.closest(".modal-content")){
-    lightbox.style.display = "flex";
-    lightboxImg.src = e.target.src;
-  }
-});
-
-closeBtn.onclick = function(){
-  lightbox.style.display = "none";
-  lightboxImg.classList.remove("zoomed");
-}
-
-lightbox.onclick = function(e){
-  if(e.target === lightbox){
-    lightbox.style.display = "none";
-    lightboxImg.classList.remove("zoomed");
-  }
-}
-
-lightboxImg.onclick = function(e){
-  e.stopPropagation();
-  lightboxImg.classList.toggle("zoomed");
-}
 </script>
 
 </body>
