@@ -19,157 +19,31 @@
       color: black;
     }
 
-    /* Sidebar nav */
-    .sidebar {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 100;
-      top: 0;
-      left: 0;
-      background-color: var(--primary-color);
-      overflow-x: hidden;
-      transition: 0.3s;
-      padding-top: 60px;
-    }
+    .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; left: 0; background-color: var(--primary-color); overflow-x: hidden; transition: 0.3s; padding-top: 60px; }
+    .sidebar a { padding: 10px 20px; text-decoration: none; font-size: 18px; color: var(--text-color); display: block; transition: 0.2s; }
+    .sidebar a:hover { background-color: var(--accent-color); color: black; }
+    .sidebar .closebtn { position: absolute; top: 10px; right: 15px; font-size: 30px; }
 
-    .sidebar a {
-      padding: 10px 20px;
-      text-decoration: none;
-      font-size: 18px;
-      color: var(--text-color);
-      display: block;
-      transition: 0.2s;
-    }
+    .openbtn { font-size: 20px; cursor: pointer; background-color: var(--primary-color); color: var(--text-color); padding: 10px 15px; border: none; border-radius:4px; position: fixed; top:15px; left:15px; z-index:101; }
 
-    .sidebar a:hover {
-      background-color: var(--accent-color);
-      color: black;
-    }
+    #main { transition: margin-left 0.3s; padding: 20px; max-width: 900px; margin-left:auto; margin-right:auto; }
 
-    .sidebar .closebtn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 30px;
-    }
+    .duyuru { border: 1px solid var(--primary-color); padding: 20px; margin-bottom: 20px; border-radius: 8px; overflow: hidden; }
+    .duyuru h2 { margin-top: 0; color: var(--primary-color); }
+    .duyuru img { width: 100%; max-height: 250px; object-fit: cover; margin-top: 10px; border-radius:6px; cursor: pointer; transition: transform 0.3s; }
 
-    /* Hamburger button */
-    .openbtn {
-      font-size: 20px;
-      cursor: pointer;
-      background-color: var(--primary-color);
-      color: var(--text-color);
-      padding: 10px 15px;
-      border: none;
-      border-radius:4px;
-      position: fixed;
-      top:15px;
-      left:15px;
-      z-index:101;
-    }
+    .toggle-btn { margin-top:10px; padding:8px 15px; border:none; border-radius:6px; background: var(--accent-color); color:white; cursor:pointer; transition:.2s; }
+    .toggle-btn:hover{ background: #5a189a; }
 
-    /* Main content */
-    #main {
-      transition: margin-left 0.3s;
-      padding: 20px;
-      max-width: 900px;
-      margin-left:auto;
-      margin-right:auto;
-    }
+    footer { background-color: var(--primary-color); color: var(--text-color); text-align:center; padding:20px; margin-top:50px; border-radius:10px; }
 
-    .duyuru {
-      border: 1px solid var(--primary-color);
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      overflow: hidden;
-    }
+    #lightbox { display: none; position: fixed; z-index: 999; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+    #lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; cursor: zoom-in; transition: transform 0.3s ease; }
+    #lightbox img.zoomed { transform: scale(1.8); cursor: zoom-out; }
+    #lightbox span { position: absolute; top: 20px; right: 30px; font-size: 35px; color: white; cursor: pointer; }
 
-    .duyuru h2 {
-      margin-top: 0;
-      color: var(--primary-color);
-    }
-
-    .duyuru img {
-      width: 100%;
-      max-height: 250px;
-      object-fit: cover;
-      margin-top: 10px;
-      border-radius:6px;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-
-    .toggle-btn {
-      margin-top:10px;
-      padding:8px 15px;
-      border:none;
-      border-radius:6px;
-      background: var(--accent-color);
-      color:white;
-      cursor:pointer;
-      transition:.2s;
-    }
-
-    .toggle-btn:hover{
-      background: #5a189a;
-    }
-
-    footer {
-      background-color: var(--primary-color);
-      color: var(--text-color);
-      text-align:center;
-      padding:20px;
-      margin-top:50px;
-      border-radius:10px;
-    }
-
-    /* Lightbox */
-    #lightbox {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-    }
-
-    #lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
-      cursor: zoom-in;
-      transition: transform 0.3s ease;
-    }
-
-    #lightbox img.zoomed {
-      transform: scale(1.8);
-      cursor: zoom-out;
-    }
-
-    #lightbox span {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 35px;
-      color: white;
-      cursor: pointer;
-    }
-
-    /* Desktop fix */
-    @media (min-width: 768px) {
-      .sidebar { width:200px; padding-top:20px; }
-      #main { margin-left:200px; }
-      .openbtn { display:none; }
-    }
-
-    @media (max-width: 767px) {
-      #main { margin-left:0; padding:15px; }
-      .duyuru img { max-height: 200px; }
-    }
-
+    @media (min-width: 768px) { .sidebar { width:200px; padding-top:20px; } #main { margin-left:200px; } .openbtn { display:none; } }
+    @media (max-width: 767px) { #main { margin-left:0; padding:15px; } .duyuru img { max-height: 200px; } }
   </style>
 </head>
 <body>
@@ -211,29 +85,26 @@ function openNav() {
     document.getElementById("main").style.marginLeft = "200px";
   }
 }
-
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
 }
-</script>
 
-<!-- Dinamik duyurular -->
-<script src="announcements.js"></script>
-<script>
+// Dinamik duyurular
 const listContainer = document.getElementById("announcementsList");
 const sorted = [...announcements].sort((a,b) => new Date(b.date) - new Date(a.date));
 
 sorted.forEach(item => {
-  if(!item.text) return; // placeholder varsa atlama
+  if(!item.text) return;
   const card = document.createElement("div");
   card.classList.add("duyuru");
 
+  // Görselleri başlangıçta gizle
   let imagesHtml = "";
   if(Array.isArray(item.img)){
-    imagesHtml = item.img.map(src => `<img src="${src}" alt="${item.title}">`).join("");
+    imagesHtml = `<div class="hidden-images" style="display:none;">${item.img.map(src => `<img src="${src}" alt="${item.title}">`).join('')}</div>`;
   } else if(item.img){
-    imagesHtml = `<img src="${item.img}" alt="${item.title}">`;
+    imagesHtml = `<div class="hidden-images" style="display:none;"><img src="${item.img}" alt="${item.title}"></div>`;
   }
 
   card.innerHTML = `
@@ -242,26 +113,26 @@ sorted.forEach(item => {
     <div class="preview-text">${item.text.length > 200 ? item.text.substring(0,200) + '...' : item.text}</div>
     <div class="full-text" style="display:none;">${item.text}</div>
     ${imagesHtml}
-    ${item.text.length > 200 ? '<button class="toggle-btn">Devamını Oku</button>' : ''}
+    ${item.text.length > 200 || item.img ? '<button class="toggle-btn">Devamını Oku</button>' : ''}
   `;
   listContainer.appendChild(card);
 });
 
-// Toggle butonları
+// Toggle butonları: metin ve görselleri birlikte aç
 document.addEventListener("click", function(e){
   if(e.target.classList.contains("toggle-btn")){
     const card = e.target.closest(".duyuru");
     const fullText = card.querySelector(".full-text");
     const preview = card.querySelector(".preview-text");
-    if(fullText.style.display === "none"){
-      fullText.style.display = "block";
-      preview.style.display = "none";
-      e.target.style.display = "none"; // Butonu gizle
-    }
+    const hiddenImages = card.querySelector(".hidden-images");
+    fullText.style.display = "block";
+    preview.style.display = "none";
+    if(hiddenImages) hiddenImages.style.display = "block";
+    e.target.style.display = "none";
   }
 });
 
-// Lightbox JS
+// Lightbox
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 const closeBtn = document.getElementById("closeLightbox");
