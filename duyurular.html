@@ -101,6 +101,21 @@
       transition: transform 0.3s;
     }
 
+    .toggle-btn {
+      margin-top:10px;
+      padding:8px 15px;
+      border:none;
+      border-radius:6px;
+      background: var(--accent-color);
+      color:white;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .toggle-btn:hover{
+      background: #5a189a;
+    }
+
     footer {
       background-color: var(--primary-color);
       color: var(--text-color);
@@ -224,10 +239,26 @@ sorted.forEach(item => {
   card.innerHTML = `
     <h2>${item.title}</h2>
     <p><strong>Tarih:</strong> ${formatDate(item.date)}</p>
-    <p>${item.text}</p>
+    <div class="preview-text">${item.text.length > 200 ? item.text.substring(0,200) + '...' : item.text}</div>
+    <div class="full-text" style="display:none;">${item.text}</div>
     ${imagesHtml}
+    ${item.text.length > 200 ? '<button class="toggle-btn">Devamını Oku</button>' : ''}
   `;
   listContainer.appendChild(card);
+});
+
+// Toggle butonları
+document.addEventListener("click", function(e){
+  if(e.target.classList.contains("toggle-btn")){
+    const card = e.target.closest(".duyuru");
+    const fullText = card.querySelector(".full-text");
+    const preview = card.querySelector(".preview-text");
+    if(fullText.style.display === "none"){
+      fullText.style.display = "block";
+      preview.style.display = "none";
+      e.target.style.display = "none"; // Butonu gizle
+    }
+  }
 });
 
 // Lightbox JS
