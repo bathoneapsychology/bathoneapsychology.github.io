@@ -313,19 +313,37 @@ const modal = document.getElementById("modal");
 const modalBody = document.getElementById("modalBody");
 
 function openModal(id){
-  const data = announcements.find(a=>a.id===id);
-  if(!data || !data.text) return; // boş placeholder’ı gösterme
+  const data = announcements.find(a => a.id === id);
+  if(!data || !data.text) return;
+
+  let imagesHtml = "";
+
+  if(Array.isArray(data.img)){
+    imagesHtml = data.img
+      .map(src => `
+        <img 
+          src="${src}" 
+          style="width:100%; margin-top:10px; border-radius:6px;"
+        >
+      `)
+      .join("");
+  } else if(data.img){
+    imagesHtml = `
+      <img 
+        src="${data.img}" 
+        style="width:100%; margin-top:10px; border-radius:6px;"
+      >
+    `;
+  }
+
   modalBody.innerHTML = `
     <h2>${data.title}</h2>
     <p><strong>${formatDate(data.date)}</strong></p>
     <p>${data.text}</p>
-    ${data.img ? `<img src="${data.img}" style="width:100%; margin-top:10px; border-radius:6px;">` : ''}
+    ${imagesHtml}
   `;
-  modal.style.display = "flex";
-}
 
-function closeModal(){
-  modal.style.display = "none";
+  modal.style.display = "flex";
 }
 
 modal.addEventListener("click", e=>{
