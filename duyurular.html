@@ -17,6 +17,8 @@
       background: var(--bg-color);
       color: black;
     }
+
+    /* Sidebar */
     .sidebar {
       height: 100%; width: 0; position: fixed; z-index: 100; top: 0; left: 0;
       background-color: var(--primary-color); overflow-x: hidden; transition: 0.3s; padding-top: 60px;
@@ -69,6 +71,7 @@
 
     @media (min-width: 768px) { .sidebar { width:200px; padding-top:20px; } #main { margin-left:200px; } .openbtn { display:none; } }
     @media (max-width: 767px) { #main { margin-left:0; padding:15px; } .duyuru img { max-height: 200px; } }
+
   </style>
 </head>
 <body>
@@ -108,14 +111,12 @@ function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
 }
+</script>
 
-// Test duyurular (announcements.js yoksa hızlıca çalıştırmak için)
-const announcements = [
-  {title:"Test Duyuru 1", date:"2026-02-25", text:"Bu bir test duyurusudur. Uzun metinlerde Devamını Oku butonu çıkar.", img:["https://via.placeholder.com/400x200","https://via.placeholder.com/400x200"]},
-  {title:"Kısa Duyuru", date:"2026-02-20", text:"Kısa duyuru metni."}
-];
-
-// Format tarih
+<!-- Dinamik duyurular -->
+<script src="announcements.js"></script>
+<script>
+if(typeof announcements==='undefined') announcements=[]; // announcements.js yoksa boş dizi
 function formatDate(d){ const date = new Date(d); return date.toLocaleDateString('tr-TR'); }
 
 const listContainer = document.getElementById("announcementsList");
