@@ -77,6 +77,7 @@
 </div>
 
 <script>
+// Sidebar
 function openNav() {
   document.getElementById("mySidebar").style.width = "200px";
   if(window.innerWidth < 768){
@@ -90,6 +91,13 @@ function closeNav() {
   document.getElementById("main").style.marginLeft= "0";
 }
 
+// Format date
+function formatDate(dateStr){
+  if(!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('tr-TR', { day:'2-digit', month:'2-digit', year:'numeric' });
+}
+
 // Dinamik duyurular
 const listContainer = document.getElementById("announcementsList");
 const sorted = [...announcements].sort((a,b) => new Date(b.date) - new Date(a.date));
@@ -99,7 +107,7 @@ sorted.forEach(item => {
   const card = document.createElement("div");
   card.classList.add("duyuru");
 
-  // Görselleri başlangıçta gizle
+  // Görseller başlangıçta gizli
   let imagesHtml = "";
   if(Array.isArray(item.img)){
     imagesHtml = `<div class="hidden-images" style="display:none;">${item.img.map(src => `<img src="${src}" alt="${item.title}">`).join('')}</div>`;
@@ -113,20 +121,22 @@ sorted.forEach(item => {
     <div class="preview-text">${item.text.length > 200 ? item.text.substring(0,200) + '...' : item.text}</div>
     <div class="full-text" style="display:none;">${item.text}</div>
     ${imagesHtml}
-    ${item.text.length > 200 || item.img ? '<button class="toggle-btn">Devamını Oku</button>' : ''}
+    ${(item.text.length > 200 || item.img) ? '<button class="toggle-btn">Devamını Oku</button>' : ''}
   `;
   listContainer.appendChild(card);
 });
 
-// Toggle butonları: metin ve görselleri birlikte aç
+// Toggle butonları
 document.addEventListener("click", function(e){
   if(e.target.classList.contains("toggle-btn")){
     const card = e.target.closest(".duyuru");
     const fullText = card.querySelector(".full-text");
     const preview = card.querySelector(".preview-text");
     const hiddenImages = card.querySelector(".hidden-images");
-    fullText.style.display = "block";
-    preview.style.display = "none";
+    if(fullText && preview){
+      fullText.style.display = "block";
+      preview.style.display = "none";
+    }
     if(hiddenImages) hiddenImages.style.display = "block";
     e.target.style.display = "none";
   }
