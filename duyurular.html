@@ -146,17 +146,25 @@ sorted.forEach(item => {
   listContainer.appendChild(card);
 });
 
-// Toggle: metin + gizli görseller
+// Toggle: metin + gizli görseller + buton metni
 document.addEventListener("click", function(e){
   if(e.target.classList.contains("toggle-btn")){
     const card = e.target.closest(".duyuru");
     const fullText = card.querySelector(".full-text");
     const preview = card.querySelector(".preview-text");
     const hiddenImages = card.querySelector(".hidden-images");
-    fullText.style.display = "block";
-    preview.style.display = "none";
-    if(hiddenImages) hiddenImages.style.display = "block";
-    e.target.style.display = "none";
+
+    if(fullText.style.display === "none"){ // açma
+      fullText.style.display = "block";
+      preview.style.display = "none";
+      if(hiddenImages) hiddenImages.style.display = "block";
+      e.target.textContent = "Kısalt"; // buton metnini değiştir
+    } else { // kapama
+      fullText.style.display = "none";
+      preview.style.display = "block";
+      if(hiddenImages) hiddenImages.style.display = "none";
+      e.target.textContent = "Devamını Oku"; // metni geri al
+    }
   }
 });
 
