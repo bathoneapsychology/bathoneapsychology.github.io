@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --primary-color: #0b1c3d; /* lacivert */
-      --accent-color: #8154ff;  /* mor */
+      --primary-color: #0b1c3d;
+      --accent-color: #8154ff;
       --text-color: white;
       --bg-color: white;
     }
@@ -19,7 +19,6 @@
       color: black;
     }
 
-    /* Sidebar nav */
     .sidebar {
       height: 100%;
       width: 0;
@@ -54,7 +53,6 @@
       font-size: 30px;
     }
 
-    /* Hamburger button */
     .openbtn {
       font-size: 20px;
       cursor: pointer;
@@ -69,7 +67,6 @@
       z-index:101;
     }
 
-    /* Main content */
     #main {
       transition: margin-left 0.3s;
       padding: 20px;
@@ -96,7 +93,6 @@
       margin: 0 auto;
     }
 
-    /* Duyuru slider */
     .home-announcements{
       margin-top:40px;
     }
@@ -147,7 +143,6 @@
       background:#5a189a;
     }
 
-    /* Slider butonları */
     .slider-btn {
       position: absolute;
       top: 50%;
@@ -161,10 +156,10 @@
       border-radius: 50%;
       z-index: 5;
     }
+
     .slider-btn.prev { left: 10px; }
     .slider-btn.next { right: 10px; }
 
-    /* MODAL */
     .modal{
       display:none;
       position:fixed;
@@ -203,7 +198,6 @@
       border-radius:10px;
     }
 
-    /* Desktop fix */
     @media (min-width: 768px) {
       .sidebar { width:200px; padding-top:20px; }
       #main { margin-left:200px; }
@@ -238,7 +232,6 @@
     </p>
   </section>
 
-  <!-- Duyurular slider -->
   <section class="home-announcements">
     <h2>Son Gelişmeler</h2>
     <div class="announcement-slider">
@@ -253,7 +246,6 @@
   © 2026 Bathonea Psychology
 </footer>
 
-<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="modal-close" onclick="closeModal()">✕</span>
@@ -262,32 +254,31 @@
 </div>
 
 <script>
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "200px";
-    if(window.innerWidth < 768){
-      document.getElementById("main").style.marginLeft = "0";
-    } else {
-      document.getElementById("main").style.marginLeft = "200px";
-    }
+function openNav() {
+  document.getElementById("mySidebar").style.width = "200px";
+  if(window.innerWidth < 768){
+    document.getElementById("main").style.marginLeft = "0";
+  } else {
+    document.getElementById("main").style.marginLeft = "200px";
   }
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-  }
+}
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
 </script>
 
-<!-- Duyurular JS -->
 <script src="announcements.js"></script>
 <script>
+
 const homeContainer = document.getElementById("homeAnnouncements");
 
-// En güncel 4 duyuru
 const latestFour = [...announcements]
   .sort((a,b)=> new Date(b.date) - new Date(a.date))
   .slice(0,4);
 
 latestFour.forEach(item=>{
-  if(!item.text) return; // boş placeholder varsa atla
+  if(!item.text) return;
   homeContainer.innerHTML += `
     <div class="announcement-slide">
       <h4>${item.title}</h4>
@@ -296,19 +287,26 @@ latestFour.forEach(item=>{
     </div>`;
 });
 
-// Slider kontrol
 let currentIndex = 0;
-const totalSlides = latestFour.length;
-let autoSlide = setInterval(()=>moveSlide(1), 4000);
+const totalSlides = document.querySelectorAll(".announcement-slide").length;
 
-function moveSlide(step){
-  clearInterval(autoSlide);
-  currentIndex = (currentIndex + step + totalSlides) % totalSlides;
-  homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+let autoSlide = null;
+if(totalSlides > 1){
   autoSlide = setInterval(()=>moveSlide(1), 4000);
 }
 
-// MODAL
+function moveSlide(step){
+  if(totalSlides === 0) return;
+
+  clearInterval(autoSlide);
+  currentIndex = (currentIndex + step + totalSlides) % totalSlides;
+  homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+  if(totalSlides > 1){
+    autoSlide = setInterval(()=>moveSlide(1), 4000);
+  }
+}
+
 const modal = document.getElementById("modal");
 const modalBody = document.getElementById("modalBody");
 
@@ -319,20 +317,12 @@ function openModal(id){
   let imagesHtml = "";
 
   if(Array.isArray(data.img)){
-    imagesHtml = data.img
-      .map(src => `
-        <img 
-          src="${src}" 
-          style="width:100%; margin-top:10px; border-radius:6px;"
-        >
-      `)
-      .join("");
+    imagesHtml = data.img.map(src => `
+      <img src="${src}" style="width:100%; margin-top:10px; border-radius:6px;">
+    `).join("");
   } else if(data.img){
     imagesHtml = `
-      <img 
-        src="${data.img}" 
-        style="width:100%; margin-top:10px; border-radius:6px;"
-      >
+      <img src="${data.img}" style="width:100%; margin-top:10px; border-radius:6px;">
     `;
   }
 
@@ -346,9 +336,14 @@ function openModal(id){
   modal.style.display = "flex";
 }
 
+function closeModal(){
+  modal.style.display = "none";
+}
+
 modal.addEventListener("click", e=>{
   if(e.target === modal) closeModal();
 });
+
 </script>
 
 </body>
