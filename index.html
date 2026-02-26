@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --primary-color: #4b5f43;
-      --accent-color: #948367;
+      --primary-color: #4b5f43; /* GÜNCELLENDİ */
+      --accent-color: #948367;   /* GÜNCELLENDİ */
       --text-color: white;
       --bg-color: white;
     }
@@ -26,7 +26,7 @@
       z-index: 100;
       top: 0;
       left: 0;
-      background-color: #000000; /* TAM SİYAH YAPILDI */
+      background-color: #000000; /* Sidebar siyah */
       overflow-x: hidden;
       transition: 0.3s;
       padding-top: 60px;
@@ -133,7 +133,7 @@
       padding:8px 15px;
       border:none;
       border-radius:6px;
-      background: #948367; /* BUTON RENGİ GÜNCELLENDİ */
+      background: var(--accent-color);
       color:white;
       cursor:pointer;
       transition:.2s;
@@ -240,6 +240,7 @@
       .hero h2 { font-size:28px; }
       .hero p { font-size:16px; }
     }
+
   </style>
 </head>
 <body>
