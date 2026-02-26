@@ -89,14 +89,19 @@
       background-repeat: no-repeat;
       border: 3px solid var(--primary-color);
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      overflow: hidden;
     }
 
     .hero::before {
       content: "";
       position: absolute;
-      inset: 0; /* tüm alanı kapla */
-      background: rgba(0,0,0,0.3); /* hafif saydam siyah */
-      border-radius: 10px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: 3px; /* border ve padding kadar boşluk bırak */
+      border-radius: 7px; /* border-radius’u biraz azaltıyoruz */
+      background: rgba(0, 0, 0, 0.25); /* hafif siyah gölge */
       z-index: 0;
       }
     
