@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --primary-color: #4b5f43; /* GÜNCELLENDİ */
-      --accent-color: #948367;   /* GÜNCELLENDİ */
+      --primary-color: #4b5f43;
+      --accent-color: #948367;
       --text-color: white;
       --bg-color: white;
     }
@@ -26,7 +26,7 @@
       z-index: 100;
       top: 0;
       left: 0;
-      background-color: #000000; /* Sidebar siyah */
+      background-color: var(--primary-color);
       overflow-x: hidden;
       transition: 0.3s;
       padding-top: 60px;
@@ -111,7 +111,7 @@
     }
 
     .announcement-wrapper{
-      display:flex;
+      display: none; /* başta gizli */
       transition: transform .6s ease;
     }
 
@@ -133,14 +133,14 @@
       padding:8px 15px;
       border:none;
       border-radius:6px;
-      background: var(--accent-color);
+      background:#8154ff;
       color:white;
       cursor:pointer;
       transition:.2s;
     }
 
     .announcement-slide button.more-btn:hover{
-      background:#7d6f55;
+      background:#5a189a;
     }
 
     .slider-btn {
@@ -198,6 +198,7 @@
       border-radius:10px;
     }
 
+    /* Lightbox for modal images */
     #lightbox {
       display: none;
       position: fixed;
@@ -240,7 +241,6 @@
       .hero h2 { font-size:28px; }
       .hero p { font-size:16px; }
     }
-
   </style>
 </head>
 <body>
@@ -291,7 +291,6 @@
   <img id="lightboxImg">
 </div>
 
-<script src="announcements.js"></script>
 <script>
 function openNav() {
   document.getElementById("mySidebar").style.width = "200px";
@@ -305,6 +304,116 @@ function openNav() {
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+
+<script src="announcements.js"></script>
+<script>
+function formatDate(d){ return new Date(d).toLocaleDateString('tr-TR'); }
+
+const homeContainer = document.getElementById("homeAnnouncements");
+
+const latestFour = [...announcements]
+  .sort((a,b)=> new Date(b.date) - new Date(a.date))
+  .slice(0,4);
+
+latestFour.forEach(item=>{
+  if(!item.text) return;
+  homeContainer.innerHTML += `
+    <div class="announcement-slide">
+      <h4>${item.title}</h4>
+      <p>${formatDate(item.date)}</p>
+      <button class="more-btn" onclick="openModal(${item.id})">Devamını Oku</button>
+    </div>`;
+});
+
+// Slider doldurulduktan sonra göster
+homeContainer.style.display = "flex";
+
+let currentIndex = 0;
+const totalSlides = document.querySelectorAll(".announcement-slide").length;
+let autoSlide = null;
+if(totalSlides > 1){
+  autoSlide = setInterval(()=>moveSlide(1), 4000);
+}
+
+function moveSlide(step){
+  if(totalSlides === 0) return;
+
+  clearInterval(autoSlide);
+  currentIndex = (currentIndex + step + totalSlides) % totalSlides;
+  homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+  if(totalSlides > 1){
+    autoSlide = setInterval(()=>moveSlide(1), 4000);
+  }
+}
+
+// Modal logic
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modalBody");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const closeBtn = document.getElementById("closeLightbox");
+
+function openModal(id){
+  const data = announcements.find(a => a.id === id);
+  if(!data || !data.text) return;
+
+  let imagesHtml = "";
+
+  if(Array.isArray(data.img)){
+    imagesHtml = data.img.map(src => `
+      <img src="${src}" style="width:100%; margin-top:10px; border-radius:6px;">
+    `).join("");
+  } else if(data.img){
+    imagesHtml = `
+      <img src="${data.img}" style="width:100%; margin-top:10px; border-radius:6px;">
+    `;
+  }
+
+  modalBody.innerHTML = `
+    <h2>${data.title}</h2>
+    <p><strong>${formatDate(data.date)}</strong></p>
+    <p>${data.text}</p>
+    ${imagesHtml}
+  `;
+
+  modal.style.display = "flex";
+}
+
+function closeModal(){
+  modal.style.display = "none";
+  lightbox.style.display = "none";
+  lightboxImg.classList.remove("zoomed");
+}
+
+modal.addEventListener("click", e=>{
+  if(e.target === modal) closeModal();
+});
+
+document.addEventListener("click", function(e){
+  if(e.target.tagName === "IMG" && e.target.closest(".modal-content")){
+    lightbox.style.display = "flex";
+    lightboxImg.src = e.target.src;
+  }
+});
+
+closeBtn.onclick = function(){
+  lightbox.style.display = "none";
+  lightboxImg.classList.remove("zoomed");
+}
+
+lightbox.onclick = function(e){
+  if(e.target === lightbox){
+    lightbox.style.display = "none";
+    lightboxImg.classList.remove("zoomed");
+  }
+}
+
+lightboxImg.onclick = function(e){
+  e.stopPropagation();
+  lightboxImg.classList.toggle("zoomed");
 }
 </script>
 
