@@ -90,6 +90,15 @@
       border: 3px solid var(--primary-color);
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0; /* tüm alanı kapla */
+      background: rgba(0,0,0,0.3); /* hafif saydam siyah */
+      border-radius: 10px;
+      z-index: 0;
+      }
     
     .hero h2 {
       font-family: 'Dancing Script', cursive;
@@ -97,12 +106,16 @@
       font-size: 56px;
       color: var(--text-color);
       -webkit-text-stroke: 0.6px white; /* stroke hep sabit */
+      position: relative;
+      z-index: 1;
      }
 
     .hero p {
       font-size: 18px;
       max-width: 600px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .home-announcements{
