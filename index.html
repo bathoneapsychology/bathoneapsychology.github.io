@@ -12,6 +12,27 @@
       --accent-color: #948367;
       --text-color: white;
       --bg-color: white;
+ }
+
+/* Karanlık mod için ekstra kod */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #4b5f43; /* aynı renk, dark mode da sabit */
+    --accent-color: #948367;
+    --text-color: white;
+    --bg-color: #000000; /* sadece arka plan değişebilir */
+  }
+}
+
+/* Açık mod için ekstra kod */
+@media (prefers-color-scheme: light) {
+  :root {
+    --primary-color: #4b5f43; /* aynı renk */
+    --accent-color: #948367;
+    --text-color: black;
+    --bg-color: #ffffff;
+  }
+}
     }
 
     body {
@@ -87,7 +108,7 @@
       background-size: cover;      /* görsel tüm alanı kaplasın */
       background-position: center; /* ortalayalım */
       background-repeat: no-repeat;
-      border: 1px solid var(--primary-color);
+      border: 3px solid var(--primary-color);
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
     
