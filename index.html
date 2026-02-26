@@ -48,13 +48,6 @@
       color: black;
     }
 
-    .sidebar .closebtn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 30px;
-    }
-
     .openbtn {
       font-size: 20px;
       cursor: pointer;
@@ -277,8 +270,9 @@
 </head>
 <body>
 
+<button class="openbtn" id="sidebarToggle">☰</button>
+
 <div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <a href="index.html">Anasayfa</a>
   <a href="about.html">Hakkımızda</a>
   <a href="duyurular.html">Duyurular</a>
@@ -324,19 +318,40 @@
 </div>
 
 <script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "200px";
-  if(window.innerWidth < 768){
-    document.getElementById("main").style.marginLeft = "0";
+const sidebar = document.getElementById("mySidebar");
+const toggleBtn = document.getElementById("sidebarToggle");
+const main = document.getElementById("main");
+
+// Sidebar açma/kapama toggle
+toggleBtn.addEventListener("click", (e) => {
+  e.stopPropagation(); // click'in body'ye gitmesini engelle
+  if (sidebar.style.width === "200px") {
+    closeSidebar();
   } else {
-    document.getElementById("main").style.marginLeft = "200px";
+    openSidebar();
+  }
+});
+
+function openSidebar() {
+  sidebar.style.width = "200px";
+  if(window.innerWidth >= 768){
+    main.style.marginLeft = "200px";
+  } else {
+    main.style.marginLeft = "0";
   }
 }
 
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
+function closeSidebar() {
+  sidebar.style.width = "0";
+  main.style.marginLeft = "0";
 }
+
+// Sidebar dışına tıklayınca kapanması
+document.addEventListener("click", (e) => {
+  if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
+    closeSidebar();
+  }
+});
 </script>
 
 <script src="announcements.js"></script>
