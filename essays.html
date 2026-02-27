@@ -150,39 +150,82 @@
 
   <script>
     const sidebar = document.getElementById("mySidebar");
-    const toggleBtn = document.getElementById("sidebarToggle");
-    const main = document.getElementById("main");
-    const sidebarOverlay = document.getElementById("sidebarOverlay");
+const toggleBtn = document.getElementById("sidebarToggle");
+const main = document.getElementById("main");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-    // Sidebar toggle
-    toggleBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const isOpen = sidebar.classList.toggle("open");
-      if(window.innerWidth >= 768){
-        main.style.marginLeft = isOpen ? "300px" : "0";
-      } else {
-        sidebarOverlay.style.display = isOpen ? "block" : "none";
-      }
-    });
+    // Sayfa açıldığında desktop'ta main ortalansın
+window.addEventListener("DOMContentLoaded", () => {
+  if(window.innerWidth >= 768){
+    main.style.marginLeft = "auto";
+    main.style.marginRight = "auto";
+  }
+});
 
-    // Overlay click to close
-    sidebarOverlay.addEventListener("click", () => {
+toggleBtn.addEventListener("click", e => {
+  e.stopPropagation();
+  const isOpen = sidebar.classList.toggle("open");
+
+  if (window.innerWidth >= 768) {
+    // Desktop: main kayıyor
+    main.style.marginLeft = isOpen ? "300px" : "0";
+    main.style.marginRight = isOpen ? "0" : "auto"; // opsiyonel, ortalama için
+  } else {
+    // Mobil: overlay göster
+    sidebarOverlay.style.display = isOpen ? "block" : "none";
+  }
+});
+
+// Overlay click (yalnızca mobil)
+sidebarOverlay.addEventListener("click", () => {
+  sidebar.classList.remove("open");
+  sidebarOverlay.style.display = "none";
+
+  if (window.innerWidth >= 768) {
+    main.style.marginLeft = "auto";
+    main.style.marginRight = "auto";
+  }
+});
+
+// Dış tıklama
+document.addEventListener("click", e => {
+  if (window.innerWidth < 768) {
+    // Sadece mobilde sidebar dış tıklamayla kapanıyor
+    if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
       sidebar.classList.remove("open");
       sidebarOverlay.style.display = "none";
-    });
+      main.style.marginLeft = "0";
+    }
+  }
+});
+    
+ // ---------------- Responsive Resize ----------------
+window.addEventListener("resize", () => {
+  if(window.innerWidth >= 768){
+    // Desktop
+    sidebarOverlay.style.display = "none"; // overlay kapalı
+    if(sidebar.classList.contains("open")){
+      main.style.marginLeft = "300px";
+      main.style.marginRight = "0";
+    } else {
+      main.style.marginLeft = "auto";
+      main.style.marginRight = "auto";
+    }
+  } else {
+    // Mobil
+    main.style.marginLeft = "0";
+    main.style.marginRight = "0";
+    if(!sidebar.classList.contains("open")){
+      sidebarOverlay.style.display = "none";
+    } else {
+      sidebarOverlay.style.display = "block";
+    }
+  }
+});
 
-    // Click outside sidebar to close (mobil)
-    document.addEventListener("click", (e) => {
-      if(!sidebar.contains(e.target) && e.target !== toggleBtn){
-        sidebar.classList.remove("open");
-        sidebarOverlay.style.display = "none";
-      }
-    });
-
-    // Fade in on load
-    document.addEventListener("DOMContentLoaded", () => {
-      document.body.classList.add("loaded");
-    });
+    // Fade-in efekti
+  document.body.classList.add("loaded");
+});
 
     // Smooth fade out on internal link click
     document.querySelectorAll("a").forEach(link => {
