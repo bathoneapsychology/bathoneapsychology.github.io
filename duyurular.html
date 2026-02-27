@@ -7,6 +7,7 @@
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Thai&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -152,9 +153,9 @@
     }
 
     @media (min-width: 768px) {
-      .sidebar { width:200px; padding-top:20px; }
-      #main { margin-left:200px; }
-      .openbtn { display:none; }
+      .sidebar { width:300px; padding-top:20px; }
+      #main { margin-left:0; } /* default kapalı */
+      .openbtn { display:block; } /* desktopta da görünür */
     }
     @media (max-width: 767px) {
       #main { margin-left:0; padding:15px; }
@@ -207,8 +208,9 @@
       }
 
       if(window.innerWidth < 768){
-  sidebarOverlay.style.display = isOpen ? "block" : "none";
-}
+        sidebarOverlay.style.display = isOpen ? "block" : "none";
+      }
+    });
 
     // Overlay click to close
     sidebarOverlay.addEventListener("click", () => {
