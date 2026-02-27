@@ -5,9 +5,9 @@
   <title>Bathonea Sohbetleri - Bathonea Psychology</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Font -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playpen+Sans+Thai:wght@100..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Thai:wght@100..800&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -20,7 +20,7 @@
     body {
       margin:0;
       font-family: 'Playpen Sans Thai', sans-serif;
-      background: var(--bg-color) !important;
+      background: var(--bg-color);
       color: black;
       opacity: 0;
       transition: opacity 0.4s ease;
@@ -35,7 +35,7 @@
       z-index: 100;
       top: 0;
       left: 0;
-      background-color: #000000;
+      background-color: #000;
       transform: translateX(-100%);
       overflow-x: hidden;
       transition: transform 0.45s cubic-bezier(.4,0,.2,1);
@@ -46,11 +46,11 @@
     .sidebar.open { transform: translateX(0); }
 
     .sidebar a {
+      display: block;
       padding: 10px 20px;
-      text-decoration: none;
       font-size: 18px;
       color: var(--text-color);
-      display: block;
+      text-decoration: none;
       transition: 0.2s;
     }
     .sidebar a:hover { background-color: var(--accent-color); color: black; }
@@ -67,7 +67,7 @@
     .openbtn {
       font-size: 20px;
       cursor: pointer;
-      background-color: #000000;
+      background-color: #000;
       color: var(--text-color);
       padding: 10px 15px;
       border: none;
@@ -116,14 +116,13 @@
 
     @media (min-width: 768px) {
       .sidebar { width:300px; padding-top:20px; }
-      #main { margin-left:0; } /* hover ile açılacak, başlangıçta 0 */
+      #main { margin-left:0; } /* Hover ile açılacak, başlangıçta 0 */
       .openbtn { display:none; }
     }
 
     @media (max-width: 767px) {
       #main { margin-left:0; padding:15px; }
     }
-
   </style>
 </head>
 <body>
