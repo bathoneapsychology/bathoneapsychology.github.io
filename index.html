@@ -229,28 +229,45 @@
   <script src="announcements.js"></script>
   <script>
     const sidebar = document.getElementById("mySidebar");
-    const toggleBtn = document.getElementById("sidebarToggle");
-    const main = document.getElementById("main");
-    const sidebarOverlay = document.getElementById("sidebarOverlay");
+const toggleBtn = document.getElementById("sidebarToggle");
+const main = document.getElementById("main");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-    toggleBtn.addEventListener("click", e=>{
-      e.stopPropagation();
-      const isOpen = sidebar.classList.toggle("open");
-      if(window.innerWidth >= 768){ main.style.marginLeft = isOpen ? "300px":"0"; }
-      if(window.innerWidth < 768){ sidebarOverlay.style.display = isOpen ? "block":"none"; }
-    });
-    sidebarOverlay.addEventListener("click", ()=>{
+toggleBtn.addEventListener("click", e => {
+  e.stopPropagation();
+  const isOpen = sidebar.classList.toggle("open");
+
+  if (window.innerWidth >= 768) {
+    // Desktop: main kayıyor
+    main.style.marginLeft = isOpen ? "300px" : "0";
+    main.style.marginRight = "auto"; // opsiyonel, ortalama için
+  } else {
+    // Mobil: overlay göster
+    sidebarOverlay.style.display = isOpen ? "block" : "none";
+  }
+});
+
+// Overlay click (yalnızca mobil)
+sidebarOverlay.addEventListener("click", () => {
+  sidebar.classList.remove("open");
+  sidebarOverlay.style.display = "none";
+
+  if (window.innerWidth >= 768) {
+    main.style.marginLeft = "0"; // desktop'ta geri eski hâle dön
+  }
+});
+
+// Dış tıklama
+document.addEventListener("click", e => {
+  if (window.innerWidth < 768) {
+    // Sadece mobilde sidebar dış tıklamayla kapanıyor
+    if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
       sidebar.classList.remove("open");
-      sidebarOverlay.style.display="none";
-      if(window.innerWidth>=768) main.style.marginLeft="0";
-    });
-    document.addEventListener("click", e=>{
-      if(!sidebar.contains(e.target) && e.target!==toggleBtn){
-        sidebar.classList.remove("open");
-        sidebarOverlay.style.display="none";
-        if(window.innerWidth>=768) main.style.marginLeft="0";
-      }
-    });
+      sidebarOverlay.style.display = "none";
+      main.style.marginLeft = "0";
+    }
+  }
+});
 
     // ---------------- Home Announcements ----------------
     function formatDate(d){ return new Date(d).toLocaleDateString('tr-TR'); }
