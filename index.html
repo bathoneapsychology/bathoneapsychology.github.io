@@ -87,55 +87,78 @@
     }
 
     .hero {
-      font-family: 'Playpen Sans Thai', cursive;
       position: relative;
       text-align: center;
-      padding: 100px 20px;
       background-color: var(--primary-color);
       color: var(--text-color);
-      border-radius:10px;
-      margin-bottom:30px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      overflow: hidden;
 
-      background-image:url("images/heroarkaplan.jpg") ; /* buraya görseli ekledik */
-      background-size: cover;      /* görsel tüm alanı kaplasın */
-      background-position: center; /* ortalayalım */
+  /* Image */
+      background-image: url("images/heroarkaplan.jpg");
+      background-size: cover;      /* tüm alanı kaplasın */
+      background-position: center; /* ortala */
       background-repeat: no-repeat;
+
+  /* Desktop için padding */
+      padding: 100px 20px;
       border: 3px solid var(--primary-color);
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      overflow: hidden;
     }
 
-    .hero::before {
+/* overlay */
+      .hero::before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
-      right: 0;
       width: 100%;
       height: 100%;
-      border-radius: 10px; /* border-radius’u biraz azaltıyoruz */
-      background: rgba(0, 0, 0, 0.36); /* hafif siyah gölge */
+      border-radius: 10px;
+      background: rgba(0,0,0,0.36);
       z-index: 0;
-      }
-    
-    .hero h2 {
-      font-family: 'Dancing Script', cursive;
-      font-weight: 700;
-      font-size: 56px;
-      color: var(--text-color);
-      -webkit-text-stroke: 0.6px white; /* stroke hep sabit */
-      position: relative;
-      z-index: 1;
-     }
+   }
 
-    .hero p {
-      font-size: 18px;
-      max-width: 600px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
+/* Text */
+      .hero h2 {
+       font-family: 'Dancing Script', cursive;
+       font-weight: 700;
+       font-size: 56px;
+       color: var(--text-color);
+       -webkit-text-stroke: 0.6px white;
+       position: relative;
+       z-index: 1;
+       margin: 0;
+   }
 
+       .hero p {
+       font-size: 18px;
+       max-width: 600px;
+       margin: 10px auto 0 auto;
+       position: relative;
+       z-index: 1;
+   }
+
+     
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .hero {
+    padding: 60px 15px; /* daha kompakt */
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+  }
+
+  .hero h2 {
+    font-size: 28px;
+    -webkit-text-stroke: 0.3px white; /* stroke mobilde hafif */
+  }
+
+  .hero p {
+    font-size: 16px;
+    max-width: 90%; /* yanlardan taşma olmasın */
+  }
+}
     .home-announcements{
       margin-top:40px;
     }
