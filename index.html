@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ---------------- Genel Stil ---------------- */
     :root {
       --primary-color: #4b5f43;
       --accent-color: #948367;
@@ -18,88 +17,72 @@
     }
 
     body {
-      margin: 0;
+      margin:0;
       font-family: Arial, sans-serif;
-      background: #ffffff !important;
+      background: var(--bg-color);
       color: black;
       opacity: 0;
       transition: opacity 0.4s ease;
     }
+    body.loaded { opacity:1; }
 
-    body.loaded {
-      opacity: 1;
-    }
-
-    /* ---------------- Sidebar ---------------- */
+    /* Sidebar */
     .sidebar {
       height: 100%;
       width: 200px;
       position: fixed;
       z-index: 100;
-      top: 0;
-      left: 0;
-      background-color: #000000;
+      top:0;
+      left:0;
+      background-color:#000;
       transform: translateX(-100%);
-      overflow-x: hidden;
+      overflow-x:hidden;
       transition: transform 0.45s cubic-bezier(.4,0,.2,1);
-      padding-top: 60px;
-      border-top-right-radius: 18px;
-      border-bottom-right-radius: 18px;
+      padding-top:60px;
+      border-top-right-radius:18px;
+      border-bottom-right-radius:18px;
     }
-
-    .sidebar.open {
-      transform: translateX(0);
-    }
-
+    .sidebar.open { transform: translateX(0); }
     .sidebar a {
-      padding: 10px 20px;
-      text-decoration: none;
-      font-size: 18px;
+      display:block;
+      padding:10px 20px;
+      font-size:18px;
       color: var(--text-color);
-      display: block;
-      transition: 0.2s;
+      text-decoration:none;
+      transition:0.2s;
     }
-
-    .sidebar a:hover {
-      background-color: var(--accent-color);
-      color: black;
-    }
+    .sidebar a:hover { background-color: var(--accent-color); color:black; }
 
     #sidebarOverlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5); /* karartma efekti */
-      z-index: 50; /* sidebar’dan düşük olsun */
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.5);
+      z-index:50;
     }
 
     .openbtn {
-      font-size: 20px;
-      cursor: pointer;
-      background-color: #000000;
-      color: var(--text-color);
-      padding: 10px 15px;
-      border: none;
+      font-size:20px;
+      cursor:pointer;
+      background:#000;
+      color:var(--text-color);
+      padding:10px 15px;
+      border:none;
       border-radius:12px;
-      position: fixed;
+      position:fixed;
       top:15px;
       left:15px;
       z-index:101;
     }
 
-    /* ---------------- Main ---------------- */
-    #main {
-      transition: margin-left 0.45s cubic-bezier(.4,0,.2,1);
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    /* Main content */
+    #main { transition: margin-left 0.45s cubic-bezier(.4,0,.2,1); padding:20px; max-width:1200px; margin:0 auto; }
 
-    /* ---------------- Hero ---------------- */
+    /* Hero */
     .hero {
       position: relative;
-      text-align: center;
-      padding: 100px 20px;
+      text-align:center;
+      padding:100px 20px;
       background-color: var(--primary-color);
       color: var(--text-color);
       border-radius:10px;
@@ -107,207 +90,96 @@
       background-image: url("images/heroarkaplan.jpg");
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
-      border: 3px solid var(--primary-color);
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.36);
-      z-index: 0;
-    }
-
-    .hero h2 {
-      font-family: 'Dancing Script', cursive;
-      font-weight: 700;
-      font-size: 56px;
-      color: var(--text-color);
-      -webkit-text-stroke: 0.6px white;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero p {
-      font-size: 18px;
-      max-width: 600px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ---------------- Home Announcements ---------------- */
-    .home-announcements {
-      margin-top:40px;
-    }
-
-    .home-announcements h2 {
-      text-align:center;
-      margin-bottom:20px;
-      color: var(--primary-color);
-    }
-
-    .announcement-slider {
+      border:3px solid var(--primary-color);
+      box-shadow:0 0 15px rgba(0,0,0,0.2);
       overflow:hidden;
-      max-width:800px;
-      margin:0 auto;
-      position:relative;
     }
-
-    .announcement-wrapper {
-      display: flex;
-      transition: transform .6s ease;
+    .hero::before {
+      content:"";
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      border-radius:10px;
+      background:rgba(0,0,0,0.36);
+      z-index:0;
     }
+    .hero h2 {
+      font-family:'Dancing Script', cursive;
+      font-weight:700;
+      font-size:56px;
+      color: var(--text-color);
+      -webkit-text-stroke:0.6px white;
+      position:relative; z-index:1;
+    }
+    .hero p { font-size:18px; max-width:600px; margin:0 auto; position:relative; z-index:1; }
 
+    /* Home Announcements */
+    .home-announcements { margin-top:40px; }
+    .home-announcements h2 { text-align:center; margin-bottom:20px; color:var(--primary-color); }
+    .announcement-slider { overflow:hidden; max-width:800px; margin:0 auto; position:relative; }
+    .announcement-wrapper { display:flex; transition: transform .6s ease; }
     .announcement-slide {
-      flex: 0 0 100%;
-      box-sizing: border-box;
+      flex:0 0 100%;
+      box-sizing:border-box;
       background: var(--primary-color);
-      color: white;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      color:white;
+      padding:30px;
+      border-radius:10px;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
-
     .announcement-slide button.more-btn {
       margin-top:auto;
       padding:8px 15px;
       border:none;
       border-radius:6px;
-      background:#000000;
+      background:#000;
       color:white;
       cursor:pointer;
       transition:.2s;
     }
-
-    .announcement-slide button.more-btn:hover {
-      background:#000000;
-    }
-
     .slider-btn {
-     position: absolute;
-     top: 50%;
-     transform: translateY(-50%);
-     background: rgba(0,0,0,0.6);
-     color: white;
-     border: none;
-     font-size: 22px;
-     width: 40px;       /* tam daire için genişlik */
-     height: 40px;      /* tam daire için yükseklik */
-     padding: 0;        /* padding sıfır */
-     cursor: pointer;
-     border-radius: 50%;
-     display: flex;     /* ikon ortalamak için */
-     align-items: center;
-     justify-content: center;
-     z-index: 5;
-}
-
-    .slider-btn.prev { left: 10px; }
-    .slider-btn.next { right: 10px; }
-
-    /* ---------------- Modal ---------------- */
-    .modal {
-      display:none;
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background:rgba(0,0,0,.7);
-      justify-content:center;
-      align-items:center;
-      z-index:1000;
+      position:absolute; top:50%;
+      transform:translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color:white;
+      border:none; font-size:22px;
+      width:40px; height:40px;
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; z-index:5;
     }
+    .slider-btn.prev { left:10px; }
+    .slider-btn.next { right:10px; }
 
-    .modal-content {
-      background:white;
-      width:90%;
-      max-width:600px;
-      padding:25px;
-      border-radius:10px;
-      position:relative;
+    /* Modal */
+    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.7); justify-content:center; align-items:center; z-index:1000; }
+    .modal-content { background:white; width:90%; max-width:600px; padding:25px; border-radius:10px; position:relative; }
+    .modal .modal-close { position:absolute; right:15px; top:10px; font-size:22px; cursor:pointer; }
+
+    /* Lightbox */
+    #lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:2000; }
+    #lightbox img { max-width:90%; max-height:90%; border-radius:8px; cursor:zoom-in; transition:transform 0.3s ease; }
+    #lightbox img.zoomed { transform:scale(1.8); cursor:zoom-out; }
+    #lightbox span { position:absolute; top:20px; right:30px; font-size:35px; color:white; cursor:pointer; }
+
+    footer { background-color: var(--primary-color); color:var(--text-color); text-align:center; padding:20px; margin-top:50px; border-radius:10px; }
+
+    @media (min-width:768px){
+      .sidebar { width:300px; padding-top:20px; }
+      #main { margin-left:300px; }
+      .openbtn { display:none; }
     }
-
-    .modal .modal-close {
-      position:absolute;
-      right:15px;
-      top:10px;
-      font-size:22px;
-      cursor:pointer;
-    }
-
-    /* ---------------- Lightbox ---------------- */
-    #lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    #lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
-      cursor: zoom-in;
-      transition: transform 0.3s ease;
-    }
-
-    #lightbox img.zoomed {
-      transform: scale(1.8);
-      cursor: zoom-out;
-    }
-
-    #lightbox span {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 35px;
-      color: white;
-      cursor: pointer;
-    }
-
-    /* ---------------- Footer ---------------- */
-    footer {
-      background-color: var(--primary-color);
-      color: var(--text-color);
-      text-align: center;
-      padding: 20px;
-      margin-top: 50px;
-      border-radius:10px;
-    }
-
-    /* ---------------- Responsive ---------------- */
-    @media (min-width: 768px) {
-  .sidebar { width: 300px; padding-top:20px; } /* 200 → 300px yaptık */
-  #main { margin-left: 300px; } /* #main sidebar genişliğine uyumlu olsun */
-  .openbtn { display:none; }
-      }
-
-    @media (max-width: 767px) {
+    @media (max-width:767px){
       .hero h2 { font-size:28px; }
       .hero p { font-size:16px; }
     }
   </style>
 </head>
-
 <body>
-  <!-- Sidebar Toggle -->
   <button class="openbtn" id="sidebarToggle">☰</button>
-
-  <!-- Sidebar -->
   <div id="mySidebar" class="sidebar">
     <a href="index.html">Anasayfa</a>
     <a href="about.html">Hakkımızda</a>
@@ -317,14 +189,10 @@
   </div>
   <div id="sidebarOverlay"></div>
 
-  <!-- Main Content -->
   <div id="main">
     <section class="hero">
       <h2>Bathonea Psikoloji Kulübü</h2>
-      <p>
-        Akademik üretim, düşünce ve tartışma alanı.   
-        Denemeler, etkinlikler, podcast ve daha fazlası burada.
-      </p>
+      <p>Akademik üretim, düşünce ve tartışma alanı. Denemeler, etkinlikler, podcast ve daha fazlası burada.</p>
     </section>
 
     <section class="home-announcements">
@@ -337,12 +205,8 @@
     </section>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    © 2026 Bathonea Psychology
-  </footer>
+  <footer>© 2026 Bathonea Psychology</footer>
 
-  <!-- Modal -->
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeModal()">✕</span>
@@ -350,94 +214,63 @@
     </div>
   </div>
 
-  <!-- Lightbox -->
   <div id="lightbox">
     <span id="closeLightbox">×</span>
     <img id="lightboxImg">
   </div>
 
-  <!-- ---------------- Scripts ---------------- -->
+  <script src="announcements.js"></script>
   <script>
     const sidebar = document.getElementById("mySidebar");
-consconst sidebar = document.getElementById("mySidebar");
-const toggleBtn = document.getElementById("sidebarToggle");
-const main = document.getElementById("main");
-const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const main = document.getElementById("main");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-// Sidebar toggle
-toggleBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  const isOpen = sidebar.classList.toggle("open");
-
-  if(window.innerWidth >= 768){
-    main.style.marginLeft = isOpen ? "300px" : "0";
-  }
-
-  if(window.innerWidth < 768){
-    sidebarOverlay.style.display = isOpen ? "block" : "none";
-  }
-});
-
-// Overlay tıklayınca sidebar kapansın
-sidebarOverlay.addEventListener("click", () => {
-  sidebar.classList.remove("open");
-  sidebarOverlay.style.display = "none";
-  if(window.innerWidth >= 768) main.style.marginLeft = "0";
-});
-
-// body click ile sidebar kapanma
-document.addEventListener("click", (e) => {
-  if (!sidebar.contains(e.target) && e.target !== toggleBtn) { 
-    sidebar.classList.remove("open");
-    sidebarOverlay.style.display = "none";
-    if(window.innerWidth >= 768) main.style.marginLeft = "0";
-  }
-});
-    
-  </script>
-
-  <script src="announcements.js"></script>
-
-  <script>
-    // ---------------- Home Announcements ----------------
-    function formatDate(d){ return new Date(d).toLocaleDateString('tr-TR'); }
-
-    const homeContainer = document.getElementById("homeAnnouncements");
-
-    const latestFour = [...announcements]
-      .sort((a,b)=> new Date(b.date) - new Date(a.date))
-      .slice(0,4);
-
-    latestFour.forEach(item=>{
-      if(!item.text) return;
-      homeContainer.innerHTML += `
-        <div class="announcement-slide">
-          <h4>${item.title}</h4>
-          <p>${formatDate(item.date)}</p>
-          <button class="more-btn" onclick="openModal(${item.id})">Devamını Oku</button>
-        </div>`;
+    toggleBtn.addEventListener("click", e=>{
+      e.stopPropagation();
+      const isOpen = sidebar.classList.toggle("open");
+      if(window.innerWidth >= 768){ main.style.marginLeft = isOpen ? "300px":"0"; }
+      if(window.innerWidth < 768){ sidebarOverlay.style.display = isOpen ? "block":"none"; }
+    });
+    sidebarOverlay.addEventListener("click", ()=>{
+      sidebar.classList.remove("open");
+      sidebarOverlay.style.display="none";
+      if(window.innerWidth>=768) main.style.marginLeft="0";
+    });
+    document.addEventListener("click", e=>{
+      if(!sidebar.contains(e.target) && e.target!==toggleBtn){
+        sidebar.classList.remove("open");
+        sidebarOverlay.style.display="none";
+        if(window.innerWidth>=768) main.style.marginLeft="0";
+      }
     });
 
-    homeContainer.style.display = "flex";
-
-    let currentIndex = 0;
+    // ---------------- Home Announcements ----------------
+    function formatDate(d){ return new Date(d).toLocaleDateString('tr-TR'); }
+    const homeContainer = document.getElementById("homeAnnouncements");
+    const latestFour = [...announcements].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,4);
+    latestFour.forEach(item=>{
+      if(!item.text) return;
+      homeContainer.innerHTML += `<div class="announcement-slide">
+        <h4>${item.title}</h4>
+        <p>${formatDate(item.date)}</p>
+        <button class="more-btn" onclick="openModal(${item.id})">Devamını Oku</button>
+      </div>`;
+    });
+    homeContainer.style.display="flex";
+    let currentIndex=0;
     const totalSlides = document.querySelectorAll(".announcement-slide").length;
     let autoSlide = null;
-    if(totalSlides > 1){ autoSlide = setInterval(()=>moveSlide(1), 4000); }
-
+    if(totalSlides>1) autoSlide = setInterval(()=>moveSlide(1),4000);
     function moveSlide(step){
-  if(totalSlides === 0) return;
-  clearInterval(autoSlide);
-  currentIndex += step;
-
-  // sınır kontrolü
-  if(currentIndex >= totalSlides) currentIndex = 0; // en son slide’dan sonra başa dön
-  if(currentIndex < 0) currentIndex = totalSlides - 1; // en baştan geri gelme
-
-  homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-  if(totalSlides > 1){ autoSlide = setInterval(()=>moveSlide(1), 4000); }
-}
+      if(totalSlides===0) return;
+      clearInterval(autoSlide);
+      currentIndex += step;
+      if(currentIndex>=totalSlides) currentIndex=0;
+      if(currentIndex<0) currentIndex=totalSlides-1;
+      homeContainer.style.transform=`translateX(-${currentIndex*100}%)`;
+      if(totalSlides>1) autoSlide=setInterval(()=>moveSlide(1),4000);
+    }
 
     // ---------------- Modal & Lightbox ----------------
     const modal = document.getElementById("modal");
@@ -447,73 +280,48 @@ document.addEventListener("click", (e) => {
     const closeBtn = document.getElementById("closeLightbox");
 
     function openModal(id){
-      const data = announcements.find(a => a.id === id);
-      if(!data || !data.text) return;
-
-      let imagesHtml = "";
+      const data = announcements.find(a=>a.id===id);
+      if(!data||!data.text) return;
+      let imagesHtml="";
       if(Array.isArray(data.img)){
-        imagesHtml = data.img.map(src => `<img src="${src}" style="width:100%; margin-top:10px; border-radius:6px;">`).join("");
+        imagesHtml=data.img.map(src=>`<img src="${src}" style="width:100%; margin-top:10px; border-radius:6px;">`).join("");
       } else if(data.img){
-        imagesHtml = `<img src="${data.img}" style="width:100%; margin-top:10px; border-radius:6px;">`;
+        imagesHtml=`<img src="${data.img}" style="width:100%; margin-top:10px; border-radius:6px;">`;
       }
-
-      modalBody.innerHTML = `
-        <h2>${data.title}</h2>
-        <p><strong>${formatDate(data.date)}</strong></p>
-        <p>${data.text}</p>
-        ${imagesHtml}
-      `;
-      modal.style.display = "flex";
+      modalBody.innerHTML=`<h2>${data.title}</h2>
+      <p><strong>${formatDate(data.date)}</strong></p>
+      <p>${data.text}</p>${imagesHtml}`;
+      modal.style.display="flex";
     }
 
     function closeModal(){
-      modal.style.display = "none";
-      lightbox.style.display = "none";
+      modal.style.display="none";
+      lightbox.style.display="none";
       lightboxImg.classList.remove("zoomed");
     }
 
-    modal.addEventListener("click", e=>{
-      if(e.target === modal) closeModal();
-    });
+    modal.addEventListener("click", e=>{ if(e.target===modal) closeModal(); });
 
     document.addEventListener("click", function(e){
-      if(e.target.tagName === "IMG" && e.target.closest(".modal-content")){
-        lightbox.style.display = "flex";
-        lightboxImg.src = e.target.src;
+      if(e.target.tagName==="IMG" && e.target.closest(".modal-content")){
+        lightbox.style.display="flex";
+        lightboxImg.src=e.target.src;
       }
     });
 
-    closeBtn.onclick = function(){
-      lightbox.style.display = "none";
-      lightboxImg.classList.remove("zoomed");
-    }
+    closeBtn.onclick = ()=>{ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); };
+    lightbox.onclick = e=>{ if(e.target===lightbox){ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); } };
+    lightboxImg.onclick = e=>{ e.stopPropagation(); lightboxImg.classList.toggle("zoomed"); };
 
-    lightbox.onclick = function(e){
-      if(e.target === lightbox){
-        lightbox.style.display = "none";
-        lightboxImg.classList.remove("zoomed");
-      }
-    }
-
-    lightboxImg.onclick = function(e){
-      e.stopPropagation();
-      lightboxImg.classList.toggle("zoomed");
-    }
-  </script>
-
-  <!-- ---------------- Page Transition ---------------- -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.body.classList.add("loaded");
-    });
-
-    document.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", e => {
-        if (link.target !== "_blank" && link.href.indexOf(location.origin) === 0) {
+    // ---------------- Page Transition ----------------
+    document.addEventListener("DOMContentLoaded", ()=>{ document.body.classList.add("loaded"); });
+    document.querySelectorAll("a").forEach(link=>{
+      link.addEventListener("click", e=>{
+        if(link.target!=="_blank" && link.href.indexOf(location.origin)===0){
           e.preventDefault();
-          const href = link.href;
+          const href=link.href;
           document.body.classList.remove("loaded");
-          setTimeout(() => { window.location = href; }, 400);
+          setTimeout(()=>{ window.location=href; },400);
         }
       });
     });
