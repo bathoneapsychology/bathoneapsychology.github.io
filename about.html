@@ -7,6 +7,7 @@
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Thai&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -29,13 +30,13 @@
     /* ---------------- Sidebar ---------------- */
     .sidebar {
       height: 100%;
-      width: 200px;
+      width: 200px; /* mobile default */
       position: fixed;
       z-index: 100;
       top: 0;
       left: 0;
       background-color: #000000;
-      transform: translateX(-100%);
+      transform: translateX(-100%); /* başlangıçta gizli */
       overflow-x: hidden;
       transition: transform 0.45s cubic-bezier(.4,0,.2,1);
       padding-top: 60px;
@@ -100,14 +101,17 @@
       border-radius:10px;
     }
 
+    /* Desktop >768px */
     @media (min-width: 768px) {
-      .sidebar { width:200px; padding-top:20px; }
-      #main { margin-left:200px; }
-      .openbtn { display:none; }
+      .sidebar { width:300px; padding-top:20px; } /* desktop genişliği */
+      #main { margin-left:0; } /* başlangıçta kapalı */
+      .openbtn { display:block; } /* hamburger görünsün */
     }
 
+    /* Mobile <768px */
     @media (max-width: 767px) {
       #main { margin-left:0; padding:15px; }
+      .openbtn { display:block; } /* hamburger her zaman görünür */
     }
   </style>
 </head>
@@ -174,13 +178,14 @@
       e.stopPropagation();
       const isOpen = sidebar.classList.toggle("open");
 
-      if(window.innerWidth >= 768){
-        main.style.marginLeft = isOpen ? "300px" : "0";
-      }
+      const sidebarWidth = window.innerWidth >= 768 ? "300px" : "200px";
 
-      if(window.innerWidth < 768){
-  sidebarOverlay.style.display = isOpen ? "block" : "none";
-}
+      if(window.innerWidth >= 768){
+        main.style.marginLeft = isOpen ? sidebarWidth : "0";
+      } else {
+        sidebarOverlay.style.display = isOpen ? "block" : "none";
+      }
+    });
 
     sidebarOverlay.addEventListener("click", () => {
       sidebar.classList.remove("open");
