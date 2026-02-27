@@ -2,12 +2,16 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Bathonea Sohbetleri - Bathonea Psikoloji</title>
+  <title>Bathonea Sohbetleri - Bathonea Psychology</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary-color: #0b1c3d;
-      --accent-color: #8154ff;
+      --primary-color: #4b5f43;
+      --accent-color: #948367;
       --text-color: white;
       --bg-color: white;
     }
@@ -15,23 +19,30 @@
     body {
       margin:0;
       font-family: Arial, sans-serif;
-      background: #ffffff !important;
+      background: var(--bg-color) !important;
       color: black;
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
+    body.loaded { opacity: 1; }
 
-    /* Sidebar nav */
+    /* Sidebar */
     .sidebar {
       height: 100%;
-      width: 0;
+      width: 200px;
       position: fixed;
       z-index: 100;
       top: 0;
       left: 0;
-      background-color: var(--primary-color);
+      background-color: #000000;
+      transform: translateX(-100%);
       overflow-x: hidden;
-      transition: 0.3s;
+      transition: transform 0.45s cubic-bezier(.4,0,.2,1);
       padding-top: 60px;
+      border-top-right-radius: 18px;
+      border-bottom-right-radius: 18px;
     }
+    .sidebar.open { transform: translateX(0); }
 
     .sidebar a {
       padding: 10px 20px;
@@ -41,43 +52,34 @@
       display: block;
       transition: 0.2s;
     }
-
     .sidebar a:hover {
       background-color: var(--accent-color);
       color: black;
     }
 
-    .sidebar .closebtn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 30px;
-    }
-
-    /* Hamburger button */
     .openbtn {
       font-size: 20px;
       cursor: pointer;
-      background-color: var(--primary-color);
+      background-color: #000000;
       color: var(--text-color);
       padding: 10px 15px;
       border: none;
-      border-radius:4px;
+      border-radius:12px;
       position: fixed;
       top:15px;
       left:15px;
       z-index:101;
     }
 
-    /* Main content */
     #main {
-      transition: margin-left 0.3s;
+      transition: margin-left 0.45s cubic-bezier(.4,0,.2,1);
       padding: 20px;
-      margin-left:0;
       max-width: 900px;
-      margin-left:auto;
-      margin-right:auto;
+      margin: 0 auto;
+      margin-left:0;
     }
+
+    h2 { color: var(--primary-color); margin-top: 30px; }
 
     .podcast {
       border: 1px solid var(--primary-color);
@@ -114,72 +116,97 @@
     @media (max-width: 767px) {
       #main { margin-left:0; padding:15px; }
     }
+
   </style>
 </head>
 <body>
 
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="index.html">Anasayfa</a>
-  <a href="about.html">Hakkımızda</a>
-  <a href="duyurular.html">Duyurular</a>
-  <a href="essays.html">Deneme yazıları</a>
-  <a href="podcast.html">Bathonea Sohbetleri</a>
-</div>
+  <button class="openbtn" id="sidebarToggle">☰</button>
 
-<button class="openbtn" onclick="openNav()">☰</button>
+  <div id="mySidebar" class="sidebar">
+    <a href="index.html">Anasayfa</a>
+    <a href="about.html">Hakkımızda</a>
+    <a href="duyurular.html">Duyurular</a>
+    <a href="essays.html">Deneme Yazıları</a>
+    <a href="podcast.html">Bathonea Sohbetleri</a>
+  </div>
 
-<div id="main">
-  <h2>Podcastler</h2>
-  <div id="podcast-list"></div>
-</div>
+  <div id="main">
+    <h2>Podcastler</h2>
+    <div id="podcast-list"></div>
+  </div>
 
-<footer>
-  © 2026 Bathonea Psychology
-</footer>
+  <footer>
+    © 2026 Bathonea Psychology
+  </footer>
 
-<script>
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "200px";
-    if(window.innerWidth < 768){
-      document.getElementById("main").style.marginLeft = "0";
-    } else {
-      document.getElementById("main").style.marginLeft = "200px";
+  <script>
+    const sidebar = document.getElementById("mySidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const main = document.getElementById("main");
+
+    // Sidebar toggle
+    toggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle("open");
+      if(window.innerWidth >= 768){
+        main.style.marginLeft = sidebar.classList.contains("open") ? "200px" : "0";
+      }
+    });
+
+    function closeSidebar(){
+      sidebar.classList.remove("open");
+      main.style.marginLeft = "0";
     }
-  }
 
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-  }
+    document.addEventListener("click", (e) => {
+      if(!sidebar.contains(e.target) && e.target !== toggleBtn) closeSidebar();
+    });
 
-  // Podcast listesi
-  const podcasts = [
-    {
-      title: "Test Dinletisi",
-      link: "https://bathoneapsychology.github.io/podcastseyleri/testdinletisifnf.m4a"
-    }
-  ];
+    // Fade in on load
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("loaded");
+    });
 
-  const listDiv = document.getElementById("podcast-list");
+    // Smooth fade out on internal link click
+    document.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", e => {
+        if(link.target !== "_blank" && link.href.indexOf(location.origin) === 0){
+          e.preventDefault();
+          const href = link.href;
+          document.body.classList.remove("loaded");
+          setTimeout(()=>{ window.location = href; }, 400);
+        }
+      });
+    });
 
-  podcasts.forEach(p => {
-    const container = document.createElement("div");
-    container.className = "podcast";
+    // Podcast listesi
+    const podcasts = [
+      {
+        title: "Test Dinletisi",
+        link: "https://bathoneapsychology.github.io/podcastseyleri/testdinletisifnf.m4a"
+      }
+    ];
 
-    const link = document.createElement("a");
-    link.href = p.link;
-    link.textContent = p.title;
-    container.appendChild(link);
+    const listDiv = document.getElementById("podcast-list");
 
-    const audio = document.createElement("audio");
-    audio.controls = true;
-    audio.src = p.link;
-    container.appendChild(audio);
+    podcasts.forEach(p => {
+      const container = document.createElement("div");
+      container.className = "podcast";
 
-    listDiv.appendChild(container);
-  });
-</script>
+      const link = document.createElement("a");
+      link.href = p.link;
+      link.textContent = p.title;
+      container.appendChild(link);
+
+      const audio = document.createElement("audio");
+      audio.controls = true;
+      audio.src = p.link;
+      container.appendChild(audio);
+
+      listDiv.appendChild(container);
+    });
+  </script>
 
 </body>
 </html>
