@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+ <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Bathonea Psychology</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
-  <style>
-    
-    :root {
+
+    <style>
+      body {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+      body.loaded {
+      opacity: 1; 
+    }
+ 
+      :root {
       --primary-color: #4b5f43;
       --accent-color: #948367;
       --text-color: white;
@@ -469,4 +477,21 @@ lightboxImg.onclick = function(e){
 </script>
 
 </body>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("loaded");
+});
+
+document.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", e => {
+    // Eğer link dış siteye gitmiyorsa
+    if (link.target !== "_blank" && link.href.indexOf(location.origin) === 0) {
+      e.preventDefault();
+      const href = link.href;
+      document.body.classList.remove("loaded");
+      setTimeout(() => { window.location = href; }, 400); // fade out süresi ile eşleşmeli
+    }
+  });
+});
+  </script>
 </html>
