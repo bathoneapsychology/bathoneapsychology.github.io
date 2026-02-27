@@ -20,23 +20,23 @@
     body {
       margin:0;
       font-family: "Playpen Sans Thai", sans-serif;
-      background: var(--bg-color) !important;
+      background: var(--bg-color);
       color: black;
       opacity: 0;
       transition: opacity 0.4s ease;
     }
     body.loaded { opacity: 1; }
 
-    /* ---------------- Sidebar ---------------- */
+    /* Sidebar */
     .sidebar {
       height: 100%;
-      width: 200px; /* mobile default */
+      width: 200px;
       position: fixed;
       z-index: 100;
       top: 0;
       left: 0;
-      background-color: #000000;
-      transform: translateX(-100%); /* başlangıçta gizli */
+      background-color: #000;
+      transform: translateX(-100%);
       overflow-x: hidden;
       transition: transform 0.45s cubic-bezier(.4,0,.2,1);
       padding-top: 60px;
@@ -44,19 +44,15 @@
       border-bottom-right-radius: 18px;
     }
     .sidebar.open { transform: translateX(0); }
-
     .sidebar a {
+      display: block;
       padding: 10px 20px;
-      text-decoration: none;
       font-size: 18px;
       color: var(--text-color);
-      display: block;
+      text-decoration: none;
       transition: 0.2s;
     }
-    .sidebar a:hover {
-      background-color: var(--accent-color);
-      color: black;
-    }
+    .sidebar a:hover { background-color: var(--accent-color); color:black; }
 
     /* Overlay */
     #sidebarOverlay {
@@ -70,7 +66,7 @@
     .openbtn {
       font-size: 20px;
       cursor: pointer;
-      background-color: #000000;
+      background-color: #000;
       color: var(--text-color);
       padding: 10px 15px;
       border: none;
@@ -86,7 +82,6 @@
       padding: 20px;
       max-width: 900px;
       margin: 0 auto;
-      margin-left:0;
     }
 
     h2 { color: var(--primary-color); margin-top: 30px; }
@@ -102,16 +97,16 @@
     }
 
     /* Desktop >768px */
-    @media (min-width: 768px) {
-      .sidebar { width:300px; padding-top:20px; } /* desktop genişliği */
-      #main { margin-left:0; } /* başlangıçta kapalı */
-      .openbtn { display:block; } /* hamburger görünsün */
+    @media (min-width: 768px){
+      .sidebar { width:300px; padding-top:20px; }
+      #main { margin-left:0; } 
+      .openbtn { display:block; } 
     }
 
     /* Mobile <768px */
-    @media (max-width: 767px) {
+    @media (max-width: 767px){
       #main { margin-left:0; padding:15px; }
-      .openbtn { display:block; } /* hamburger her zaman görünür */
+      .openbtn { display:block; }
     }
   </style>
 </head>
@@ -164,9 +159,7 @@
     </section>
   </div>
 
-  <footer>
-    © 2026 Bathonea Psychology
-  </footer>
+  <footer>© 2026 Bathonea Psychology</footer>
 
   <script>
     const sidebar = document.getElementById("mySidebar");
@@ -174,11 +167,10 @@
     const main = document.getElementById("main");
     const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-    toggleBtn.addEventListener("click", (e) => {
+    toggleBtn.addEventListener("click", e=>{
       e.stopPropagation();
       const isOpen = sidebar.classList.toggle("open");
-
-      const sidebarWidth = window.innerWidth >= 768 ? "300px" : "200px";
+      const sidebarWidth = window.innerWidth >= 768 ? "300px":"200px";
 
       if(window.innerWidth >= 768){
         main.style.marginLeft = isOpen ? sidebarWidth : "0";
@@ -187,31 +179,31 @@
       }
     });
 
-    sidebarOverlay.addEventListener("click", () => {
+    sidebarOverlay.addEventListener("click", ()=>{
       sidebar.classList.remove("open");
       sidebarOverlay.style.display = "none";
-      if(window.innerWidth >= 768) main.style.marginLeft = "0";
+      if(window.innerWidth>=768) main.style.marginLeft="0";
     });
 
-    document.addEventListener("click", (e) => {
-      if(!sidebar.contains(e.target) && e.target !== toggleBtn){
+    document.addEventListener("click", e=>{
+      if(!sidebar.contains(e.target) && e.target!==toggleBtn){
         sidebar.classList.remove("open");
-        sidebarOverlay.style.display = "none";
-        if(window.innerWidth >= 768) main.style.marginLeft = "0";
+        sidebarOverlay.style.display="none";
+        if(window.innerWidth>=768) main.style.marginLeft="0";
       }
     });
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", ()=>{
       document.body.classList.add("loaded");
     });
 
-    document.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", e => {
-        if(link.target !== "_blank" && link.href.indexOf(location.origin) === 0){
+    document.querySelectorAll("a").forEach(link=>{
+      link.addEventListener("click", e=>{
+        if(link.target!=="_blank" && link.href.indexOf(location.origin)===0){
           e.preventDefault();
-          const href = link.href;
+          const href=link.href;
           document.body.classList.remove("loaded");
-          setTimeout(()=>{ window.location = href; }, 400);
+          setTimeout(()=>{ window.location=href; },400);
         }
       });
     });
