@@ -157,8 +157,9 @@
         main.style.marginLeft = isOpen ? "200px" : "0";
       }
 
-      sidebarOverlay.style.display = isOpen ? "block" : "none";
-    });
+      if(window.innerWidth < 768){
+  sidebarOverlay.style.display = isOpen ? "block" : "none";
+}
 
     // Overlay click to close
     sidebarOverlay.addEventListener("click", () => {
