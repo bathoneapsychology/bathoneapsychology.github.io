@@ -19,7 +19,7 @@
     body {
       margin:0;
       font-family: 'Playpen Sans Thai', sans-serif;
-      background: var(--bg-color) !important;
+      background: var(--bg-color);
       color: black;
       opacity: 0;
       transition: opacity 0.4s ease;
@@ -34,7 +34,7 @@
       z-index: 100;
       top: 0;
       left: 0;
-      background-color: #000000;
+      background-color: #000;
       transform: translateX(-100%);
       overflow-x: hidden;
       transition: transform 0.45s cubic-bezier(.4,0,.2,1);
@@ -45,14 +45,14 @@
     .sidebar.open { transform: translateX(0); }
 
     .sidebar a {
+      display: block;
       padding: 10px 20px;
-      text-decoration: none;
       font-size: 18px;
       color: var(--text-color);
-      display: block;
+      text-decoration: none;
       transition: 0.2s;
     }
-    .sidebar a:hover { background-color: var(--accent-color); color: black; }
+    .sidebar a:hover { background-color: var(--accent-color); color:black; }
 
     /* Overlay */
     #sidebarOverlay {
@@ -66,7 +66,7 @@
     .openbtn {
       font-size: 20px;
       cursor: pointer;
-      background-color: #000000;
+      background-color: #000;
       color: var(--text-color);
       padding: 10px 15px;
       border: none;
@@ -152,28 +152,24 @@
     toggleBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       const isOpen = sidebar.classList.toggle("open");
-
       if(window.innerWidth >= 768){
         main.style.marginLeft = isOpen ? "200px" : "0";
+      } else {
+        sidebarOverlay.style.display = isOpen ? "block" : "none";
       }
-
-      if(window.innerWidth < 768){
-  sidebarOverlay.style.display = isOpen ? "block" : "none";
-}
+    });
 
     // Overlay click to close
     sidebarOverlay.addEventListener("click", () => {
       sidebar.classList.remove("open");
       sidebarOverlay.style.display = "none";
-      if(window.innerWidth >= 768) main.style.marginLeft = "0";
     });
 
-    // Click outside sidebar to close
+    // Click outside sidebar to close (mobil)
     document.addEventListener("click", (e) => {
       if(!sidebar.contains(e.target) && e.target !== toggleBtn){
         sidebar.classList.remove("open");
         sidebarOverlay.style.display = "none";
-        if(window.innerWidth >= 768) main.style.marginLeft = "0";
       }
     });
 
