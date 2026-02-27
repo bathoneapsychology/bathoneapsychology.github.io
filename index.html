@@ -1,33 +1,26 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
- <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
- <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playpen+Sans+Thai:wght@100..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Bathonea Psychology</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-      body {
+  <style>
+    body {
       opacity: 0;
       transition: opacity 0.4s ease;
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: #ffffff !important;
+      color: black;
     }
-      body.loaded {
-      opacity: 1; 
-    }
- 
-      :root {
+    body.loaded { opacity:1; }
+
+    :root {
       --primary-color: #4b5f43;
       --accent-color: #948367;
       --text-color: white;
       --bg-color: white;
-  }
-    
-    body {
-      margin:0;
-      font-family: 'Playpen Sans Thai', sans-serif;
-      background: #ffffff !important;
-      color: black;
     }
 
     .sidebar {
@@ -38,18 +31,15 @@
       top: 0;
       left: 0;
       background-color: #000000;
-      transform: translateX(-100%);  
-      overflow-x: hidden;  
-      transition: transform 0.45s cubic-bezier(.4,0,.2,1);  
-      padding-top: 60px;  
-      border-top-right-radius: 18px;  
-      border-bottom-right-radius: 18px;  
+      transform: translateX(-100%);
+      overflow-x: hidden;
+      transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+      padding-top: 60px;
+      border-top-right-radius: 18px;
+      border-bottom-right-radius: 18px;
     }
+    .sidebar.open { transform: translateX(0); }
 
-    .sidebar.open {  
-      transform: translateX(0);  
-   }  
-    
     .sidebar a {
       padding: 10px 20px;
       text-decoration: none;
@@ -58,11 +48,7 @@
       display: block;
       transition: 0.2s;
     }
-
-    .sidebar a:hover {
-      background-color: #948367;
-      color: black;
-    }
+    .sidebar a:hover { background-color:#948367; color:black; }
 
     .openbtn {
       font-size: 20px;
@@ -81,469 +67,255 @@
     #main {
       transition: margin-left 0.45s cubic-bezier(.4,0,.2,1);
       padding: 20px;
-      margin-left:200px;
+      margin-left:0;
       max-width: 1200px;
-      margin-right: auto;
+      margin: 0 auto;
     }
 
     .hero {
       position: relative;
       text-align: center;
+      padding: 100px 20px;
       background-color: var(--primary-color);
       color: var(--text-color);
-      border-radius: 10px;
-      margin-bottom: 30px;
-      overflow: hidden;
-
-  /* Image */
-      background-image: url("images/heroarkaplan.jpg");
-      background-size: cover;      /* tüm alanı kaplasın */
-      background-position: center; /* ortala */
+      border-radius:10px;
+      margin-bottom:30px;
+      background-image:url("images/heroarkaplan.jpg");
+      background-size: cover;
+      background-position: center;
       background-repeat: no-repeat;
-
-  /* Desktop için padding */
-      padding: 100px 20px;
       border: 3px solid var(--primary-color);
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      overflow: hidden;
     }
 
-/* overlay */
-      .hero::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
+    .hero::before {
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0; width:100%; height:100%;
+      border-radius:10px;
       background: rgba(0,0,0,0.36);
-      z-index: 0;
-   }
-
-/* Text */
-      .hero h2 {
-       font-family: 'Dancing Script', cursive;
-       font-weight: 700;
-       font-size: 56px;
-       color: var(--text-color);
-       -webkit-text-stroke: 0.6px white;
-       position: relative;
-       z-index: 1;
-       margin: 0;
-   }
-
-       .hero p {
-       font-size: 18px;
-       max-width: 600px;
-       margin: 10px auto 0 auto;
-       position: relative;
-       z-index: 1;
-   }
-
-     
-/* Mobile adjustments */
-@media (max-width: 767px) {
-  .hero {
-    padding: 60px 15px; /* daha kompakt */
-    border: 2px solid var(--primary-color);
-    border-radius: 8px;
-  }
-
-  .hero h2 {
-    font-size: 28px;
-    -webkit-text-stroke: 0.3px white; /* stroke mobilde hafif */
-  }
-
-  .hero p {
-    font-size: 16px;
-    max-width: 90%; /* yanlardan taşma olmasın */
-  }
-}
-    .home-announcements{
-      margin-top:40px;
+      z-index:0;
     }
 
-    .home-announcements h2{
-      text-align:center;
-      margin-bottom:20px;
-      color:var(--primary-color);
+    .hero h2 {
+      font-family: 'Dancing Script', cursive;
+      font-weight:700;
+      font-size:56px;
+      color: var(--text-color);
+      -webkit-text-stroke: 0.6px white;
+      position:relative;
+      z-index:1;
     }
 
-    .announcement-slider{
-      overflow:hidden;
-      max-width:800px;
+    .hero p {
+      font-size:18px;
+      max-width:600px;
       margin:0 auto;
       position:relative;
+      z-index:1;
     }
 
-    .announcement-wrapper{
-      display: none; /* başta gizli */
-      transition: transform .6s ease;
-    }
+    .home-announcements{ margin-top:40px; }
+    .home-announcements h2{ text-align:center; margin-bottom:20px; color:var(--primary-color); }
+    .announcement-slider{ overflow:hidden; max-width:800px; margin:0 auto; position:relative; }
+    .announcement-wrapper{ display:none; transition: transform .6s ease; }
+    .announcement-slide{ flex:0 0 100%; box-sizing:border-box; background: var(--primary-color); color:white; padding:30px; border-radius:10px; text-align:center; display:flex; flex-direction:column; gap:10px; }
+    .announcement-slide button.more-btn{ margin-top:auto; padding:8px 15px; border:none; border-radius:6px; background:#000; color:white; cursor:pointer; transition:.2s; }
+    .announcement-slide button.more-btn:hover{ background:#7d6f55; }
+    .slider-btn{ position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.6); color:white; border:none; font-size:22px; padding:8px 12px; cursor:pointer; border-radius:50%; z-index:5; }
+    .slider-btn.prev{ left:10px; } .slider-btn.next{ right:10px; }
 
-    .announcement-slide{
-      flex: 0 0 100%;
-      box-sizing: border-box;
-      background: var(--primary-color);
-      color: white;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    footer{ background-color:var(--primary-color); color:var(--text-color); text-align:center; padding:20px; margin-top:50px; border-radius:10px; }
 
-    .announcement-slide button.more-btn{
-      margin-top:auto;
-      padding:8px 15px;
-      border:none;
-      border-radius:6px;
-      background:#000000;
-      color:white;
-      cursor:pointer;
-      transition:.2s;
-    }
-
-    .announcement-slide button.more-btn:hover{
-      background:#000000;
-    }
-
-    .slider-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.6);
-      color: white;
-      border: none;
-      font-size: 22px;
-      padding: 8px 12px;
-      cursor: pointer;
-      border-radius: 50%;
-      z-index: 5;
-    }
-
-    .slider-btn.prev { left: 10px; }
-    .slider-btn.next { right: 10px; }
-
+    /* Modal & Lightbox */
     .modal{
-      display:none;
-      position:fixed;
-      top:0; left:0;
-      width:100%;
-      height:100%;
-      background:rgba(0,0,0,.6);
-      justify-content:center;
-      align-items:center;
-      z-index:1000;
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,.6); justify-content:center; align-items:center; z-index:1000;
     }
-
     .modal-content{
-      background:white;
-      width:90%;
-      max-width:600px;
-      padding:25px;
-      border-radius:10px;
-      position:relative;
+      background:white; width:90%; max-width:600px; padding:25px; border-radius:10px; position:relative;
     }
-
     .modal .modal-close{
-      position:absolute;
-      right:15px;
-      top:10px;
-      font-size:22px;
-      cursor:pointer;
+      position:absolute; right:15px; top:10px; font-size:22px; cursor:pointer;
+    }
+    #lightbox{
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:2000;
+    }
+    #lightbox img{ max-width:90%; max-height:90%; border-radius:8px; cursor:zoom-in; transition: transform 0.3s ease; }
+    #lightbox img.zoomed{ transform: scale(1.8); cursor:zoom-out; }
+    #lightbox span{ position:absolute; top:20px; right:30px; font-size:35px; color:white; cursor:pointer; }
+
+    @media (min-width: 768px){
+      .sidebar{ width:200px; padding-top:20px; }
+      #main{ margin-left:200px; }
+      .openbtn{ display:none; }
     }
 
-    footer {
-      background-color: var(--primary-color);
-      color: var(--text-color);
-      text-align: center;
-      padding: 20px;
-      margin-top: 50px;
-      border-radius:10px;
-    }
-
-    /* Lightbox for modal images */
-    #lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    #lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
-      cursor: zoom-in;
-      transition: transform 0.3s ease;
-    }
-
-    #lightbox img.zoomed {
-      transform: scale(1.8);
-      cursor: zoom-out;
-    }
-
-    #lightbox span {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 35px;
-      color: white;
-      cursor: pointer;
-    }
-
-    @media (min-width: 768px) {
-  .sidebar {
-    width: 260px; /* daha geniş */
-    padding-top: 20px;
-  }
-
-  #main {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-  #main {
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  .openbtn {
-    display:block;
-  }
-    }
-
-    @media (max-width: 767px) {
-      .hero h2 { font-size:28px; }
-      .hero p { font-size:16px; }
+    @media (max-width: 767px){
+      .hero h2 { font-size:28px; -webkit-text-stroke:0.4px white; }
+      .hero p { font-size:16px; max-width:95%; }
     }
   </style>
 </head>
 <body>
+  <button class="openbtn" id="sidebarToggle">☰</button>
 
-<button class="openbtn" id="sidebarToggle">☰</button>
-
-<div id="mySidebar" class="sidebar">
-  <a href="index.html">Anasayfa</a>
-  <a href="about.html">Hakkımızda</a>
-  <a href="duyurular.html">Duyurular</a>
-  <a href="essays.html">Deneme Yazıları</a>
-  <a href="podcast.html">Bathonea Sohbetleri</a>
-</div>
-
-<div id="main">
-  <section class="hero">
-    <h2>Bathonea Psikoloji Kulübü</h2>
-    <p>
-      Akademik üretim, düşünce ve tartışma alanı. 
-      Denemeler, etkinlikler, podcast ve daha fazlası burada.
-    </p>
-  </section>
-
-  <section class="home-announcements">
-    <h2>Son Gelişmeler</h2>
-    <div class="announcement-slider">
-      <button class="slider-btn prev" onclick="moveSlide(-1)">❮</button>
-      <div class="announcement-wrapper" id="homeAnnouncements"></div>
-      <button class="slider-btn next" onclick="moveSlide(1)">❯</button>
-    </div>
-  </section>
-</div>
-
-<footer>
-  © 2026 Bathonea Psychology
-</footer>
-
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeModal()">✕</span>
-    <div id="modalBody"></div>
+  <div id="mySidebar" class="sidebar">
+    <a href="index.html">Anasayfa</a>
+    <a href="about.html">Hakkımızda</a>
+    <a href="duyurular.html">Duyurular</a>
+    <a href="essays.html">Deneme Yazıları</a>
+    <a href="podcast.html">Bathonea Sohbetleri</a>
   </div>
-</div>
 
-<div id="lightbox">
-  <span id="closeLightbox">×</span>
-  <img id="lightboxImg">
-</div>
+  <div id="main">
+    <section class="hero">
+      <h2>Bathonea Psikoloji Kulübü</h2>
+      <p>Akademik üretim, düşünce ve tartışma alanı. Denemeler, etkinlikler, podcast ve daha fazlası burada.</p>
+    </section>
 
-<script>
-const sidebar = document.getElementById("mySidebar");
-const toggleBtn = document.getElementById("sidebarToggle");
-const sidebar = document.getElementById("mySidebar");
-const toggleBtn = document.getElementById("sidebarToggle");
-const main = document.getElementById("main");
+    <section class="home-announcements">
+      <h2>Son Gelişmeler</h2>
+      <div class="announcement-slider">
+        <button class="slider-btn prev" onclick="moveSlide(-1)">❮</button>
+        <div class="announcement-wrapper" id="homeAnnouncements"></div>
+        <button class="slider-btn next" onclick="moveSlide(1)">❯</button>
+      </div>
+    </section>
+  </div>
 
-toggleBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  sidebar.classList.toggle("open");
-});
+  <footer>© 2026 Bathonea Psychology</footer>
 
-// Sidebar dışına tıklayınca kapanması
-document.addEventListener("click", (e) => {
-  if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
-    sidebar.classList.remove("open");
-  }
-});
-
-// Sidebar dışına tıklayınca kapanması
-document.addEventListener("click", (e) => {
-  if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
-    sidebar.classList.remove("open");
-  }
-});
-
-function openSidebar() {
-  sidebar.classList.add("open");
-  if(window.innerWidth >= 768){
-    main.style.marginLeft = "200px";
-  }
-}
-
-function closeSidebar() {
-  sidebar.classList.remove("open");
-  main.style.marginLeft = "0";
-  }
-
-// Sidebar dışına tıklayınca kapanması
-document.addEventListener("click", (e) => {
-  if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
-    closeSidebar();
-  }
-});
-</script>
-
-<script src="announcements.js"></script>
-<script>
-function formatDate(d){ return new Date(d).toLocaleDateString('tr-TR'); }
-
-const homeContainer = document.getElementById("homeAnnouncements");
-
-const latestFour = [...announcements]
-  .sort((a,b)=> new Date(b.date) - new Date(a.date))
-  .slice(0,4);
-
-latestFour.forEach(item=>{
-  if(!item.text) return;
-  homeContainer.innerHTML += `
-    <div class="announcement-slide">
-      <h4>${item.title}</h4>
-      <p>${formatDate(item.date)}</p>
-      <button class="more-btn" onclick="openModal(${item.id})">Devamını Oku</button>
-    </div>`;
-});
-
-// Slider doldurulduktan sonra göster
-homeContainer.style.display = "flex";
-
-let currentIndex = 0;
-const totalSlides = document.querySelectorAll(".announcement-slide").length;
-let autoSlide = null;
-if(totalSlides > 1){
-  autoSlide = setInterval(()=>moveSlide(1), 4000);
-}
-
-function moveSlide(step){
-  if(totalSlides === 0) return;
-
-  clearInterval(autoSlide);
-  currentIndex = (currentIndex + step + totalSlides) % totalSlides;
-  homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-  if(totalSlides > 1){
-    autoSlide = setInterval(()=>moveSlide(1), 4000);
-  }
-}
-
-// Modal logic
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modalBody");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
-const closeBtn = document.getElementById("closeLightbox");
-
-function openModal(id){
-  const data = announcements.find(a => a.id === id);
-  if(!data || !data.text) return;
-
-  let imagesHtml = "";
-
-  if(Array.isArray(data.img)){
-    imagesHtml = data.img.map(src => `
-      <img src="${src}" style="width:100%; margin-top:10px; border-radius:6px;">
-    `).join("");
-  } else if(data.img){
-    imagesHtml = `
-      <img src="${data.img}" style="width:100%; margin-top:10px; border-radius:6px;">
-    `;
-  }
-
-  modalBody.innerHTML = `
-    <h2>${data.title}</h2>
-    <p><strong>${formatDate(data.date)}</strong></p>
-    <p>${data.text}</p>
-    ${imagesHtml}
-  `;
-
-  modal.style.display = "flex";
-}
-
-function closeModal(){
-  modal.style.display = "none";
-  lightbox.style.display = "none";
-  lightboxImg.classList.remove("zoomed");
-}
-
-modal.addEventListener("click", e=>{
-  if(e.target === modal) closeModal();
-});
-
-document.addEventListener("click", function(e){
-  if(e.target.tagName === "IMG" && e.target.closest(".modal-content")){
-    lightbox.style.display = "flex";
-    lightboxImg.src = e.target.src;
-  }
-});
-
-closeBtn.onclick = function(){
-  lightbox.style.display = "none";
-  lightboxImg.classList.remove("zoomed");
-}
-
-lightbox.onclick = function(e){
-  if(e.target === lightbox){
-    lightbox.style.display = "none";
-    lightboxImg.classList.remove("zoomed");
-  }
-}
-
-lightboxImg.onclick = function(e){
-  e.stopPropagation();
-  lightboxImg.classList.toggle("zoomed");
-}
-</script>
-
-</body>
+  <!-- Sidebar Script -->
   <script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.classList.add("loaded");
-});
+    const sidebar = document.getElementById("mySidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const main = document.getElementById("main");
 
-document.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", e => {
-    // Eğer link dış siteye gitmiyorsa
-    if (link.target !== "_blank" && link.href.indexOf(location.origin) === 0) {
-      e.preventDefault();
-      const href = link.href;
-      document.body.classList.remove("loaded");
-      setTimeout(() => { window.location = href; }, 400); // fade out süresi ile eşleşmeli
-    }
-  });
-});
+    toggleBtn.addEventListener("click", e=>{
+      e.stopPropagation();
+      sidebar.classList.toggle("open");
+      if(window.innerWidth >=768){ main.style.marginLeft = sidebar.classList.contains("open")?"200px":"0"; }
+    });
+
+    document.addEventListener("click", e=>{
+      if(!sidebar.contains(e.target) && e.target!==toggleBtn){ 
+        sidebar.classList.remove("open"); 
+        main.style.marginLeft="0";
+      }
+    });
   </script>
+
+  <!-- Announcements / Slider / Modal / Lightbox -->
+  <script src="announcements.js"></script>
+  <script>
+    function formatDate(d){ return new Date(d).toLocaleDateString('tr-TR'); }
+    const homeContainer = document.getElementById("homeAnnouncements");
+
+    const latestFour = [...announcements]
+      .sort((a,b)=> new Date(b.date)-new Date(a.date))
+      .slice(0,4);
+
+    latestFour.forEach(item=>{
+      if(!item.text) return;
+      homeContainer.innerHTML += `
+        <div class="announcement-slide">
+          <h4>${item.title}</h4>
+          <p>${formatDate(item.date)}</p>
+          <button class="more-btn" onclick="openModal(${item.id})">Devamını Oku</button>
+        </div>`;
+    });
+
+    homeContainer.style.display="flex";
+
+    let currentIndex=0;
+    const totalSlides=document.querySelectorAll(".announcement-slide").length;
+    let autoSlide=null;
+    if(totalSlides>1) autoSlide=setInterval(()=>moveSlide(1),4000);
+
+    function moveSlide(step){
+      if(totalSlides===0) return;
+      clearInterval(autoSlide);
+      currentIndex=(currentIndex+step+totalSlides)%totalSlides;
+      homeContainer.style.transform=`translateX(-${currentIndex*100}%)`;
+      if(totalSlides>1) autoSlide=setInterval(()=>moveSlide(1),4000);
+    }
+
+    // Modal & Lightbox
+    const modal = document.getElementById("modal");
+    const modalBody = document.getElementById("modalBody");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const closeBtn = document.getElementById("closeLightbox");
+
+    function openModal(id){
+      const data=announcements.find(a=>a.id===id);
+      if(!data||!data.text) return;
+      let imagesHtml="";
+      if(Array.isArray(data.img)){
+        imagesHtml=data.img.map(src=>`<img src="${src}" style="width:100%; margin-top:10px; border-radius:6px;">`).join("");
+      } else if(data.img){
+        imagesHtml=`<img src="${data.img}" style="width:100%; margin-top:10px; border-radius:6px;">`;
+      }
+      modalBody.innerHTML=`
+        <h2>${data.title}</h2>
+        <p><strong>${formatDate(data.date)}</strong></p>
+        <p>${data.text}</p>
+        ${imagesHtml}`;
+      modal.style.display="flex";
+    }
+
+    function closeModal(){
+      modal.style.display="none";
+      lightbox.style.display="none";
+      lightboxImg.classList.remove("zoomed");
+    }
+
+    modal.addEventListener("click", e=>{
+      if(e.target===modal) closeModal();
+    });
+
+    document.addEventListener("click", e=>{
+      if(e.target.tagName==="IMG" && e.target.closest(".modal-content")){
+        lightbox.style.display="flex";
+        lightboxImg.src=e.target.src;
+      }
+    });
+
+    closeBtn?.addEventListener("click", ()=>{
+      lightbox.style.display="none";
+      lightboxImg.classList.remove("zoomed");
+    });
+
+    lightbox?.addEventListener("click", e=>{
+      if(e.target===lightbox){
+        lightbox.style.display="none";
+        lightboxImg.classList.remove("zoomed");
+      }
+    });
+
+    lightboxImg?.addEventListener("click", e=>{
+      e.stopPropagation();
+      lightboxImg.classList.toggle("zoomed");
+    });
+
+    // Fade-in body
+    document.addEventListener("DOMContentLoaded", ()=>{
+      document.body.classList.add("loaded");
+    });
+
+    // Page transition
+    document.querySelectorAll("a").forEach(link=>{
+      link.addEventListener("click", e=>{
+        if(link.target!=="_blank" && link.href.indexOf(location.origin)===0){
+          e.preventDefault();
+          const href=link.href;
+          document.body.classList.remove("loaded");
+          setTimeout(()=>{ window.location=href; },400);
+        }
+      });
+    });
+  </script>
+</body>
 </html>
