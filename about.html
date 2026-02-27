@@ -175,11 +175,12 @@
       const isOpen = sidebar.classList.toggle("open");
 
       if(window.innerWidth >= 768){
-        main.style.marginLeft = isOpen ? "200px" : "0";
+        main.style.marginLeft = isOpen ? "300px" : "0";
       }
 
-      sidebarOverlay.style.display = isOpen ? "block" : "none";
-    });
+      if(window.innerWidth < 768){
+  sidebarOverlay.style.display = isOpen ? "block" : "none";
+}
 
     sidebarOverlay.addEventListener("click", () => {
       sidebar.classList.remove("open");
