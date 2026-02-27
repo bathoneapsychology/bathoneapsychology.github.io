@@ -20,14 +20,14 @@
     body {
       margin:0;
       font-family: 'Playpen Sans Thai', sans-serif;
-      background: var(--bg-color) !important;
+      background: var(--bg-color);
       color: black;
       opacity: 0;
       transition: opacity 0.4s ease;
     }
     body.loaded { opacity: 1; }
 
-    /* ---------------- Sidebar ---------------- */
+    /* Sidebar */
     .sidebar {
       height: 100%;
       width: 200px;
@@ -35,7 +35,7 @@
       z-index: 100;
       top: 0;
       left: 0;
-      background-color: #000000;
+      background-color: #000;
       transform: translateX(-100%);
       overflow-x: hidden;
       transition: transform 0.45s cubic-bezier(.4,0,.2,1);
@@ -44,16 +44,15 @@
       border-bottom-right-radius: 18px;
     }
     .sidebar.open { transform: translateX(0); }
-
     .sidebar a {
+      display: block;
       padding: 10px 20px;
-      text-decoration: none;
       font-size: 18px;
       color: var(--text-color);
-      display: block;
+      text-decoration: none;
       transition: 0.2s;
     }
-    .sidebar a:hover { background-color: var(--accent-color); color: black; }
+    .sidebar a:hover { background-color: var(--accent-color); color:black; }
 
     /* Overlay */
     #sidebarOverlay {
@@ -67,7 +66,7 @@
     .openbtn {
       font-size: 20px;
       cursor: pointer;
-      background-color: #000000;
+      background-color: #000;
       color: var(--text-color);
       padding: 10px 15px;
       border: none;
@@ -154,8 +153,8 @@
 
     @media (min-width: 768px) {
       .sidebar { width:300px; padding-top:20px; }
-      #main { margin-left:0; } /* default kapalı */
-      .openbtn { display:block; } /* desktopta da görünür */
+      #main { margin-left:0; } 
+      .openbtn { display:block; } 
     }
     @media (max-width: 767px) {
       #main { margin-left:0; padding:15px; }
@@ -191,7 +190,6 @@
   </div>
 
   <script src="announcements.js"></script>
-
   <script>
     const sidebar = document.getElementById("mySidebar");
     const toggleBtn = document.getElementById("sidebarToggle");
@@ -199,72 +197,58 @@
     const sidebarOverlay = document.getElementById("sidebarOverlay");
 
     // Sidebar toggle
-    toggleBtn.addEventListener("click", (e) => {
+    toggleBtn.addEventListener("click", e=>{
       e.stopPropagation();
       const isOpen = sidebar.classList.toggle("open");
-
-      if(window.innerWidth >= 768){
-        main.style.marginLeft = isOpen ? "300px" : "0";
-      }
-
-      if(window.innerWidth < 768){
-        sidebarOverlay.style.display = isOpen ? "block" : "none";
-      }
+      if(window.innerWidth>=768) main.style.marginLeft = isOpen?"300px":"0";
+      else sidebarOverlay.style.display = isOpen?"block":"none";
     });
 
     // Overlay click to close
-    sidebarOverlay.addEventListener("click", () => {
+    sidebarOverlay.addEventListener("click", ()=>{
       sidebar.classList.remove("open");
-      sidebarOverlay.style.display = "none";
-      if(window.innerWidth >= 768) main.style.marginLeft = "0";
+      sidebarOverlay.style.display="none";
+      if(window.innerWidth>=768) main.style.marginLeft="0";
     });
 
     // Click outside sidebar to close
-    document.addEventListener("click", (e) => {
-      if(!sidebar.contains(e.target) && e.target !== toggleBtn){
+    document.addEventListener("click", e=>{
+      if(!sidebar.contains(e.target) && e.target!==toggleBtn){
         sidebar.classList.remove("open");
-        sidebarOverlay.style.display = "none";
-        if(window.innerWidth >= 768) main.style.marginLeft = "0";
+        sidebarOverlay.style.display="none";
+        if(window.innerWidth>=768) main.style.marginLeft="0";
       }
     });
 
-    // Fade in/out effect on link click
-    document.addEventListener("DOMContentLoaded", () => {
-      document.body.classList.add("loaded");
-    });
-
-    document.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", e => {
-        if (link.target !== "_blank" && link.href.indexOf(location.origin) === 0) {
+    // Page fade effect
+    document.addEventListener("DOMContentLoaded", ()=>{ document.body.classList.add("loaded"); });
+    document.querySelectorAll("a").forEach(link=>{
+      link.addEventListener("click", e=>{
+        if(link.target!=="_blank" && link.href.indexOf(location.origin)===0){
           e.preventDefault();
-          const href = link.href;
           document.body.classList.remove("loaded");
-          setTimeout(()=>{ window.location = href; }, 400);
+          setTimeout(()=>{ window.location=link.href; },400);
         }
       });
     });
 
     // Duyurular
     if(typeof announcements==='undefined') announcements=[];
-    function formatDate(d){ const date = new Date(d); return date.toLocaleDateString('tr-TR'); }
     const listContainer = document.getElementById("announcementsList");
-    const sorted = [...announcements].sort((a,b)=> new Date(b.date)-new Date(a.date));
+    const sorted = [...announcements].sort((a,b)=>new Date(b.date)-new Date(a.date));
 
-    sorted.forEach(item => {
+    sorted.forEach(item=>{
       if(!item.text) return;
-      const card = document.createElement("div");
+      const card=document.createElement("div");
       card.classList.add("duyuru");
 
-      let imagesHtml = "";
-      if(Array.isArray(item.img) && item.img.length){
-        imagesHtml = `<div class="hidden-images" style="display:none;">${item.img.map(src => `<img src="${src}" alt="${item.title}">`).join('')}</div>`;
-      } else if(item.img){
-        imagesHtml = `<div class="hidden-images" style="display:none;"><img src="${item.img}" alt="${item.title}"></div>`;
-      }
+      let imagesHtml="";
+      if(Array.isArray(item.img) && item.img.length) imagesHtml=`<div class="hidden-images" style="display:none;">${item.img.map(src=>`<img src="${src}" alt="${item.title}">`).join('')}</div>`;
+      else if(item.img) imagesHtml=`<div class="hidden-images" style="display:none;"><img src="${item.img}" alt="${item.title}"></div>`;
 
-      card.innerHTML = `
+      card.innerHTML=`
         <h2>${item.title}</h2>
-        <p><strong>Tarih:</strong> ${formatDate(item.date)}</p>
+        <p><strong>Tarih:</strong> ${new Date(item.date).toLocaleDateString('tr-TR')}</p>
         <div class="preview-text">${item.text.length>180?item.text.substring(0,180)+'...':item.text}</div>
         <div class="full-text" style="display:none;">${item.text}</div>
         ${imagesHtml}
@@ -276,10 +260,10 @@
     // Toggle metin ve gizli görseller
     document.addEventListener("click", function(e){
       if(e.target.classList.contains("toggle-btn")){
-        const card = e.target.closest(".duyuru");
-        const fullText = card.querySelector(".full-text");
-        const preview = card.querySelector(".preview-text");
-        const hiddenImages = card.querySelector(".hidden-images");
+        const card=e.target.closest(".duyuru");
+        const fullText=card.querySelector(".full-text");
+        const preview=card.querySelector(".preview-text");
+        const hiddenImages=card.querySelector(".hidden-images");
 
         if(fullText.style.display==="none"){
           fullText.style.display="block";
@@ -296,9 +280,9 @@
     });
 
     // Lightbox
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightboxImg");
-    const closeBtn = document.getElementById("closeLightbox");
+    const lightbox=document.getElementById("lightbox");
+    const lightboxImg=document.getElementById("lightboxImg");
+    const closeBtn=document.getElementById("closeLightbox");
 
     document.addEventListener("click", function(e){
       if(e.target.tagName==="IMG" && e.target.closest(".duyuru")){
@@ -307,9 +291,9 @@
       }
     });
 
-    closeBtn.onclick = function(){ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); }
-    lightbox.onclick = function(e){ if(e.target===lightbox){ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); } }
-    lightboxImg.onclick = function(e){ e.stopPropagation(); lightboxImg.classList.toggle("zoomed"); }
+    closeBtn.onclick=()=>{ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); }
+    lightbox.onclick=e=>{ if(e.target===lightbox){ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); } }
+    lightboxImg.onclick=e=>{ e.stopPropagation(); lightboxImg.classList.toggle("zoomed"); }
   </script>
 </body>
 </html>
