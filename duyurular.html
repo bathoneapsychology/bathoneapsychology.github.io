@@ -4,87 +4,172 @@
   <meta charset="UTF-8">
   <title>Duyurular - Bathonea Psychology</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary-color: #0b1c3d;
-      --accent-color: #8154ff;
+      --primary-color: #4b5f43;
+      --accent-color: #948367;
       --text-color: white;
       --bg-color: white;
     }
+
     body {
       margin:0;
       font-family: Arial, sans-serif;
-      background: #ffffff !important;
+      background: var(--bg-color) !important;
       color: black;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    body.loaded {
+      opacity: 1;
     }
 
     /* Sidebar */
     .sidebar {
-      height: 100%; width: 0; position: fixed; z-index: 100; top: 0; left: 0;
-      background-color: var(--primary-color); overflow-x: hidden; transition: 0.3s; padding-top: 60px;
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      background-color: #000000;
+      transform: translateX(-100%);
+      overflow-x: hidden;
+      transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+      padding-top: 60px;
+      border-top-right-radius: 18px;
+      border-bottom-right-radius: 18px;
+    }
+    .sidebar.open {
+      transform: translateX(0);
     }
     .sidebar a {
-      padding: 10px 20px; text-decoration: none; font-size: 18px; color: var(--text-color);
-      display: block; transition: 0.2s;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: var(--text-color);
+      display: block;
+      transition: 0.2s;
     }
-    .sidebar a:hover { background-color: var(--accent-color); color: black; }
-    .sidebar .closebtn { position: absolute; top: 10px; right: 15px; font-size: 30px; }
+    .sidebar a:hover {
+      background-color: var(--accent-color);
+      color: black;
+    }
 
     .openbtn {
-      font-size: 20px; cursor: pointer; background-color: var(--primary-color);
-      color: var(--text-color); padding: 10px 15px; border: none; border-radius:4px;
-      position: fixed; top:15px; left:15px; z-index:101;
+      font-size: 20px;
+      cursor: pointer;
+      background-color: #000000;
+      color: var(--text-color);
+      padding: 10px 15px;
+      border: none;
+      border-radius:12px;
+      position: fixed;
+      top:15px;
+      left:15px;
+      z-index:101;
     }
 
     #main {
-      transition: margin-left 0.3s; padding: 20px; max-width: 900px;
-      margin-left:auto; margin-right:auto;
+      transition: margin-left 0.45s cubic-bezier(.4,0,.2,1);
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      margin-left:0;
     }
 
     .duyuru {
-      border: 1px solid var(--primary-color); padding: 20px; margin-bottom: 20px;
-      border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--primary-color);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      overflow: hidden;
     }
     .duyuru h2 { margin-top: 0; color: var(--primary-color); }
-    .duyuru img { width: 100%; max-height: 250px; object-fit: cover; margin-top: 10px;
-      border-radius:6px; cursor: pointer; transition: transform 0.3s; }
+    .duyuru img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      margin-top: 10px;
+      border-radius:6px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
 
     .toggle-btn {
-      margin-top:10px; padding:8px 15px; border:none; border-radius:6px;
-      background: var(--accent-color); color:white; cursor:pointer; transition:.2s;
+      margin-top:10px;
+      padding:8px 15px;
+      border:none;
+      border-radius:6px;
+      background: var(--accent-color);
+      color:white;
+      cursor:pointer;
+      transition:.2s;
     }
-    .toggle-btn:hover{ background: #5a189a; }
+    .toggle-btn:hover{ background: #7d6f55; }
 
     footer {
-      background-color: var(--primary-color); color: var(--text-color);
-      text-align:center; padding:20px; margin-top:50px; border-radius:10px;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      text-align:center;
+      padding:20px;
+      margin-top:50px;
+      border-radius:10px;
     }
 
+    /* Lightbox for images */
     #lightbox {
-      display: none; position: fixed; z-index: 999; inset: 0;
-      background: rgba(0,0,0,0.9); justify-content: center; align-items: center;
+      display: none;
+      position: fixed;
+      z-index: 999;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
     }
-    #lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; cursor: zoom-in;
-      transition: transform 0.3s ease; }
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
     #lightbox img.zoomed { transform: scale(1.8); cursor: zoom-out; }
-    #lightbox span { position: absolute; top: 20px; right: 30px; font-size: 35px; color: white; cursor: pointer; }
+    #lightbox span {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 35px;
+      color: white;
+      cursor: pointer;
+    }
 
-    @media (min-width: 768px) { .sidebar { width:200px; padding-top:20px; } #main { margin-left:200px; } .openbtn { display:none; } }
-    @media (max-width: 767px) { #main { margin-left:0; padding:15px; } .duyuru img { max-height: 200px; } }
-
+    @media (min-width: 768px) {
+      .sidebar { width:200px; padding-top:20px; }
+      #main { margin-left:200px; }
+      .openbtn { display:none; }
+    }
+    @media (max-width: 767px) {
+      #main { margin-left:0; padding:15px; }
+      .duyuru img { max-height: 200px; }
+    }
   </style>
 </head>
 <body>
+
+  <button class="openbtn" id="sidebarToggle">☰</button>
+
   <div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
     <a href="index.html">Anasayfa</a>
     <a href="about.html">Hakkımızda</a>
     <a href="duyurular.html">Duyurular</a>
     <a href="essays.html">Deneme Yazıları</a>
     <a href="podcast.html">Bathonea Sohbetleri</a>
   </div>
-
-  <button class="openbtn" onclick="openNav()">☰</button>
 
   <div id="main">
     <section class="all-announcements">
@@ -95,94 +180,119 @@
 
   <footer>© 2026 Bathonea Psychology</footer>
 
-  <!-- Lightbox -->
   <div id="lightbox">
     <span id="closeLightbox">×</span>
     <img id="lightboxImg">
   </div>
 
-<script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "200px";
-  if(window.innerWidth < 768){ document.getElementById("main").style.marginLeft = "0"; } 
-  else { document.getElementById("main").style.marginLeft = "200px"; }
-}
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-</script>
+  <script src="announcements.js"></script>
 
-<!-- Dinamik duyurular -->
-<script src="announcements.js"></script>
-<script>
-if(typeof announcements==='undefined') announcements=[]; // announcements.js yoksa boş dizi
-function formatDate(d){ const date = new Date(d); return date.toLocaleDateString('tr-TR'); }
+  <script>
+    // Sidebar toggle
+    const sidebar = document.getElementById("mySidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const main = document.getElementById("main");
 
-const listContainer = document.getElementById("announcementsList");
-const sorted = [...announcements].sort((a,b) => new Date(b.date) - new Date(a.date));
+    toggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle("open");
+      if(window.innerWidth >= 768){
+        main.style.marginLeft = sidebar.classList.contains("open") ? "200px" : "0";
+      }
+    });
 
-sorted.forEach(item => {
-  if(!item.text) return;
-  const card = document.createElement("div");
-  card.classList.add("duyuru");
-
-  // Görselleri gizli başlat
-  let imagesHtml = "";
-  if(Array.isArray(item.img) && item.img.length){
-    imagesHtml = `<div class="hidden-images" style="display:none;">${item.img.map(src => `<img src="${src}" alt="${item.title}">`).join('')}</div>`;
-  } else if(item.img){
-    imagesHtml = `<div class="hidden-images" style="display:none;"><img src="${item.img}" alt="${item.title}"></div>`;
-  }
-
-  card.innerHTML = `
-    <h2>${item.title}</h2>
-    <p><strong>Tarih:</strong> ${formatDate(item.date)}</p>
-    <div class="preview-text">${item.text.length>180?item.text.substring(0,180)+'...':item.text}</div>
-    <div class="full-text" style="display:none;">${item.text}</div>
-    ${imagesHtml}
-    ${(item.text.length>200 || item.img)?'<button class="toggle-btn">Devamını Oku</button>':''}
-  `;
-  listContainer.appendChild(card);
-});
-
-// Toggle: metin + gizli görseller + buton metni
-document.addEventListener("click", function(e){
-  if(e.target.classList.contains("toggle-btn")){
-    const card = e.target.closest(".duyuru");
-    const fullText = card.querySelector(".full-text");
-    const preview = card.querySelector(".preview-text");
-    const hiddenImages = card.querySelector(".hidden-images");
-
-    if(fullText.style.display === "none"){ // açma
-      fullText.style.display = "block";
-      preview.style.display = "none";
-      if(hiddenImages) hiddenImages.style.display = "block";
-      e.target.textContent = "Kısalt"; // buton metnini değiştir
-    } else { // kapama
-      fullText.style.display = "none";
-      preview.style.display = "block";
-      if(hiddenImages) hiddenImages.style.display = "none";
-      e.target.textContent = "Devamını Oku"; // metni geri al
+    function closeSidebar(){
+      sidebar.classList.remove("open");
+      main.style.marginLeft = "0";
     }
-  }
-});
 
-// Lightbox
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
-const closeBtn = document.getElementById("closeLightbox");
+    document.addEventListener("click", (e) => {
+      if(!sidebar.contains(e.target) && e.target !== toggleBtn) closeSidebar();
+    });
 
-document.addEventListener("click", function(e){
-  if(e.target.tagName==="IMG" && e.target.closest(".duyuru")){
-    lightbox.style.display="flex";
-    lightboxImg.src=e.target.src;
-  }
-});
-closeBtn.onclick = function(){ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); }
-lightbox.onclick = function(e){ if(e.target===lightbox){ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); } }
-lightboxImg.onclick = function(e){ e.stopPropagation(); lightboxImg.classList.toggle("zoomed"); }
-</script>
+    // Fade in/out effect on link click
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("loaded");
+    });
 
+    document.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", e => {
+        if (link.target !== "_blank" && link.href.indexOf(location.origin) === 0) {
+          e.preventDefault();
+          const href = link.href;
+          document.body.classList.remove("loaded");
+          setTimeout(()=>{ window.location = href; }, 400);
+        }
+      });
+    });
+
+    // Duyurular
+    if(typeof announcements==='undefined') announcements=[];
+    function formatDate(d){ const date = new Date(d); return date.toLocaleDateString('tr-TR'); }
+    const listContainer = document.getElementById("announcementsList");
+    const sorted = [...announcements].sort((a,b)=> new Date(b.date)-new Date(a.date));
+
+    sorted.forEach(item => {
+      if(!item.text) return;
+      const card = document.createElement("div");
+      card.classList.add("duyuru");
+
+      let imagesHtml = "";
+      if(Array.isArray(item.img) && item.img.length){
+        imagesHtml = `<div class="hidden-images" style="display:none;">${item.img.map(src => `<img src="${src}" alt="${item.title}">`).join('')}</div>`;
+      } else if(item.img){
+        imagesHtml = `<div class="hidden-images" style="display:none;"><img src="${item.img}" alt="${item.title}"></div>`;
+      }
+
+      card.innerHTML = `
+        <h2>${item.title}</h2>
+        <p><strong>Tarih:</strong> ${formatDate(item.date)}</p>
+        <div class="preview-text">${item.text.length>180?item.text.substring(0,180)+'...':item.text}</div>
+        <div class="full-text" style="display:none;">${item.text}</div>
+        ${imagesHtml}
+        ${(item.text.length>200 || item.img)?'<button class="toggle-btn">Devamını Oku</button>':''}
+      `;
+      listContainer.appendChild(card);
+    });
+
+    // Toggle metin ve gizli görseller
+    document.addEventListener("click", function(e){
+      if(e.target.classList.contains("toggle-btn")){
+        const card = e.target.closest(".duyuru");
+        const fullText = card.querySelector(".full-text");
+        const preview = card.querySelector(".preview-text");
+        const hiddenImages = card.querySelector(".hidden-images");
+
+        if(fullText.style.display==="none"){
+          fullText.style.display="block";
+          preview.style.display="none";
+          if(hiddenImages) hiddenImages.style.display="block";
+          e.target.textContent="Kısalt";
+        } else {
+          fullText.style.display="none";
+          preview.style.display="block";
+          if(hiddenImages) hiddenImages.style.display="none";
+          e.target.textContent="Devamını Oku";
+        }
+      }
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const closeBtn = document.getElementById("closeLightbox");
+
+    document.addEventListener("click", function(e){
+      if(e.target.tagName==="IMG" && e.target.closest(".duyuru")){
+        lightbox.style.display="flex";
+        lightboxImg.src=e.target.src;
+      }
+    });
+
+    closeBtn.onclick = function(){ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); }
+    lightbox.onclick = function(e){ if(e.target===lightbox){ lightbox.style.display="none"; lightboxImg.classList.remove("zoomed"); } }
+    lightboxImg.onclick = function(e){ e.stopPropagation(); lightboxImg.classList.toggle("zoomed"); }
+
+  </script>
 </body>
 </html>
