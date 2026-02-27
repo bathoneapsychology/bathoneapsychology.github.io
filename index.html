@@ -23,7 +23,7 @@
 
     .sidebar {
       height: 100%;
-      width: 0;
+      width: 200px;
       position: fixed;
       z-index: 100;
       top: 0;
@@ -328,8 +328,6 @@ const main = document.getElementById("main");
 
 // Sidebar açma/kapama toggle
 toggleBtn.addEventListener("click", (e) => {
-  e.stopPropagation(); // click'in body'ye gitmesini engelle
-  toggleBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   sidebar.classList.toggle("open");
 
