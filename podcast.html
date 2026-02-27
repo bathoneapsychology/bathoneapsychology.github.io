@@ -156,49 +156,43 @@
 
   <script>
     const sidebar = document.getElementById("mySidebar");
-    const toggleBtn = document.getElementById("sidebarToggle");
-    const main = document.getElementById("main");
-    const sidebarOverlay = document.getElementById("sidebarOverlay");
+const toggleBtn = document.getElementById("sidebarToggle");
+const main = document.getElementById("main");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-    // Mobil toggle
-    toggleBtn.addEventListener("click", (e)=>{
-      e.stopPropagation();
-      const isOpen = sidebar.classList.toggle("open");
+toggleBtn.addEventListener("click", e => {
+  e.stopPropagation();
+  const isOpen = sidebar.classList.toggle("open");
 
-      if(window.innerWidth >= 768){
-        main.style.marginLeft = isOpen ? "300px" : "0";
-      }
+  if (window.innerWidth >= 768) {
+    // Desktop: main kayıyor
+    main.style.marginLeft = isOpen ? "300px" : "0";
+    main.style.marginRight = "auto"; // opsiyonel, ortalama için
+  } else {
+    // Mobil: overlay göster
+    sidebarOverlay.style.display = isOpen ? "block" : "none";
+  }
+});
 
-      if(window.innerWidth < 768){
-        sidebarOverlay.style.display = isOpen ? "block" : "none";
-      }
-    });
+// Overlay click (yalnızca mobil)
+sidebarOverlay.addEventListener("click", () => {
+  sidebar.classList.remove("open");
+  sidebarOverlay.style.display = "none";
 
-    // Overlay tıklayınca sidebar kapansın (mobil)
-    sidebarOverlay.addEventListener("click", ()=>{
+  if (window.innerWidth >= 768) {
+    main.style.marginLeft = "0"; // desktop'ta geri eski hâle dön
+  }
+});
+
+// Dış tıklama
+document.addEventListener("click", e => {
+  if (window.innerWidth < 768) {
+    // Sadece mobilde sidebar dış tıklamayla kapanıyor
+    if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
       sidebar.classList.remove("open");
       sidebarOverlay.style.display = "none";
-      if(window.innerWidth >= 768) main.style.marginLeft = "0";
-    });
-
-    // Desktop hover ile aç/kapa
-    if(window.innerWidth >= 768){
-      sidebar.addEventListener("mouseenter", ()=>{
-        sidebar.classList.add("open");
-        main.style.marginLeft = "300px";
-      });
-      sidebar.addEventListener("mouseleave", ()=>{
-        sidebar.classList.remove("open");
-        main.style.marginLeft = "0";
-      });
-    }
-
-    // Body click ile mobilde sidebar kapanması
-    document.addEventListener("click", (e)=>{
-      if(!sidebar.contains(e.target) && e.target !== toggleBtn){
-        sidebar.classList.remove("open");
-        sidebarOverlay.style.display = "none";
-        if(window.innerWidth >= 768) main.style.marginLeft = "0";
+      main.style.marginLeft = "0";
+        }
       }
     });
 
