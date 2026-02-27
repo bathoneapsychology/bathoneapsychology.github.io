@@ -424,12 +424,18 @@ document.addEventListener("click", (e) => {
     if(totalSlides > 1){ autoSlide = setInterval(()=>moveSlide(1), 4000); }
 
     function moveSlide(step){
-      if(totalSlides === 0) return;
-      clearInterval(autoSlide);
-      currentIndex = (currentIndex + step + totalSlides) % totalSlides;
-      homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-      if(totalSlides > 1){ autoSlide = setInterval(()=>moveSlide(1), 4000); }
-    }
+  if(totalSlides === 0) return;
+  clearInterval(autoSlide);
+  currentIndex += step;
+
+  // sınır kontrolü
+  if(currentIndex >= totalSlides) currentIndex = 0; // en son slide’dan sonra başa dön
+  if(currentIndex < 0) currentIndex = totalSlides - 1; // en baştan geri gelme
+
+  homeContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+  if(totalSlides > 1){ autoSlide = setInterval(()=>moveSlide(1), 4000); }
+}
 
     // ---------------- Modal & Lightbox ----------------
     const modal = document.getElementById("modal");
