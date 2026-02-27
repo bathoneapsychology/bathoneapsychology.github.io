@@ -372,8 +372,9 @@ toggleBtn.addEventListener("click", (e) => {
   }
 
   // Overlay’i göster/gizle
+  if(window.innerWidth < 768){
   sidebarOverlay.style.display = isOpen ? "block" : "none";
-});
+  }
 
 // Overlay tıklayınca sidebar kapansın
 sidebarOverlay.addEventListener("click", () => {
