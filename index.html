@@ -359,10 +359,12 @@
   <!-- ---------------- Scripts ---------------- -->
   <script>
     const sidebar = document.getElementById("mySidebar");
+consconst sidebar = document.getElementById("mySidebar");
 const toggleBtn = document.getElementById("sidebarToggle");
 const main = document.getElementById("main");
-const sidebarOverlay = document.getElementById("sidebarOverlay"); // overlay
+const sidebarOverlay = document.getElementById("sidebarOverlay");
 
+// Sidebar toggle
 toggleBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   const isOpen = sidebar.classList.toggle("open");
@@ -371,10 +373,10 @@ toggleBtn.addEventListener("click", (e) => {
     main.style.marginLeft = isOpen ? "300px" : "0";
   }
 
-  // Overlay’i göster/gizle
   if(window.innerWidth < 768){
-  sidebarOverlay.style.display = isOpen ? "block" : "none";
+    sidebarOverlay.style.display = isOpen ? "block" : "none";
   }
+});
 
 // Overlay tıklayınca sidebar kapansın
 sidebarOverlay.addEventListener("click", () => {
@@ -383,7 +385,7 @@ sidebarOverlay.addEventListener("click", () => {
   if(window.innerWidth >= 768) main.style.marginLeft = "0";
 });
 
-// body click ile kapanma
+// body click ile sidebar kapanma
 document.addEventListener("click", (e) => {
   if (!sidebar.contains(e.target) && e.target !== toggleBtn) { 
     sidebar.classList.remove("open");
