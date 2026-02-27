@@ -115,8 +115,8 @@
     }
 
     @media (min-width: 768px) {
-      .sidebar { width:200px; padding-top:20px; }
-      #main { margin-left:200px; }
+      .sidebar { width:300px; padding-top:20px; }
+      #main { margin-left:0; } /* hover ile açılacak, başlangıçta 0 */
       .openbtn { display:none; }
     }
 
@@ -155,8 +155,8 @@
     const main = document.getElementById("main");
     const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-    // Sidebar toggle
-    toggleBtn.addEventListener("click", (e) => {
+    // Mobil toggle
+    toggleBtn.addEventListener("click", (e)=>{
       e.stopPropagation();
       const isOpen = sidebar.classList.toggle("open");
 
@@ -165,18 +165,31 @@
       }
 
       if(window.innerWidth < 768){
-  sidebarOverlay.style.display = isOpen ? "block" : "none";
-}
+        sidebarOverlay.style.display = isOpen ? "block" : "none";
+      }
+    });
 
-    // Overlay click to close
-    sidebarOverlay.addEventListener("click", () => {
+    // Overlay tıklayınca sidebar kapansın (mobil)
+    sidebarOverlay.addEventListener("click", ()=>{
       sidebar.classList.remove("open");
       sidebarOverlay.style.display = "none";
       if(window.innerWidth >= 768) main.style.marginLeft = "0";
     });
 
-    // Click outside sidebar to close
-    document.addEventListener("click", (e) => {
+    // Desktop hover ile aç/kapa
+    if(window.innerWidth >= 768){
+      sidebar.addEventListener("mouseenter", ()=>{
+        sidebar.classList.add("open");
+        main.style.marginLeft = "300px";
+      });
+      sidebar.addEventListener("mouseleave", ()=>{
+        sidebar.classList.remove("open");
+        main.style.marginLeft = "0";
+      });
+    }
+
+    // Body click ile mobilde sidebar kapanması
+    document.addEventListener("click", (e)=>{
       if(!sidebar.contains(e.target) && e.target !== toggleBtn){
         sidebar.classList.remove("open");
         sidebarOverlay.style.display = "none";
